@@ -22,12 +22,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from pages.views import index_view, base_page_view, base_extension_view
+from register.views import register_detail_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', index_view, name="Index_View"),
     path('', base_page_view, name="mo-Sidebar"),
-    path('base_extension/', base_extension_view, name="base_extension")
+    path('base_extension/', base_extension_view, name="base_extension"),
+    path('register/', register_detail_view, name="register")
 
 ]
 

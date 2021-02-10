@@ -1,6 +1,14 @@
 {% extends "base_page.html" %}
 
 {% block conteudobase %}
-    TESTANDO TESTANDO
+    <p>TESTANDO TESTANDO</p>
+    <p>{{ my_text }} , {{my_number}}</p>
+    <u>
+        {% for elemento in my_list %}
+            <p>{{ forloop.counter }} - {{  elemento }}</p>
+        {% endfor %}
+    </u>
+
+
 
 {% endblock %}
