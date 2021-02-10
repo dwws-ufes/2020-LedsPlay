@@ -18,17 +18,16 @@ from django.urls import path
 
 from django.contrib import admin
 from django.urls import path
-
-from pages.views import index_view, no_sidebar_view, teste_view
 from django.conf import settings
 from django.conf.urls.static import static
+
+from pages.views import index_view, base_page_view, base_extension_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', index_view, name="Index_View"),
-    path('no-sidebar/', no_sidebar_view, name="mo-Sidebar"),
-    path('teste', teste_view, name="Teste"),
-    path('', index_view, name="index_view")
+    path('', base_page_view, name="mo-Sidebar"),
+    path('base_extension/', base_extension_view, name="base_extension")
 
 ]
 
