@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Pessoa
+from register.models import Pessoa
+from register.forms import PessoaForm
 
 
 # Create your views here.
@@ -7,11 +8,18 @@ from .models import Pessoa
 def register_detail_view(request):
     obj = Pessoa.objects.get(id=1)
     context = {
-        'Nome': obj.nome,
-        'Perfil': obj.perfil,
-        'Idade': obj.idade
-
+        'Pessoa': obj
     }
 
-
     return render(request, "Pessoa/detail.html", context)
+
+
+def register_create_view(request):
+    form = PessoaForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context = {
+        'form': form
+    }
+
+    return render(request, "Pessoa/detail_create.html", context)

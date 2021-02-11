@@ -2,10 +2,11 @@
 
 {% block conteudobase %}
     <h1>Registro</h1>
+    <p>{% if description %}{{ description }} {% else %} Coming Soon {% endif %}</p>
     <u>
-        <p>Nome: {{ Nome }}</p>
-        <p>Perfil: {{ Perfil }}</p>
-        <p>Idade: {{ idade }}</p>
+        <p>Nome: {{ Pessoa.nome }}</p>
+        <p>Perfil: {{ Pessoa.perfil }}</p>
+        <p>Idade: {{ Pessoa.idade }}</p>
     </u>
 
 {% endblock %}
