@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Pessoa
+from .models import Pessoa, Vagas
 
 
 class PessoaForm(forms.ModelForm):
@@ -9,5 +9,15 @@ class PessoaForm(forms.ModelForm):
         fields = [
             'nome',
             'perfil',
-            'idade'
+            'idade',
+            'sexo'
+        ]
+
+class VagasForm(forms.ModelForm):
+    class Meta:
+        model = Vagas
+        fields = [
+            'nome',
+            'perfil',
+            'localizacao'
         ]
