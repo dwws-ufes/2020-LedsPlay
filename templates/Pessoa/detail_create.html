@@ -1,8 +1,14 @@
 {% extends "base_page.html" %}
 
 {% block conteudobase %}
-<form method="POST">{% csrf_token %}
-{{ form.as_p }}
-<input type='submit' value="Save"/>
-</form>
+    <section>
+        <header>
+            <h2>Cadastro de Candidatos</h2>
+            <span class="byline"></span>
+            <form method="POST">{% csrf_token %}
+                {{ form.as_p }}
+                <input type='submit' value="Save"/>
+            </form>
+        </header>
+    </section>
 {% endblock %}

@@ -29,10 +29,10 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="active"><a href="index.html">Homepage</a></li>
-						<li><a href="left-sidebar.html">Left Sidebar</a></li>
-						<li><a href="right-sidebar.html">Right Sidebar</a></li>
-						<li><a href="base_page.html">No Sidebar</a></li>
+						<li><a href="{% url 'Index_View' %}">Homepage</a></li>
+						<li><a href="{% url 'register create' %}">Cadastro de Usuário</a></li>
+						<li><a href="{% url 'vagas create' %}">Cadastro de Vagas</a></li>
+						<li class="active"><a href="base_page.html">No Sidebar</a></li>
 					</ul>
 				</nav>
 			</div>

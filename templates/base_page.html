@@ -28,9 +28,9 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li><a href="index.html">Homepage</a></li>
-						<li><a href="left-sidebar.html">Left Sidebar</a></li>
-						<li><a href="right-sidebar.html">Right Sidebar</a></li>
+						<li><a href="{% url 'Index_View' %}">Homepage</a></li>
+						<li><a href="{% url 'register create' %}">Cadastro de Usuário</a></li>
+						<li><a href="{% url 'vagas create' %}">Cadastro de Vagas</a></li>
 						<li class="active"><a href="base_page.html">No Sidebar</a></li>
 					</ul>
 				</nav>
@@ -49,15 +49,17 @@
 	<!-- Main -->
 		<div id="main">
 			<div id="content" class="container">
+                {% block conteudobase %}
 				<section>
 					<header>
 						<h2>Menu Principal</h2>
-						<span class="byline">LALALALLA</span>
+						<span class="byline"></span>
 					</header>
-                        {% block conteudobase %}
+
                             Conteudo a ser substituido em outras páginas
-                        {% endblock %}
+
 				</section>
+                {% endblock %}
 			</div>
 		</div>
 	<!-- /Main -->

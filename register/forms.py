@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Pessoa, Vagas
+from .models import Pessoa, Vaga
 
 
 class PessoaForm(forms.ModelForm):
@@ -15,9 +15,16 @@ class PessoaForm(forms.ModelForm):
 
 class VagasForm(forms.ModelForm):
     class Meta:
-        model = Vagas
+        model = Vaga
         fields = [
             'nome',
             'perfil',
             'localizacao'
         ]
+
+class RawVagasForm(forms.Form):
+    nome = forms.CharField()
+    perfil = forms.CharField()
+    localizacao = forms.CharField()
+
+
