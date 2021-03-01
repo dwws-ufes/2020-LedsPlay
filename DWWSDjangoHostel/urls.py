@@ -21,14 +21,16 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from pages.views import index_view, generic_page_view
+from pages.views import index_view, generic_page_view, elementos_view
 from register.views import register_detail_view, register_create_view, vagas_create_view, vagas_detail_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index_view),
     path('index/', index_view, name="Index_View"),
-    path('generic/', generic_page_view, name="Generic_Page")
+    path('generic/', generic_page_view, name="Generic_Page"),
+    path('cadastro/', register_create_view, name="Cadastro"),
+    path('elementos/', elementos_view, name="Elementos")
 
 
 
