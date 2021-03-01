@@ -1,0 +1,12 @@
+{% extends "DWWS-Hostel/base_page.html" %}
+
+{% block conteudobase %}
+    <p>TESTANDO TESTANDO</p>
+    <p>{{ my_text|upper }} , {{my_number}}</p>
+    <u>
+        {% for elemento in my_list %}
+            <p>{{ forloop.counter }} - {{  elemento }}</p>
+        {% endfor %}
+    </u>
+
+{% endblock %}
