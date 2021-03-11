@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frameweb:FramewebProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:frameweb="http://nemo.inf.ufes.br/projects/frameweb/FW-2015" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <compose xsi:type="frameweb:NavigationModel" name="Login">
+    <packagedElement xsi:type="frameweb:ViewPackage" name="View">
+      <packagedElement xsi:type="frameweb:DomainClass" name="&lt;&lt;page>> index">
+        <generalization xsi:type="frameweb:DomainGeneralization"/>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="errorMsg" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="remindMsg" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+          <defaultValue xsi:type="uml:LiteralString" value=""/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="Login" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="Index">
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="errorMsg" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="Login" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="remindMsg" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+          <defaultValue xsi:type="uml:LiteralString" value=""/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="errorMsg">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="RemindMsg">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Login">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:NavigationCompositionWhole" type="//@compose.0/View/Login" association="//@compose.0/View/@packagedElement.3"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:UIComponent" name="Login">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Login">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Senha">
+          <type xsi:type="frameweb:Tag" href="frameweb/jbutler/NavigationModel_JButler_JSF_PrimeFaces.frameweb#//@configures.0/PrimeFaces/password"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:NavigationAssociation" memberEnd="//@compose.0/View/@packagedElement.3/@ownedEnd.0 //@compose.0/View/Index/@ownedAttribute.6">
+        <ownedEnd xsi:type="frameweb:NavigationCompositionPart" type="//@compose.0/View/Index" association="//@compose.0/View/@packagedElement.3"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="Home"/>
+      <packagedElement xsi:type="frameweb:Page" name="remind">
+        <ownedAttribute xsi:type="frameweb:NavigationCompositionWhole" type="//@compose.0/View/formRemind" association="//@compose.0/View/@packagedElement.7"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="formRemind">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="login">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:NavigationAssociation" memberEnd="//@compose.0/View/@packagedElement.7/@ownedEnd.0 //@compose.0/View/remind/@ownedAttribute.0">
+        <ownedEnd xsi:type="frameweb:NavigationCompositionPart" type="//@compose.0/View/remind" association="//@compose.0/View/@packagedElement.7"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:PageDependency" client="//@compose.0/View/Index" supplier="//@compose.0/View/remind">
+      <pageDependencyConstraint/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ControllerPackage" name="Controller">
+      <packagedElement xsi:type="frameweb:FrontControllerClass" name="Login Action">
+        <ownedAttribute xsi:type="frameweb:IOParameter" name="Login">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:IOParameter" name="Senha">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="login"/>
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="logout"/>
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="RemindPwd"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:ServiceControllerAssociation" memberEnd="//@compose.0/Controller/@packagedElement.1/Source //@compose.0/Controller/@packagedElement.1/Target">
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Source Constraint" constrainedElement="//@compose.0/Controller/@packagedElement.1/Source"/>
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Target Constraint" constrainedElement="//@compose.0/Controller/@packagedElement.1/Target"/>
+        <ownedEnd name="Source" type="//@compose.0/Controller/Login%20Action" association="//@compose.0/Controller/@packagedElement.1"/>
+        <ownedEnd name="Target" type="//@compose.1/Application%20Package/AuthenticateService" association="//@compose.0/Controller/@packagedElement.1"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:FrontControllerDependency" name="login" client="//@compose.0/View/Login" supplier="//@compose.0/Controller/Login%20Action"/>
+    <packagedElement xsi:type="frameweb:FrontControllerDependency" name="remind" client="//@compose.0/View/formRemind" supplier="//@compose.0/Controller/Login%20Action"/>
+    <packagedElement xsi:type="frameweb:ResultDependency" name="logout" client="//@compose.0/Controller/Login%20Action" supplier="//@compose.0/View/Home" resultMethod="//@compose.0/Controller/Login%20Action/login" httpStatus="">
+      <resultDependencyConstraint result="sucess"/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.0/Controller/Login%20Action" supplier="//@compose.0/View/Index" resultMethod="//@compose.0/Controller/Login%20Action/logout">
+      <resultDependencyConstraint result="Sucess"/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.0/Controller/Login%20Action" supplier="//@compose.0/View/Index" resultMethod="//@compose.0/Controller/Login%20Action/RemindPwd">
+      <resultDependencyConstraint result="Sucess"/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.0/Controller/Login%20Action" supplier="//@compose.0/View/Index" resultMethod="//@compose.0/Controller/Login%20Action/login">
+      <resultDependencyConstraint result="Error"/>
+    </packagedElement>
+  </compose>
+  <compose xsi:type="frameweb:ApplicationModel" name="Application Model">
+    <packagedElement xsi:type="frameweb:ApplicationPackage" name="Application Package">
+      <packagedElement xsi:type="frameweb:ServiceClass" name="New ServiceClass"/>
+      <packagedElement xsi:type="frameweb:ServiceInterface" name="AuthenticateService"/>
+      <packagedElement xsi:type="frameweb:ServiceClass" name="Pessoa">
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="nome">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+          <qualifier xsi:type="frameweb:UIComponentField" name="point">
+            <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+          </qualifier>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="sexo">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/char"/>
+          <qualifier xsi:type="frameweb:ServiceAttribute" name="email">
+            <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+            <qualifier xsi:type="frameweb:ServiceAttribute" name="nascimento">
+              <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/Date"/>
+            </qualifier>
+          </qualifier>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="senha">
+          <type xsi:type="frameweb:Tag" href="frameweb/jbutler/NavigationModel_JButler_JSF_PrimeFaces.frameweb#//@configures.0/PrimeFaces/password"/>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:ServiceMethod" name="validarEmail"/>
+        <ownedOperation xsi:type="frameweb:ServiceMethod" name="authenticate"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:ServiceRealization" client="//@compose.1/Application%20Package/Pessoa" supplier="//@compose.1/Application%20Package/AuthenticateService"/>
+      <packagedElement xsi:type="frameweb:ServiceClass" name="Avaliação">
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="nota">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="descrição">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="data">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/Date"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:ServiceInterface" name="EvaluationService"/>
+      <packagedElement xsi:type="frameweb:ServiceRealization" client="//@compose.1/Application%20Package/Avaliação" supplier="//@compose.1/Application%20Package/EvaluationService"/>
+      <packagedElement xsi:type="frameweb:ServiceClass" name="Profissional">
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="cpf">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+          <qualifier xsi:type="frameweb:ServiceAttribute" name="contato">
+            <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+            <qualifier xsi:type="frameweb:ServiceAttribute" name="media">
+              <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/Float"/>
+              <qualifier xsi:type="frameweb:ServiceAttribute" name="cidade">
+                <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+              </qualifier>
+            </qualifier>
+          </qualifier>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:ServiceMethod" name="ValidarCPF"/>
+        <ownedOperation xsi:type="frameweb:ServiceMethod" name="SelectID"/>
+        <ownedOperation xsi:type="frameweb:ServiceMethod" name="list"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:ServiceInterface" name="ProfissionalManageServices"/>
+      <packagedElement xsi:type="frameweb:ServiceRealization" client="//@compose.1/Application%20Package/Profissional" supplier="//@compose.1/Application%20Package/ProfissionalManageServices"/>
+    </packagedElement>
+  </compose>
+  <compose xsi:type="frameweb:EntityModel" name="Entity Model">
+    <packagedElement xsi:type="frameweb:DomainPackage" name="Entity Package">
+      <packagedElement xsi:type="frameweb:DomainClass" name="Ocupação" powertypeExtent="//@compose.2/Entity%20Package/Ocupação.1">
+        <generalization xsi:type="frameweb:DomainGeneralization" generalizationSet="//@compose.2/Entity%20Package/Competencia.1"/>
+        <ownedAttribute xsi:type="frameweb:ServiceAttribute" name="New Attribute"/>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="nome" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="tipo" visibility="private">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="descrição" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainClass" name="Profissional" powertypeExtent="//@compose.2/Entity%20Package/Profissional.1">
+        <generalization xsi:type="frameweb:DomainGeneralization" generalizationSet="//@compose.2/Entity%20Package/Ocupação.1"/>
+        <generalization xsi:type="frameweb:DomainGeneralization" generalizationSet="//@compose.2/Entity%20Package/Competencia.2"/>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="cpf" visibility="private">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="contato" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="media" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/Float"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="cidade" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:DomainMethod" name="ValidarEmail"/>
+        <ownedOperation xsi:type="frameweb:DomainMethod" name="ValidarSenha"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainClass" name="Avaliação">
+        <generalization xsi:type="frameweb:DomainGeneralization" generalizationSet="//@compose.2/Entity%20Package/Profissional.1"/>
+        <generalization xsi:type="frameweb:DomainGeneralization" generalizationSet="//@compose.2/Entity%20Package/Cliente.1"/>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="nota" visibility="private">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="descrição" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="data" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/Date"/>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:DomainMethod" name="New Method"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainGeneralizationSet" name="Ocupação" powertype="//@compose.2/Entity%20Package/Ocupação" generalization="//@compose.2/Entity%20Package/Profissional/@generalization.0"/>
+      <packagedElement xsi:type="frameweb:DomainGeneralizationSet" name="Profissional" powertype="//@compose.2/Entity%20Package/Profissional" generalization="//@compose.2/Entity%20Package/Avaliação/@generalization.0"/>
+      <packagedElement xsi:type="frameweb:DomainClass" name="Cliente" powertypeExtent="//@compose.2/Entity%20Package/Cliente.1">
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="interesse" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainGeneralizationSet" name="Cliente" powertype="//@compose.2/Entity%20Package/Cliente" generalization="//@compose.2/Entity%20Package/Avaliação/@generalization.1"/>
+      <packagedElement xsi:type="frameweb:DomainClass" name="Pessoa">
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="nome" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="sexo" visibility="private">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/char"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="email" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="nascimento" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/Date"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="senha" visibility="private">
+          <type xsi:type="frameweb:Tag" href="frameweb/jbutler/NavigationModel_JButler_JSF_PrimeFaces.frameweb#//@configures.0/PrimeFaces/password"/>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:DomainMethod" name="ValidarEmail"/>
+        <ownedOperation xsi:type="frameweb:DomainMethod" name="ValidarSenha"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainAssociation" name="extends" memberEnd="//@compose.2/Entity%20Package/extends/Source //@compose.2/Entity%20Package/extends/Target">
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Source Constraint" constrainedElement="//@compose.2/Entity%20Package/extends/Source"/>
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Target Constraint" constrainedElement="//@compose.2/Entity%20Package/extends/Target"/>
+        <ownedRule xsi:type="frameweb:VocabularyConstraints" name="Vocabulary Constraint" constrainedElement="//@compose.2/Entity%20Package/extends"/>
+        <ownedEnd xsi:type="frameweb:DomainProperty" name="Source" type="//@compose.2/Entity%20Package/Cliente" association="//@compose.2/Entity%20Package/extends"/>
+        <ownedEnd xsi:type="frameweb:DomainProperty" name="Target" type="//@compose.2/Entity%20Package/Pessoa" association="//@compose.2/Entity%20Package/extends"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainAssociation" name="extends" memberEnd="//@compose.2/Entity%20Package/extends.1/Source //@compose.2/Entity%20Package/extends.1/Target">
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Source Constraint" constrainedElement="//@compose.2/Entity%20Package/extends.1/Source"/>
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Target Constraint" constrainedElement="//@compose.2/Entity%20Package/extends.1/Target"/>
+        <ownedRule xsi:type="frameweb:VocabularyConstraints" name="Vocabulary Constraint" constrainedElement="//@compose.2/Entity%20Package/extends.1"/>
+        <ownedEnd xsi:type="frameweb:DomainProperty" name="Source" type="//@compose.2/Entity%20Package/Profissional" association="//@compose.2/Entity%20Package/extends.1"/>
+        <ownedEnd xsi:type="frameweb:DomainProperty" name="Target" type="//@compose.2/Entity%20Package/Pessoa" association="//@compose.2/Entity%20Package/extends.1"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainClass" name="Competencia" powertypeExtent="//@compose.2/Entity%20Package/Competencia.1 //@compose.2/Entity%20Package/Competencia.2">
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="nome" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:DomainAttribute" name="descrição" visibility="private">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:DomainGeneralizationSet" name="Competencia" powertype="//@compose.2/Entity%20Package/Competencia" generalization="//@compose.2/Entity%20Package/Ocupação/@generalization.0"/>
+      <packagedElement xsi:type="frameweb:DomainGeneralizationSet" name="Competencia" powertype="//@compose.2/Entity%20Package/Competencia" generalization="//@compose.2/Entity%20Package/Profissional/@generalization.1"/>
+      <packagedElement xsi:type="frameweb:DomainAssociation" name="supercompetencia" memberEnd="//@compose.2/Entity%20Package/supercompetencia/Source //@compose.2/Entity%20Package/supercompetencia/Target">
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Source Constraint" constrainedElement="//@compose.2/Entity%20Package/supercompetencia/Source"/>
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Target Constraint" constrainedElement="//@compose.2/Entity%20Package/supercompetencia/Target"/>
+        <ownedRule xsi:type="frameweb:VocabularyConstraints" name="Vocabulary Constraint" constrainedElement="//@compose.2/Entity%20Package/supercompetencia"/>
+        <ownedEnd xsi:type="frameweb:DomainProperty" name="Source" type="//@compose.2/Entity%20Package/Competencia" association="//@compose.2/Entity%20Package/supercompetencia"/>
+        <ownedEnd xsi:type="frameweb:DomainProperty" name="Target" type="//@compose.2/Entity%20Package/Competencia" association="//@compose.2/Entity%20Package/supercompetencia"/>
+      </packagedElement>
+    </packagedElement>
+  </compose>
+  <compose xsi:type="frameweb:NavigationModel" name="Seleção">
+    <packagedElement xsi:type="frameweb:ViewPackage" name="View Package">
+      <packagedElement xsi:type="frameweb:Page" name="Home">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Login">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="UserName">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="MsgNotFound">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:NavigationCompositionWhole" type="//@compose.3/View%20Package/search" association="//@compose.3/View%20Package/@packagedElement.3"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="Profile">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Name">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Description">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Occupation">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/List"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="Competencies">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/List"/>
+          <qualifier xsi:type="frameweb:UIComponentField" name="evaluationAverage">
+            <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+          </qualifier>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="evaluation">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/List"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="search">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="description">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="occupation">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+          <qualifier xsi:type="frameweb:UIComponentField" name="description">
+            <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+            <qualifier xsi:type="frameweb:UIComponentField" name="description">
+              <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+            </qualifier>
+          </qualifier>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:NavigationAssociation" memberEnd="//@compose.3/View%20Package/@packagedElement.3/@ownedEnd.0 //@compose.3/View%20Package/Home/@ownedAttribute.3">
+        <ownedEnd xsi:type="frameweb:NavigationCompositionPart" type="//@compose.3/View%20Package/Home" association="//@compose.3/View%20Package/@packagedElement.3"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="results">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="profissional">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/List"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:NavigationCompositionWhole" type="//@compose.3/View%20Package/select" association="//@compose.3/View%20Package/@packagedElement.6"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="select">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="profissional">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:NavigationAssociation" memberEnd="//@compose.3/View%20Package/@packagedElement.6/@ownedEnd.0 //@compose.3/View%20Package/results/@ownedAttribute.1">
+        <ownedEnd xsi:type="frameweb:NavigationCompositionPart" type="//@compose.3/View%20Package/results" association="//@compose.3/View%20Package/@packagedElement.6"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ControllerPackage" name="Controller Package">
+      <packagedElement xsi:type="frameweb:FrontControllerClass" name="Search Action">
+        <ownedAttribute xsi:type="frameweb:IOParameter" name="Description">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="Search" requestMethod=""/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:FrontControllerClass" name="Select Action">
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="select"/>
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="CalculateEvaluation"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:ServiceControllerAssociation" memberEnd="//@compose.3/Controller%20Package/@packagedElement.2/Source //@compose.3/Controller%20Package/@packagedElement.2/Target">
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Source Constraint" constrainedElement="//@compose.3/Controller%20Package/@packagedElement.2/Source"/>
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Target Constraint" constrainedElement="//@compose.3/Controller%20Package/@packagedElement.2/Target"/>
+        <ownedEnd name="Source" type="//@compose.3/Controller%20Package/Search%20Action" association="//@compose.3/Controller%20Package/@packagedElement.2"/>
+        <ownedEnd name="Target" type="//@compose.1/Application%20Package/ProfissionalManageServices" association="//@compose.3/Controller%20Package/@packagedElement.2"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:ServiceControllerAssociation" memberEnd="//@compose.3/Controller%20Package/@packagedElement.3/Source //@compose.3/Controller%20Package/@packagedElement.3/Target">
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Source Constraint" constrainedElement="//@compose.3/Controller%20Package/@packagedElement.3/Source"/>
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Target Constraint" constrainedElement="//@compose.3/Controller%20Package/@packagedElement.3/Target"/>
+        <ownedEnd name="Source" type="//@compose.3/Controller%20Package/Select%20Action" association="//@compose.3/Controller%20Package/@packagedElement.3"/>
+        <ownedEnd name="Target" type="//@compose.1/Application%20Package/ProfissionalManageServices" association="//@compose.3/Controller%20Package/@packagedElement.3"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:FrontControllerDependency" client="//@compose.3/View%20Package/search" supplier="//@compose.3/Controller%20Package/Search%20Action" method="//@compose.3/Controller%20Package/Search%20Action/Search"/>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.3/Controller%20Package/Search%20Action" supplier="//@compose.3/View%20Package/Home" resultMethod="//@compose.3/Controller%20Package/Search%20Action/Search">
+      <resultDependencyConstraint result="Not Found"/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.3/Controller%20Package/Search%20Action" supplier="//@compose.3/View%20Package/results" resultMethod="//@compose.3/Controller%20Package/Search%20Action/Search">
+      <resultDependencyConstraint result="sucess"/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.3/Controller%20Package/Select%20Action" supplier="//@compose.3/View%20Package/Profile">
+      <resultDependencyConstraint result="found"/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:FrontControllerDependency" name="" client="//@compose.3/View%20Package/select" supplier="//@compose.3/Controller%20Package/Select%20Action" method="//@compose.3/Controller%20Package/Select%20Action/select"/>
+  </compose>
+  <compose xsi:type="frameweb:NavigationModel" name="Avaliação">
+    <packagedElement xsi:type="frameweb:ViewPackage" name="View Package">
+      <packagedElement xsi:type="frameweb:Page" name="profile">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="name">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+          <qualifier xsi:type="frameweb:UIComponentField" name="description">
+            <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+            <qualifier xsi:type="frameweb:UIComponentField" name="occupations">
+              <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/List"/>
+              <qualifier xsi:type="frameweb:UIComponentField" name="competencies">
+                <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/List"/>
+                <qualifier xsi:type="frameweb:UIComponentField" name="evaluationNote">
+                  <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+                  <qualifier xsi:type="frameweb:UIComponentField" name="evaluation">
+                    <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/List"/>
+                  </qualifier>
+                </qualifier>
+              </qualifier>
+            </qualifier>
+          </qualifier>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="evaluation">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="errorMsg">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:NavigationCompositionWhole" type="//@compose.4/View%20Package/evaluationForm" association="//@compose.4/View%20Package/@packagedElement.3"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:Page" name="evaluationForm">
+        <ownedAttribute xsi:type="frameweb:UIComponentField" name="point">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+          <qualifier xsi:type="frameweb:UIComponentField" name="description">
+            <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+          </qualifier>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:NavigationAssociation" memberEnd="//@compose.4/View%20Package/@packagedElement.3/@ownedEnd.0 //@compose.4/View%20Package/evaluation/@ownedAttribute.1">
+        <ownedEnd xsi:type="frameweb:NavigationCompositionPart" type="//@compose.4/View%20Package/evaluation" association="//@compose.4/View%20Package/@packagedElement.3"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:PageDependency" client="//@compose.4/View%20Package/profile" supplier="//@compose.4/View%20Package/evaluation">
+      <pageDependencyConstraint/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ControllerPackage" name="Controller Package">
+      <packagedElement xsi:type="frameweb:FrontControllerClass" name="Evaluation Action">
+        <ownedAttribute xsi:type="frameweb:IOParameter" name="point">
+          <type xsi:type="uml:PrimitiveType" href="frameweb/Java.frameweb#//@compose.0/int"/>
+        </ownedAttribute>
+        <ownedAttribute xsi:type="frameweb:IOParameter" name="description">
+          <type xsi:type="uml:Class" href="frameweb/Java.frameweb#//@compose.0/String"/>
+        </ownedAttribute>
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="CalculateEvaluation"/>
+        <ownedOperation xsi:type="frameweb:FrontControllerMethod" name="evaluate(Point)"/>
+      </packagedElement>
+      <packagedElement xsi:type="frameweb:ServiceControllerAssociation" memberEnd="//@compose.4/Controller%20Package/@packagedElement.1/Source //@compose.4/Controller%20Package/@packagedElement.1/Target">
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Source Constraint" constrainedElement="//@compose.4/Controller%20Package/@packagedElement.1/Source"/>
+        <ownedRule xsi:type="frameweb:DomainConstraints" name="Target Constraint" constrainedElement="//@compose.4/Controller%20Package/@packagedElement.1/Target"/>
+        <ownedEnd name="Source" type="//@compose.4/Controller%20Package/Evaluation%20Action" association="//@compose.4/Controller%20Package/@packagedElement.1"/>
+        <ownedEnd name="Target" type="//@compose.1/Application%20Package/EvaluationService" association="//@compose.4/Controller%20Package/@packagedElement.1"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:FrontControllerDependency" client="//@compose.4/View%20Package/evaluationForm" supplier="//@compose.4/Controller%20Package/Evaluation%20Action" method="//@compose.4/Controller%20Package/Evaluation%20Action/evaluate(Point)"/>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.4/Controller%20Package/Evaluation%20Action" supplier="//@compose.4/View%20Package/evaluation" resultMethod="//@compose.4/Controller%20Package/Evaluation%20Action/evaluate(Point)">
+      <resultDependencyConstraint result="error"/>
+    </packagedElement>
+    <packagedElement xsi:type="frameweb:ResultDependency" client="//@compose.4/Controller%20Package/Evaluation%20Action" supplier="//@compose.4/View%20Package/profile" resultMethod="//@compose.4/Controller%20Package/Evaluation%20Action/evaluate(Point)">
+      <resultDependencyConstraint result="sucess"/>
+    </packagedElement>
+  </compose>
+</frameweb:FramewebProject>
