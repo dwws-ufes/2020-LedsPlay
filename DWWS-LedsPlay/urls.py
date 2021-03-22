@@ -22,7 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from pages.views import index_view, generic_page_view, elementos_view
-from register.views import register_detail_view, register_create_view, vagas_create_view, vagas_detail_view
+from register.views import register_create_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
