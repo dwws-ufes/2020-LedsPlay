@@ -1,0 +1,29 @@
+{% extends "Industrial/generic.html" %}
+
+{% block conteudobase %}
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sexo</th>
+                <th>Email</th>
+                <th>Nascimento</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for instance in pessoa_list%}
+            <tr>
+
+                    <th>{{ instance.nome }}</th>
+                    <th>{{ instance.sexo }}</th>
+                    <th>{{ instance.email }}</th>
+                    <th>{{ instance.nascimento }}</th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+{% endblock %}
