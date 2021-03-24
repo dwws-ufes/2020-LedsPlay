@@ -1,0 +1,15 @@
+{% extends "Industrial/generic.html" %}
+
+{% block conteudobase %}
+    <section>
+        <header>
+            <h2>Cadastro de Usuários</h2>
+            <span class="byline"></span>
+            <form method="POST">{% csrf_token %}
+                {{ form.as_p }}
+                <input type='submit' value="Atualizar"/>
+                <input type="button" value="Resetar campos" onClick="this.form.reset()" />
+            </form>
+        </header>
+    </section>
+{% endblock %}
