@@ -22,30 +22,21 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from pages.views import index_view, generic_page_view, elementos_view
-from register.views import register_create_view, register_detail_view, register_list_view, register_delete, register_update_view
+from register.views import register_create_view, register_detail_view, register_list_view, register_delete, \
+    register_update_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls,),
-    path('',index_view),
+    path('admin/', admin.site.urls, ),
+    path('', index_view),
     path('index/', index_view, name="Index_View"),
     path('generic/', generic_page_view, name="Generic_Page"),
     path('cadastro/', register_create_view, name="Cadastro"),
-    path('detail/<int:id>/', register_detail_view, name="detail_view" ),
+    path('detail/<int:id>/', register_detail_view, name="detail_view"),
     path('cadastrados/', register_list_view, name="Cadastrados"),
-    path('atualizar_cadastro/<int:id>',register_update_view, name = "Atualizar Cadastro" ),
-    path('deletar_usuario/<int:id>',register_delete, name = "Deletar Cadastro" ),
+    path('atualizar_cadastro/<int:id>', register_update_view, name="Atualizar Cadastro"),
+    path('deletar_usuario/<int:id>', register_delete, name="Deletar Cadastro"),
     path('elementos/', elementos_view, name="Elementos")
-
-
-
-
-    # path('', base_page_view, name="mo-Sidebar"),
-    # path('view/', register_detail_view, name="register view"),
-    # path('create/', register_create_view, name="register create"),
-    # path('vagas_create/', vagas_create_view, name="vagas create"),
-    # path('vagas_view/', vagas_detail_view )
 
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
