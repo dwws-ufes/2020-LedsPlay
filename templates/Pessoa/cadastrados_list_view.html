@@ -6,6 +6,7 @@
         <table>
             <thead>
             <tr>
+                <th>id</th>
                 <th>Nome</th>
                 <th>Sexo</th>
                 <th>Email</th>
@@ -15,15 +16,15 @@
             <tbody>
             {% for instance in pessoa_list%}
             <tr>
-
+                    <th><a href="{% url 'Atualizar Cadastro' instance.id %}">{{ instance.id }} </a></th>
                     <th>{{ instance.nome }}</th>
                     <th>{{ instance.sexo }}</th>
                     <th>{{ instance.email }}</th>
                     <th>{{ instance.nascimento }}</th>
+                    <th><a href="{% url 'Atualizar Cadastro' instance.id %}"><input type="button" value="Atualizar"></a></th>
+                    <th><a href="{% url 'Deletar Cadastro' instance.id %}"><input type="button" value="Deletar"></a></th>
             </tr>
             {% endfor %}
         </table>
     </div>
-
-
 {% endblock %}
