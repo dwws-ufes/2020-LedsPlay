@@ -13,6 +13,13 @@ class PessoaForm(forms.ModelForm):
             'nascimento',
             'password'
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(PessoaForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            self.fields[field_name].widget.attrs['placeholder'] = field.label
+        self.fields['email'].widget.attrs['placeholder'] = 'example@domain.com'
+
     def clean_email(self, *args, **kwargs):
         from django.core.validators import validate_email
         from django.core.exceptions import ValidationError

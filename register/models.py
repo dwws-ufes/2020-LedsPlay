@@ -2,8 +2,8 @@ from django.db import models
 import datetime
 
 class Pessoa(models.Model):
-    nome = models.CharField(default="Nome", max_length=120)
-    sexo = models.CharField(default="M or F", max_length=1)
-    email = models.EmailField(default="Email", max_length=120)
+    nome = models.CharField(max_length=120)
+    sexo = models.CharField(max_length=1)
+    email = models.EmailField(max_length=120)
     nascimento = models.DateField(default=datetime.date.today)
-    password = models.CharField(default="password", max_length=128)
+    password = models.CharField(max_length=128)
