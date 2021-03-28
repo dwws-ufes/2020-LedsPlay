@@ -1,0 +1,8 @@
+{% extends "Industrial/generic.html" %}
+
+{% block conteudobase %}
+    <form method="post">{% csrf_token %}
+        <p>Tem certeza que deseja deletar "{{ object }}"?</p>
+        <input type="submit" value="Confirmar">
+    </form>
+{% endblock %}

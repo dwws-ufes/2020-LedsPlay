@@ -12,8 +12,8 @@ app_name = 'register'
 
 
 urlpatterns = [
-    path('', views.register_create_view, name="cadastro"),
-    path('cadastro/', views.register_create_view, name="cadastro"),
+    path('', views.RegisterCreateView.as_view(), name="cadastro"),
+    path('cadastro/', views.RegisterCreateView.as_view(), name="cadastro"),
     path('detail/<int:id>/', views.register_detail_view, name="detail"),
     path('cadastrados/', views.register_list_view, name="cadastrados"),
     path('atualizar_cadastro/<int:id>', views.register_update_view, name="update"),

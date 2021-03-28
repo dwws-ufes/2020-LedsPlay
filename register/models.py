@@ -7,3 +7,6 @@ class Pessoa(models.Model):
     email = models.EmailField(max_length=120)
     nascimento = models.DateField(default=datetime.date.today)
     password = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.nome
