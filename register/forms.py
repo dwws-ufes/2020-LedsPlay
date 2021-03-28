@@ -3,23 +3,18 @@ from .models import Pessoa
 
 
 class PessoaForm(forms.ModelForm):
-
     class Meta:
         model = Pessoa
-        fields = [
-            'nome',
-            'sexo',
-            'email',
-            'nascimento',
-            'password'
-        ]
+        fields = ["nome", "sexo", "email", "nascimento", "password"]
 
     def __init__(self, *args, **kwargs):
         super(PessoaForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            self.fields[field_name].widget.attrs['placeholder'] = field.label
-        self.fields['email'].widget.attrs['placeholder'] = 'example@domain.com'
-        self.fields['nascimento'].widget.attrs['placeholder'] = 'Ano-Mês-Dia (AAAA-MM-DD)'
+            self.fields[field_name].widget.attrs["placeholder"] = field.label
+        self.fields["email"].widget.attrs["placeholder"] = "example@domain.com"
+        self.fields["nascimento"].widget.attrs[
+            "placeholder"
+        ] = "Ano-Mês-Dia (AAAA-MM-DD)"
 
     def clean_email(self, *args, **kwargs):
         from django.core.validators import validate_email
@@ -33,5 +28,3 @@ class PessoaForm(forms.ModelForm):
             raise forms.ValidationError("Email errado")
 
         return email
-
-

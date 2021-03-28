@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 
+
 class Pessoa(models.Model):
     nome = models.CharField(max_length=120)
     sexo = models.CharField(max_length=1)
