@@ -22,21 +22,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from pages.views import index_view, generic_page_view, elementos_view
-from register.views import register_create_view, register_detail_view, register_list_view, register_delete, \
-    register_update_view
+
+# from register.views import register_create_view, register_detail_view, register_list_view, register_update_view, RegisterDeleteView
 
 urlpatterns = [
-    path('admin/', admin.site.urls, ),
-    path('', index_view),
-    path('index/', index_view, name="Index_View"),
-    path('generic/', generic_page_view, name="Generic_Page"),
-    path('cadastro/', register_create_view, name="Cadastro"),
-    path('detail/<int:id>/', register_detail_view, name="detail_view"),
-    path('cadastrados/', register_list_view, name="Cadastrados"),
-    path('atualizar_cadastro/<int:id>', register_update_view, name="Atualizar Cadastro"),
-    path('deletar_usuario/<int:id>', register_delete, name="Deletar Cadastro"),
-    path('elementos/', elementos_view, name="Elementos")
-
+    path("admin/", admin.site.urls,),
+    path("", index_view),
+    path("index/", index_view, name="Index_View"),
+    path("generic/", generic_page_view, name="Generic_Page"),
+    path("elementos/", elementos_view, name="Elementos"),
+    path("register/", include("register.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
