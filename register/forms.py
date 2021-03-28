@@ -14,9 +14,16 @@ class PessoaForm(forms.ModelForm):
             'password'
         ]
     def clean_email(self, *args, **kwargs):
+        from django.core.validators import validate_email
+        from django.core.exceptions import ValidationError
+
         email = self.cleaned_data.get("email")
-        if not email.endswith(".com"):
+
+        try:
+            validate_email(email)
+        except ValidationError:
             raise forms.ValidationError("Email errado")
+
         return email
 
 
