@@ -5,7 +5,7 @@ from .models import Pessoa
 class PessoaForm(forms.ModelForm):
     class Meta:
         model = Pessoa
-        fields = ["nome", "sexo", "email", "nascimento", "password"]
+        fields = ["nome", "sexo", "email", "CEP", "nascimento", "password"]
 
     def __init__(self, *args, **kwargs):
         super(PessoaForm, self).__init__(*args, **kwargs)
