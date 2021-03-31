@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.urls.base import reverse_lazy
-from register.models import Pessoa
+from register.models import Pessoa, Competencia, Ordem
 from register.forms import PessoaForm
 from django.urls import reverse
 from django.views import generic
@@ -47,3 +47,10 @@ class RegisterDeleteView(generic.DeleteView):
     model = Pessoa
     success_url = reverse_lazy("register:cadastrados")
     template_name = "Pessoa/confirm_delete.html"
+
+
+def register_competencia_view(request):
+    competencias = Competencia.objects.all()
+    context = {"competencias_list": competencias}
+    return render (request, "Competencias/competencias_list_view.html", context)
+
