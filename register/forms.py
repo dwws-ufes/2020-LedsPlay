@@ -1,7 +1,5 @@
 from django import forms
 from .models import Pessoa
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 
 class PessoaForm(forms.ModelForm):
@@ -30,9 +28,3 @@ class PessoaForm(forms.ModelForm):
             raise forms.ValidationError("Email errado")
 
         return email
-
-
-class LoginForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = UserCreationForm.Meta.fields

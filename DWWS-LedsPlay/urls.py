@@ -22,9 +22,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from pages.views import index_view, generic_page_view, elementos_view
+from register.views import login_view
 
 # from register.views import register_create_view, register_detail_view, register_list_view, register_update_view, RegisterDeleteView
-from register.views import login_view
 
 urlpatterns = [
     path("admin/", admin.site.urls,),
