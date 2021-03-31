@@ -13,6 +13,11 @@ class Pessoa(models.Model):
     def __str__(self):
         return self.nome
 
+class Tag(models.Model):
+    nome = models.CharField(max_length=120, null=True)
+
+    def __str__(self):
+        return self.nome
 
 class Competencia(models.Model):
     STATUS = (
@@ -24,7 +29,12 @@ class Competencia(models.Model):
     nome = models.CharField(max_length=120, null=True)
     categoria = models.CharField(max_length=120, null=True, choices=STATUS)
     descricao = models.CharField(max_length=120, null=True)
-    data_created = models.CharField(max_length=120, null=True)
+    data_created = models.DateTimeField(auto_now_add=True, null=True)
+    tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.nome
+
 
 
 class Ordem(models.Model):
@@ -34,7 +44,11 @@ class Ordem(models.Model):
         ("FINALIZADO", "FINALIZADO"),
     )
 
-    # costumer =
-    # Competencia =
-    data_created = models.CharField(max_length=120, null=True)
+    costumer = models.ForeignKey(Pessoa, null=True, on_delete=models.SET_NULL)
+    competencia = models.ForeignKey(Competencia, null=True, on_delete=models.SET_NULL)
+    data_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=120, null=True, choices=STATUS)
+
+    def __str__(self):
+        return self.nome
+
