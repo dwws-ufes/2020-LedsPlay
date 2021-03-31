@@ -1,12 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from register.models import Pessoa
-from register.forms import PessoaForm
+from register.forms import PessoaForm, LoginForm
 from django.urls import reverse
 from django.views import generic
 
+
 # Create your views here.
+
+def login_view(request):
+    form = LoginForm
+    return render(request, "Pessoa/login.html", {"form": form})
 
 
 class RegisterCreateView(generic.CreateView):
