@@ -6,7 +6,7 @@ class Pessoa(models.Model):
     nome = models.CharField(max_length=120, null=True)
     sexo = models.CharField(max_length=1, null=True)
     email = models.EmailField(max_length=120, null=True)
-    CEP = models.CharField(max_length=120, null=True)
+    cidade = models.CharField(max_length=120, null=True)
     nascimento = models.DateField(default=datetime.date.today, null=True)
     password = models.CharField(max_length=128, null=True)
 
