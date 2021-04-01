@@ -11,14 +11,14 @@ class Pessoa(models.Model):
     password = models.CharField(max_length=128, null=True)
 
     def __str__(self):
-        return self.nome
+        return "%s" % self.nome
 
 
 class Tag(models.Model):
     nome = models.CharField(max_length=120, null=True)
 
     def __str__(self):
-        return self.nome
+        return "%s" % self.nome
 
 
 class Competencia(models.Model):
@@ -35,7 +35,7 @@ class Competencia(models.Model):
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
-        return self.nome
+        return "%s" % self.nome
 
 
 class Ordem(models.Model):
@@ -51,4 +51,4 @@ class Ordem(models.Model):
     status = models.CharField(max_length=120, null=True, choices=STATUS)
 
     def __str__(self):
-        return self.nome
+        return "%s" % self.competencia
