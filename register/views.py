@@ -6,10 +6,12 @@ from register.forms import PessoaForm
 from django.urls import reverse
 from django.views import generic
 
+
 # Create your views here.
 
 def login_view(request):
     return render(request, "Pessoa/login.html")
+
 
 class RegisterCreateView(generic.CreateView):
     model = Pessoa
@@ -52,5 +54,39 @@ class RegisterDeleteView(generic.DeleteView):
 def register_competencia_view(request):
     competencias = Competencia.objects.all()
     context = {"competencias_list": competencias}
-    return render (request, "Competencias/competencias_list_view.html", context)
+    return render(request, "Competencias/competencias_list_view.html", context)
 
+
+################################################
+# TESTE
+################################################
+
+def home(request):
+    orders = Ordem.objects.all()
+    customers = Pessoa.objects.all()
+    competencias = Competencia.objects.all()
+
+    total_customers = customers.count()
+
+    total_orders = orders.count()
+    delivered = orders.filter(status='Delivered').count()
+    pending = orders.filter(status='Pending').count()
+
+    context = {'orders': orders,
+               'customers': customers,
+               'competencias':competencias,
+               'total_orders': total_orders,
+               'delivered': delivered,
+               'pending': pending}
+
+    return render(request, 'Dashboard/dashboard.html', context)
+
+
+def products(request):
+    products = Competencia.objects.all()
+
+    return render(request, 'Dashboard/products.html', {'products': products})
+
+
+def customer(request):
+    return render(request, 'Dashboard/customer.html')
