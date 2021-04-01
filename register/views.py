@@ -1,14 +1,12 @@
+from django.http.response import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from register.models import Pessoa, Competencia, Ordem
-from register.forms import PessoaForm
+from register.forms import PessoaForm, DefineUserForm
 from django.urls import reverse
 from django.views import generic
 from .models import *
-
-
-# Create your views here.
 
 def login_view(request):
     return render(request, "Pessoa/login.html")
@@ -50,6 +48,29 @@ class RegisterDeleteView(generic.DeleteView):
     model = Pessoa
     success_url = reverse_lazy("register:cadastrados")
     template_name = "Pessoa/confirm_delete.html"
+
+
+def define_user_type_view(request, id):
+    form = DefineUserForm(request.POST or None)
+    if form.is_valid():
+        obj = get_object_or_404(Pessoa, id=id)
+        if obj.user_type is not None:
+            print(obj.user_type)
+            return HttpResponseNotFound('Seu tipo de usuário já foi definido anteriormente!') # TODO: Retornar pra uma página de erro
+        choice = int(form.cleaned_data['selecione'])
+        if choice == 0:
+            from costumer.models import Cliente
+            subclass = Cliente
+        elif choice == 1:
+            from professional.models import Profissional
+            subclass = Profissional
+        else:
+            return HttpResponse(request, status=404)
+        obj.convert(subclass)
+        return HttpResponseRedirect(reverse("register:cadastrados")) ## TODO: Retornar para a tela de configuração do profissional/cliente
+        
+    return render(request, "Pessoa/define_user.html", {"form": form})
+
 
 
 def register_competencia_view(request):

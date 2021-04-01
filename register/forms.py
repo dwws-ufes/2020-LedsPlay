@@ -28,3 +28,9 @@ class PessoaForm(forms.ModelForm):
             raise forms.ValidationError("Email errado")
 
         return email
+
+class DefineUserForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(DefineUserForm, self).__init__(*args, **kwargs)
+        choices = [('0', 'Cliente'), ('1', 'Profissional')]
+        self.fields['selecione'] = forms.ChoiceField(choices=choices)
