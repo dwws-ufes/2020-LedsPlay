@@ -70,8 +70,8 @@ def home(request):
     total_customers = customers.count()
 
     total_orders = orders.count()
-    delivered = orders.filter(status='Delivered').count()
-    pending = orders.filter(status='Pending').count()
+    delivered = orders.filter(status='FINALIZADO').count()
+    pending = orders.filter(status='STAND BY').count()
 
     context = {'orders': orders,
                'customers': customers,

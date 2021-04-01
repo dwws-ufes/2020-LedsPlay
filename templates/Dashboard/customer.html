@@ -9,8 +9,8 @@
 		<div class="card card-body">
 			<h5>Customer: {{ pessoa.nome }}</h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'register:update' pessoa.id %}">Update Customer</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' pessoa.id %}">Delete Customer</a>
 
 		</div>
 	</div>
@@ -28,7 +28,7 @@
 		<div class="card card-body">
 			<h5>Total Orders</h5>
 			<hr>
-			<h1 style="text-align: center;padding: 10px">{{ order_count }}</h1>
+			<h1 style="Deliveredtext-align: center;padding: 10px">{{ order_count }}</h1>
 		</div>
 	</div>
 </div>
@@ -52,6 +52,7 @@
 	<div class="col-md">
 		<div class="card card-body">
 			<table class="table table-sm">
+                <h5>Tabela de Ordens</h5>
 				<tr>
 					<th>Competencia</th>
 					<th>Categoria</th>

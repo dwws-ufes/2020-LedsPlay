@@ -40,7 +40,7 @@ class Competencia(models.Model):
 
 class Ordem(models.Model):
     STATUS = (
-        ("STANDBY", "STANDBY"),
+        ("STAND BY", "STAND BY"),
         ("EM OPERATAÇÃO", "EM OPERAÇÂO"),
         ("FINALIZADO", "FINALIZADO"),
     )

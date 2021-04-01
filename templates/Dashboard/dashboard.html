@@ -11,7 +11,7 @@
 		<h5>PESSOAS:</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'register:cadastro' %}">Create Customer</a>
 			<table class="table table-sm">
 				<tr>
 					<th>Pessoa</th>
@@ -47,7 +47,7 @@
 				{% for order in orders %}
 					<tr>
 						<td>{{order.competencia}}</td>
-						<td>{{order.date_created}}</td>
+						<td>{{order.data_created}}</td>
 						<td>{{order.status}}</td>
 						<td><a href="">Update</a></td>
 						<td><a href="">Delete</a></td>
