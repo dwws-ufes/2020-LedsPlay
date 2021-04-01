@@ -47,3 +47,5 @@ shell: ## Abre um python shell dentro do container da aplicação
 
 create: ## Criar superusuário (admin)
 	docker-compose exec app python manage.py createsuperuser
+
+clean-db: down-v up

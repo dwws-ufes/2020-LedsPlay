@@ -1,0 +1,16 @@
+{% extends "Industrial/generic.html" %}
+
+{% block content %}
+    <section>
+        <header>
+            <h2>Qual tipo de usuário você é?</h2>
+            <h4>Essa escolha é irreversível</h4>
+            <span class="byline"></span>
+            <form method="POST">{% csrf_token %}
+                {{ form }}
+                <input type='submit' value="Enviar"/>
+                <input type="button" value="Resetar campos" onClick="this.form.reset()" />
+            </form>
+        </header>
+    </section>
+{% endblock %}
