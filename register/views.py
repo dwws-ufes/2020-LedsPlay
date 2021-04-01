@@ -5,6 +5,7 @@ from register.models import Pessoa, Competencia, Ordem
 from register.forms import PessoaForm
 from django.urls import reverse
 from django.views import generic
+from .models import *
 
 
 # Create your views here.
@@ -88,5 +89,11 @@ def products(request):
     return render(request, 'Dashboard/products.html', {'products': products})
 
 
-def customer(request):
-    return render(request, 'Dashboard/customer.html')
+def customer(request, pk):
+    pessoa = Pessoa.objects.get(id=pk)
+    ordens = pessoa.ordem_set.all()
+    order_count = ordens.count()
+    context ={'pessoa': pessoa,
+              'ordens': ordens,
+              'order_count': order_count}
+    return render(request, 'Dashboard/customer.html', context)
