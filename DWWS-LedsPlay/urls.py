@@ -35,6 +35,8 @@ urlpatterns = [
     path("elementos/", elementos_view, name="Elementos"),
     path("register/", include("register.urls")),
 
+    path("professional/", include("professional.urls"), name="professional"),
+
 
     ##TESTE##
     path("dashboard/", home, name="dashboard"),
