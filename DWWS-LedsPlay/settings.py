@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "register",
     "professional",
     "costumer",
+    "django-filter",
 ]
 
 MIDDLEWARE = [

@@ -1,12 +1,15 @@
 from django.http.response import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls.base import reverse_lazy
-from register.models import Pessoa, Competencia, Ordem
-from register.forms import PessoaForm, DefineUserForm
+from django.forms import inlineformset_factory
+
+
+from register.forms import PessoaForm, DefineUserForm, OrdemForm
 from django.urls import reverse
 from django.views import generic
 from .models import *
+
 
 def login_view(request):
     return render(request, "Pessoa/login.html")
@@ -56,7 +59,8 @@ def define_user_type_view(request, id):
         obj = get_object_or_404(Pessoa, id=id)
         if obj.user_type is not None:
             print(obj.user_type)
-            return HttpResponseNotFound('Seu tipo de usuário já foi definido anteriormente!') # TODO: Retornar pra uma página de erro
+            return HttpResponseNotFound(
+                'Seu tipo de usuário já foi definido anteriormente!')  # TODO: Retornar pra uma página de erro
         choice = int(form.cleaned_data['selecione'])
         if choice == 0:
             from costumer.models import Cliente
@@ -67,10 +71,10 @@ def define_user_type_view(request, id):
         else:
             return HttpResponse(request, status=404)
         obj.convert(subclass)
-        return HttpResponseRedirect(reverse("register:cadastrados")) ## TODO: Retornar para a tela de configuração do profissional/cliente
-        
-    return render(request, "Pessoa/define_user.html", {"form": form})
+        return HttpResponseRedirect(
+            reverse("register:cadastrados"))  ## TODO: Retornar para a tela de configuração do profissional/cliente
 
+    return render(request, "Pessoa/define_user.html", {"form": form})
 
 
 def register_competencia_view(request):
@@ -96,7 +100,7 @@ def home(request):
 
     context = {'orders': orders,
                'customers': customers,
-               'competencias':competencias,
+               'competencias': competencias,
                'total_orders': total_orders,
                'delivered': delivered,
                'pending': pending}
@@ -114,10 +118,44 @@ def customer(request, pk):
     pessoa = Pessoa.objects.get(id=pk)
     ordens = pessoa.ordem_set.all()
     order_count = ordens.count()
-    context ={'pessoa': pessoa,
-              'ordens': ordens,
-              'order_count': order_count}
+    context = {'pessoa': pessoa,
+               'ordens': ordens,
+               'order_count': order_count}
     return render(request, 'Dashboard/customer.html', context)
 
-def teste(request):
-    return render(request, 'Dashboard/customerhtml')
+
+def createOrder(request, pk):
+    OrderFormSet = inlineformset_factory(Pessoa, Ordem, fields=('competencia', 'status'), extra=5)
+    customer = Pessoa.objects.get(id=pk)
+    formset = OrderFormSet(queryset=Ordem.objects.none(), instance=customer)
+    if request.method == "POST":
+        formset = OrderFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/')
+
+    context = {'formset': formset}
+    return render(request, 'Dashboard/form.html', context)
+
+
+def updateOrdem(request, pk):
+    order = Ordem.objects.get(id=pk)
+    form = OrdemForm(instance=order)
+
+    if request.method == "POST":
+        form = OrdemForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'form': form}
+    return render(request, 'Dashboard/form.html', context)
+
+
+def deleteOrdem(request, pk):
+    order = Ordem.objects.get(id=pk)
+    if request.method == "POST":
+        order.delete()
+        return redirect('/')
+    context = {'order': order}
+    return render(request, 'Dashboard/delete.html', context)

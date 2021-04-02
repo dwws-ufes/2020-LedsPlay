@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pessoa
+from .models import Pessoa, Ordem
 
 
 class PessoaForm(forms.ModelForm):
@@ -29,8 +29,15 @@ class PessoaForm(forms.ModelForm):
 
         return email
 
+
 class DefineUserForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(DefineUserForm, self).__init__(*args, **kwargs)
         choices = [('0', 'Cliente'), ('1', 'Profissional')]
         self.fields['selecione'] = forms.ChoiceField(choices=choices)
+
+
+class OrdemForm(forms.ModelForm):
+    class Meta:
+        model = Ordem
+        fields = '__all__'
