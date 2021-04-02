@@ -24,15 +24,7 @@
 			</header>
 
 		<!-- Nav -->
-		<nav id="menu">
-			<ul class="links">
-				<li><a href={% url 'Index_View' %}>Home</a></li>
-				<li><a href={% url 'register:cadastro' %}>Cadastro</a></li>
-				<li><a href={% url 'register:cadastrados' %}>Cadastrados</a></li>
-				<li><a href={% url 'Elementos' %}>Elementos</a></li>
-				<li><a href={% url 'Generic_Page' %}>Página Generica</a></li>
-			</ul>
-		</nav>
+		{%  include 'Industrial/side_menu.html' %}
 		<!-- Heading -->
 			<div id="heading" >
 				<h1>LedsPlay</h1>
@@ -42,7 +34,7 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<div class="content">
-                        {% block conteudobase %}
+                        {% block content %}
 						<header>
 							<h2>Feugiat consequat</h2>
 						</header>

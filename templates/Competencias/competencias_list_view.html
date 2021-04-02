@@ -1,0 +1,29 @@
+{% extends "Industrial/generic.html" %}
+
+{% block content %}
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Data de Criação</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for competencia in competencias_list%}
+            <tr>
+                    <th><a href="{% url 'register:update' competencia.id %}">{{ competencia.id }} </a></th>
+                    <th>{{ competencia.nome }}</th>
+                    <th>{{ competencia.categoria }}</th>
+                    <th>{{ competencia.descricao }}</th>
+                    <th>{{ competencia.data_created }}</th>
+                    <th>{{ competencia.tags }}</th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

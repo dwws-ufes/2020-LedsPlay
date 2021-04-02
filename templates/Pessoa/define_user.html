@@ -3,11 +3,12 @@
 {% block content %}
     <section>
         <header>
-            <h2>Cadastro de Usuários</h2>
+            <h2>Qual tipo de usuário você é?</h2>
+            <h4>Essa escolha é irreversível</h4>
             <span class="byline"></span>
             <form method="POST">{% csrf_token %}
-                {{ form.as_p }}
-                <input type='submit' value="Atualizar"/>
+                {{ form }}
+                <input type='submit' value="Enviar"/>
                 <input type="button" value="Resetar campos" onClick="this.form.reset()" />
             </form>
         </header>
