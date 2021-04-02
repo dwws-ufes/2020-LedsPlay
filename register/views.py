@@ -9,6 +9,7 @@ from register.forms import PessoaForm, DefineUserForm, OrdemForm
 from django.urls import reverse
 from django.views import generic
 from .models import *
+from .filters import OrdemFilter
 
 
 def login_view(request):
@@ -118,9 +119,15 @@ def customer(request, pk):
     pessoa = Pessoa.objects.get(id=pk)
     ordens = pessoa.ordem_set.all()
     order_count = ordens.count()
+
+    myFilter = OrdemFilter(request.GET, queryset=ordens)
+    ordens = myFilter.qs
+
+
     context = {'pessoa': pessoa,
                'ordens': ordens,
-               'order_count': order_count}
+               'order_count': order_count,
+               'myFilter': myFilter}
     return render(request, 'Dashboard/customer.html', context)
 
 
