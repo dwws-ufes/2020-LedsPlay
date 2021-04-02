@@ -12,8 +12,6 @@ from .models import *
 from .filters import OrdemFilter
 
 
-def login_view(request):
-    return render(request, "Pessoa/login.html")
 
 
 class RegisterCreateView(generic.CreateView):
