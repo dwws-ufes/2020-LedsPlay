@@ -12,7 +12,13 @@ from .models import *
 from .filters import OrdemFilter
 
 
+def login_view(request):
+    context={
 
+    }
+
+
+    return render(request, "Pessoa/login.html")
 
 class RegisterCreateView(generic.CreateView):
     model = Pessoa
