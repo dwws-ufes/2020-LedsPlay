@@ -1,0 +1,37 @@
+name: Dev Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Deploy code
+        run: |
+          mv remote/* .
+          cp -rf * /var/www/ledsplay
+
+      - name: Building stack
+        working-directory: /var/www/ledsplay
+        run: docker-compose build
+
+      - name: Starting stack
+        working-directory: /var/www/ledsplay
+        run: docker-compose up -d
+
+      - name: Wait / Sleep
+        uses: jakejarvis/wait-action@v0.1.0
+        with:
+          time: '10s'
+
+      - name: Running migrations
+        working-directory: /var/www/ledsplay
+        run: |
+          docker-compose exec -T app python manage.py makemigrations
+          docker-compose exec -T app python manage.py migrate
+
