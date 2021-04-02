@@ -1,5 +1,5 @@
 Django>=3.0,<4.0
 psycopg2-binary>=2.8
 django-seed
-django-filter
+django-filter=2.4.0
 gunicorn==20.1.0
