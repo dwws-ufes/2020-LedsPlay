@@ -26,7 +26,7 @@ SECRET_KEY = "su!pxznq8_#t(u63iugo$hmoay&&7f^z5r-4cb&e#tb41j-_r&"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "ledsplay.davipetris.me"]
 
 
 # Application definition
