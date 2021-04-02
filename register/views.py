@@ -118,3 +118,6 @@ def customer(request, pk):
               'ordens': ordens,
               'order_count': order_count}
     return render(request, 'Dashboard/customer.html', context)
+
+def teste(request):
+    return render(request, 'Dashboard/customerhtml')
