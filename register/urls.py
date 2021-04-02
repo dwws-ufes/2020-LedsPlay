@@ -4,8 +4,8 @@ from . import views
 
 app_name = "register"
 urlpatterns = [
-    path("", views.RegisterCreateView.as_view(), name="cadastro"),
-    path("cadastro/", views.RegisterCreateView.as_view(), name="cadastro"),
+    path("", views.RegisterCreateView, name="cadastro"),
+    path("cadastro/", views.RegisterCreateView, name="cadastro"),
     path("detail/<int:id>/", views.register_detail_view, name="detail"),
     path("cadastrados/", views.register_list_view, name="cadastrados"),
     path("competencias/", views.register_competencia_view, name="competencias"),

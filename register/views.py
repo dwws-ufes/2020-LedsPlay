@@ -3,9 +3,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from django.forms import inlineformset_factory
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib import messages
 
-
-from register.forms import PessoaForm, DefineUserForm, OrdemForm
+from register.forms import PessoaForm, DefineUserForm, OrdemForm, CreateUserForm
 from django.urls import reverse
 from django.views import generic
 from .models import *
@@ -13,18 +16,42 @@ from .filters import OrdemFilter
 
 
 def login_view(request):
-    context={
+    if request.method=="POST":
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
 
+        if user is not None:
+            login(request, user)
+            return redirect("index_view")
+        else:
+            messages.info(request, "Username ou password incorreto")
+    context={}
+    return render(request, 'Pessoa/login.html', context)
+
+
+def RegisterCreateView(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, "Conta foi criada " + user)
+            return redirect("register:cadastrados")
+
+    context = {
+        'form': form
     }
 
+    return render(request, "Pessoa/detail_create.html", context)
 
-    return render(request, "Pessoa/login.html")
 
-class RegisterCreateView(generic.CreateView):
-    model = Pessoa
-    template_name = "Pessoa/detail_create.html"
-    form_class = PessoaForm
-    success_url = reverse_lazy("register:cadastrados")
+#class RegisterCreateView(generic.CreateView):
+#    model = Pessoa
+#    template_name = "Pessoa/detail_create.html"
+#    form_class = PessoaForm
+#    success_url = reverse_lazy("register:cadastrados")
 
 
 def register_detail_view(request, id):
@@ -35,7 +62,7 @@ def register_detail_view(request, id):
 
 
 def register_list_view(request):
-    queryset = Pessoa.objects.all()
+    queryset = User.objects.all()
 
     context = {"pessoa_list": queryset}
 
@@ -43,8 +70,8 @@ def register_list_view(request):
 
 
 def register_update_view(request, id):
-    obj = get_object_or_404(Pessoa, id=id)
-    form = PessoaForm(request.POST or None, instance=obj)
+    obj = get_object_or_404(User, id=id)
+    form = CreateUserForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse("register:cadastrados"))
@@ -53,7 +80,7 @@ def register_update_view(request, id):
 
 
 class RegisterDeleteView(generic.DeleteView):
-    model = Pessoa
+    model = User
     success_url = reverse_lazy("register:cadastrados")
     template_name = "Pessoa/confirm_delete.html"
 
@@ -126,7 +153,6 @@ def customer(request, pk):
 
     myFilter = OrdemFilter(request.GET, queryset=ordens)
     ordens = myFilter.qs
-
 
     context = {'pessoa': pessoa,
                'ordens': ordens,

@@ -29,8 +29,9 @@ from register.views import home, customer, createOrder, updateOrdem, deleteOrdem
 
 urlpatterns = [
     path("admin/", admin.site.urls,),
-    path("", login_view, name="login"),
+    path("", index_view, name="index_view"),
     path("index/", index_view, name="Index_View"),
+    path("login/", login_view, name="login"),
     path("generic/", generic_page_view, name="Generic_Page"),
     path("elementos/", elementos_view, name="Elementos"),
     path("register/", include("register.urls")),
