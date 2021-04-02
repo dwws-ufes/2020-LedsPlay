@@ -1,0 +1,12 @@
+{% extends 'Dashboard/main.html' %}
+{% load static %}
+{% block content %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" names="submit">
+    </form>
+
+
+{% endblock %}
