@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=django
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    image: ledsplay-image
+    command: gunicorn --bind 0.0.0.0:8000 DWWS-LedsPlay.wsgi:application
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+  web:
+    image: nginx:stable
+    volumes: 
+      - ./static:/usr/share/nginx/html/static:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./certs:/etc/nginx/certs
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+volumes:
+  pgdata:
