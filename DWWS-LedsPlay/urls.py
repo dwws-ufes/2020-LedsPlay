@@ -33,8 +33,7 @@ urlpatterns = [
     path("generic/", generic_page_view, name="Generic_Page"),
     path("elementos/", elementos_view, name="Elementos"),
     path("register/", include("register.urls")),
-    # path("professional/", include("professional.urls")),
-
+    path("professional/", include("professional.urls")),
 
     ##TESTE##
     path("dashboard/", home, name="dashboard"),

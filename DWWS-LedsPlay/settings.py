@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "professional",
     "costumer",
     "django_filters",
+    "cpf_field",
 ]
 
 MIDDLEWARE = [
