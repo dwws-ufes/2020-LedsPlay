@@ -8,9 +8,17 @@
             <span class="byline"></span>
             <form method="POST">{% csrf_token %}
                 {{ form }}
-                <input type='submit' value="Enviar"/>
+                <input type='submit' value="Enviar" onClick="clicked(event)"/>
                 <input type="button" value="Resetar campos" onClick="this.form.reset()" />
             </form>
         </header>
     </section>
+    <script>
+        function clicked(e)
+        {
+            if(!confirm('Essa ação é irreversível. Deseja continuar?')) {
+                e.preventDefault();
+            }
+        }
+        </script>
 {% endblock %}

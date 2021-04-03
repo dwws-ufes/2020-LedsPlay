@@ -74,9 +74,7 @@ def define_user_type_view(request, id):
     if form.is_valid():
         obj = get_object_or_404(Pessoa, id=id)
         if obj.user_type is not None:
-            print(obj.user_type)
-            return HttpResponseNotFound(
-                'Seu tipo de usuário já foi definido anteriormente!')  # TODO: Retornar pra uma página de erro
+            return HttpResponseNotFound('Seu tipo de usuário já foi definido anteriormente!') # TODO: Retornar pra uma página de erro
         choice = int(form.cleaned_data['selecione'])
         if choice == 0:
             from costumer.models import Cliente

@@ -35,6 +35,8 @@ urlpatterns = [
 
     path("professional/", include("professional.urls")),
 
+    path("professional/", include("professional.urls"), name="professional"),
+
 
     ##TESTE##
     path("dashboard/", home, name="dashboard"),
