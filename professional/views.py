@@ -1,10 +1,6 @@
-from django.shortcuts import render
 from .models import Profissional
 from .forms import ProfissionalForm
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
 from django.urls.base import reverse_lazy
-from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.views import generic
 
 class UpdateProfissionalView(generic.UpdateView):

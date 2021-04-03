@@ -6,7 +6,7 @@ from register.forms import PessoaForm
 class ProfissionalForm(PessoaForm):
     class Meta:
         model = Profissional
-        fields = ["nome", "sexo", "nascimento", "cpf", "contato", "cidade", "media"]
+        fields = ["nome", "sexo", "nascimento", "cpf", "contato", "cidade"]
 
     def __init__(self, *args, **kwargs):
         super(ProfissionalForm, self).__init__(*args, **kwargs)
