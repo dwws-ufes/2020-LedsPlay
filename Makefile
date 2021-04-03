@@ -49,3 +49,6 @@ create: ## Criar superusuário (admin)
 	docker-compose exec app python manage.py createsuperuser
 
 clean-db: down-v up
+
+chown: ## Resolve problema de permissão em todos arquivos
+	sudo chown -R $$USER:$$USER .
