@@ -27,25 +27,7 @@ class PessoaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PessoaForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            self.fields[field_name].widget.attrs["placeholder"] = field.label
-        self.fields["email"].widget.attrs["placeholder"] = "example@domain.com"
-        self.fields["nascimento"].widget.attrs[
-            "placeholder"
-        ] = "Ano-Mês-Dia (AAAA-MM-DD)"
-
-    def clean_email(self, *args, **kwargs):
-        from django.core.validators import validate_email
-        from django.core.exceptions import ValidationError
-
-        email = self.cleaned_data.get("email")
-
-        try:
-            validate_email(email)
-        except ValidationError:
-            raise forms.ValidationError("Email errado")
-
-        return email
+        self.fields['nascimento'].widget = forms.DateInput
 
 
 class DefineUserForm(forms.Form):
