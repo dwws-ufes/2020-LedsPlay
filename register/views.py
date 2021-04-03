@@ -9,26 +9,34 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
-from register.forms import PessoaForm, DefineUserForm, OrdemForm, CreateUserForm
+from register.forms import PessoaForm, DefineUserForm, OrdemForm, CreateUserForm, LoginForm
 from django.urls import reverse
-from django.views import generic
+from django.views import generic, View
 from .models import *
 from .filters import OrdemFilter
 
 
-def login_view(request):
-    if request.method=="POST":
-        username=request.POST.get('username')
-        password=request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+class LoginView(View):
+    def get(self, request):
+        data = {'form': LoginForm()}
+        return render(request, 'Pessoa/login.html', data)
 
-        if user is not None:
-            login(request, user)
-            return redirect("index_view")
-        else:
-            messages.info(request, "Username ou password incorreto")
-    context={}
-    return render(request, 'Pessoa/login.html', context)
+    def post(self, request):
+        form = LoginForm(data=request.POST)
+        
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if username and password and user:
+                login(request, user)
+                return redirect("index_view")
+        
+        data = { 
+            'form': form,
+            'error': 'Username ou password incorreto'
+        }     
+        return render(request, 'Pessoa/login.html', data)
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
    model = User
@@ -52,6 +60,7 @@ def register_detail_view(request, id):
 
 def register_list_view(request):
     queryset = User.objects.all()
+    print(request.user)
 
     context = {"pessoa_list": queryset}
 
