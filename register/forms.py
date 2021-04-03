@@ -19,7 +19,6 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
 
 
-##TESTE###
 class PessoaForm(forms.ModelForm):
     class Meta:
         model = Pessoa
@@ -27,7 +26,8 @@ class PessoaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PessoaForm, self).__init__(*args, **kwargs)
-        self.fields['nascimento'].widget = forms.DateInput
+        self.fields['nascimento'].widget = forms.DateInput()
+        self.fields['sexo'].widget.attrs['placeholder'] = "M ou F"
 
 
 class DefineUserForm(forms.Form):
