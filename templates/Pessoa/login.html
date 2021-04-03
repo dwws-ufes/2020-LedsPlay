@@ -7,10 +7,16 @@
             <span class="byline"></span>
             <form method="POST" action="">
                 {% csrf_token %}
-                <input type='username' name="username" placeholder="Username..." class="form-control"/>
-                <input type='passworld' name="password" placeholder="Password..." class="form-control"/>
-                <input type='submit' value="Login"/>
-            </form>
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endif %}
+                {% for fields in form %}
+                    {{ fields.label }}
+                    {{ fields }}
+                {% endfor %}
+            <input type='submit' value="Login"/>
             {% for message in messages %}
                 <p id="messages">{{ message }}</p>
             {% endfor %}

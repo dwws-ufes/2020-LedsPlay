@@ -1,34 +1,18 @@
-from django.http.response import HttpResponse, HttpResponseNotFound
+from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from django.forms import inlineformset_factory
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from register.forms import PessoaForm, DefineUserForm, OrdemForm, CreateUserForm
+from register.forms import DefineUserForm, OrdemForm, CreateUserForm
 from django.urls import reverse
-from django.views import generic
-from .models import *
-from .filters import OrdemFilter
+from django.views import generic, View
+from ..models import *
+from ..filters import OrdemFilter
 
-
-def login_view(request):
-    if request.method=="POST":
-        username=request.POST.get('username')
-        password=request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect("index_view")
-        else:
-            messages.info(request, "Username ou password incorreto")
-    context={}
-    return render(request, 'Pessoa/login.html', context)
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
    model = User
@@ -52,6 +36,7 @@ def register_detail_view(request, id):
 
 def register_list_view(request):
     queryset = User.objects.all()
+    print(request.user)
 
     context = {"pessoa_list": queryset}
 
@@ -74,26 +59,35 @@ class RegisterDeleteView(generic.DeleteView):
     template_name = "Pessoa/confirm_delete.html"
 
 
-def define_user_type_view(request, id):
-    form = DefineUserForm(request.POST or None)
-    if form.is_valid():
-        obj = get_object_or_404(Pessoa, id=id)
-        if obj.user_type is not None:
-            return HttpResponseNotFound('Seu tipo de usuário já foi definido anteriormente!') # TODO: Retornar pra uma página de erro
-        choice = int(form.cleaned_data['selecione'])
-        if choice == 0:
-            from costumer.models import Cliente
-            subclass = Cliente
-        elif choice == 1:
-            from professional.models import Profissional
-            subclass = Profissional
-        else:
-            return HttpResponse(request, status=404)
-        obj.convert(subclass)
-        return HttpResponseRedirect(
-            reverse("register:cadastrados"))  ## TODO: Retornar para a tela de configuração do profissional/cliente
+class DefineUserTypeView(LoginRequiredMixin, View):
+    def get(self, request):
+        user = request.user
+        if user.pessoa.user_type is not None:
+            return HttpResponseRedirect(reverse('index_view')) ## TODO: Retornar para a tela de configuração do profissional/cliente
+        data = {'form': DefineUserForm()}
+        
+        return render(request, 'Pessoa/define_user.html', data)
 
-    return render(request, "Pessoa/define_user.html", {"form": form})
+    def post(self, request):
+        form = DefineUserForm(data=request.POST)
+        user = request.user
+
+        if form.is_valid():
+            if user.pessoa.user_type is not None:
+                return HttpResponseRedirect(reverse('index_view')) ## TODO: Retornar para a tela de configuração do profissional/cliente
+            choice = int(form.cleaned_data['selecione'])
+            if choice == 0:
+                from costumer.models import Cliente
+                subclass = Cliente
+            elif choice == 1:
+                from professional.models import Profissional
+                subclass = Profissional
+            else:
+                return HttpResponse(request, status=404)
+            user.pessoa.convert(subclass)
+            return HttpResponseRedirect(reverse('index_view'))  ## TODO: Retornar para a tela de configuração do profissional/cliente
+
+        return render(request, "Pessoa/define_user.html", {"form": form})
 
 
 def register_competencia_view(request):

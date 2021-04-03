@@ -22,20 +22,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from pages.views import index_view, generic_page_view, elementos_view
-from register.views import home, customer, createOrder, updateOrdem, deleteOrdem, login_view
+from register.views import home, customer, createOrder, updateOrdem, deleteOrdem, LoginView, LogoutView
 
 urlpatterns = [
     path("admin/", admin.site.urls,),
     path("", index_view, name="index_view"),
     path("index/", index_view, name="Index_View"),
-    path("login/", login_view, name="login"),
+    path("login/", LoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
     path("generic/", generic_page_view, name="Generic_Page"),
     path("elementos/", elementos_view, name="Elementos"),
     path("register/", include("register.urls")),
-
-    path("professional/", include("professional.urls")),
-
-    path("professional/", include("professional.urls"), name="professional"),
+    # path("professional/", include("professional.urls")),
 
 
     ##TESTE##
