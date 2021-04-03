@@ -32,10 +32,15 @@ def login_view(request):
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
    model = User
-   template_name = "Pessoa/detail_create.html"
+   template_name = "Pessoa/detail_form.html"
    form_class = CreateUserForm
    success_url = reverse_lazy("register:cadastrados")
    success_message = 'Sua conta foi criada com sucesso!'
+
+   def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Cadastro de usuário"
+        return context
 
 
 def register_detail_view(request, id):
@@ -60,7 +65,7 @@ def register_update_view(request, id):
         form.save()
         return HttpResponseRedirect(reverse("register:cadastrados"))
 
-    return render(request, "Pessoa/atualizar_cadastrado.html", {"form": form, obj: obj})
+    return render(request, "Pessoa/detail_form.html", {"form": form, obj: obj})
 
 
 class RegisterDeleteView(generic.DeleteView):
