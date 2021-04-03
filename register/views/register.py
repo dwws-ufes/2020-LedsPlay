@@ -42,16 +42,16 @@ def register_list_view(request):
 
     return render(request, "Pessoa/cadastrados_list_view.html", context)
 
+class RegisterUpdateView(generic.UpdateView):
+    model = User
+    success_url = reverse_lazy("register:cadastrados")
+    template_name = "Pessoa/detail_form.html"
+    fields = ["username", "email"]
 
-def register_update_view(request, id):
-    obj = get_object_or_404(User, id=id)
-    form = CreateUserForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse("register:cadastrados"))
-
-    return render(request, "Pessoa/detail_form.html", {"form": form, obj: obj})
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Atualizar usuário"
+        return context
 
 class RegisterDeleteView(generic.DeleteView):
     model = User
