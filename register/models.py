@@ -30,6 +30,7 @@ class Pessoa(models.Model):
 def update_profile_signal(sender, instance, created, **kwargs):
     if created:     
         Pessoa.objects.create(user=instance)
+    instance.pessoa.nome = instance.username
     instance.pessoa.save()
 
 
