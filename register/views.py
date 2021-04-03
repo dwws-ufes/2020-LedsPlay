@@ -32,11 +32,13 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             if username and password and user:
                 login(request, user)
+                if user.pessoa.user_type is None:
+                    return HttpResponseRedirect(reverse('register:define_user'))
                 return HttpResponseRedirect(reverse('index_view'))
         
         data = { 
             'form': form,
-            'error': 'Username ou password incorreto'
+            'error': 'Usuário ou Senha incorreto'
         }     
         return render(request, 'Pessoa/login.html', data)
 
