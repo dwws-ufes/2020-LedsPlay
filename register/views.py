@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 from register.forms import PessoaForm, DefineUserForm, OrdemForm, CreateUserForm
 from django.urls import reverse
@@ -29,29 +30,12 @@ def login_view(request):
     context={}
     return render(request, 'Pessoa/login.html', context)
 
-
-def RegisterCreateView(request):
-    form = CreateUserForm()
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, "Conta foi criada " + user)
-            return redirect("register:cadastrados")
-
-    context = {
-        'form': form
-    }
-
-    return render(request, "Pessoa/detail_create.html", context)
-
-
-#class RegisterCreateView(generic.CreateView):
-#    model = Pessoa
-#    template_name = "Pessoa/detail_create.html"
-#    form_class = PessoaForm
-#    success_url = reverse_lazy("register:cadastrados")
+class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
+   model = User
+   template_name = "Pessoa/detail_create.html"
+   form_class = CreateUserForm
+   success_url = reverse_lazy("register:cadastrados")
+   success_message = 'Sua conta foi criada com sucesso!'
 
 
 def register_detail_view(request, id):
