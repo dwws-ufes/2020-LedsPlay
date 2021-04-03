@@ -14,4 +14,4 @@ def update_user_view(request, id):
         form.save()
         return HttpResponseRedirect(reverse("register:cadastrados"))
 
-    return render(request, "Pessoa/atualizar_cadastrado.html", {"form": form, obj: obj})
+    return render(request, "Pessoa/detail_form.html", {"form": form, obj: obj})
