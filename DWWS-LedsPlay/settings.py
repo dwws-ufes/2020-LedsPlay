@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "costumer",
     "django_filters",
     "cpf_field",
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

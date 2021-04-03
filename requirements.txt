@@ -3,3 +3,4 @@ psycopg2-binary>=2.8
 django-seed
 django-filter==2.4.0
 django-cpf==0.1.0
+django-phonenumber-field[phonenumbers]==5.0.0
