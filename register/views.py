@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
 
 from register.forms import PessoaForm, DefineUserForm, OrdemForm, CreateUserForm, LoginForm
 from django.urls import reverse
@@ -30,13 +32,18 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             if username and password and user:
                 login(request, user)
-                return redirect("index_view")
+                return HttpResponseRedirect(reverse('index_view'))
         
         data = { 
             'form': form,
             'error': 'Username ou password incorreto'
         }     
         return render(request, 'Pessoa/login.html', data)
+
+class LogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse('index_view'))
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
    model = User
