@@ -1,0 +1,16 @@
+{% extends 'Dashboard/main.html' %}
+{% load static %}
+{% block content %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form }}
+            <hr>
+        {% endfor %}
+        <input type="submit" names="submit">
+    </form>
+
+
+{% endblock %}

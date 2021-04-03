@@ -11,16 +11,17 @@
 		<h5>PESSOAS:</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'register:cadastro' %}">Create Customer</a>
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'register:cadastro' %}">Criar Usuário</a>
 			<table class="table table-sm">
 				<tr>
+                    <th>Acessar</th>
 					<th>Pessoa</th>
 					<th>Email</th>
 				</tr>
 
 				{% for customer in customers %}
 					<tr>
-
+                        <td><a class="btn btn-primary  btn-sm btn-info" href="{% url 'customer' customer.id %}">Ver Usuário</a></td>
 						<td>{{customer.nome}}</td>
 						<td>{{customer.email}}</td>
 					</tr>
@@ -34,7 +35,6 @@
 		<h5>ORDEMS</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create Order</a>
 			<table class="table table-sm">
 				<tr>
 					<th>Competencia Necessária</th>
@@ -49,8 +49,8 @@
 						<td>{{order.competencia}}</td>
 						<td>{{order.data_created}}</td>
 						<td>{{order.status}}</td>
-						<td><a href="">Update</a></td>
-						<td><a href="">Delete</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'updateOrdem' order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'deleteOrdem' order.id %}">Deletar</a></td>
 
 					</tr>
 				{% endfor %}

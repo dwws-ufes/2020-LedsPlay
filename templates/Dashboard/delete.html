@@ -1,0 +1,13 @@
+{% extends 'Dashboard/main.html' %}
+{% load static %}
+{% block content %}
+
+    <p>Tem certeza que quer deletar "{{ order }}""?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <a  href="{% url 'dashboard' %}">Cancelar</a>
+        <input type="submit" name="Confirmar">
+    </form>
+
+
+{% endblock %}

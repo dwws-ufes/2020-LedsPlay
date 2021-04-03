@@ -9,8 +9,9 @@
 		<div class="card card-body">
 			<h5>Customer: {{ pessoa.nome }}</h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'register:update' pessoa.id %}">Update Customer</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' pessoa.id %}">Delete Customer</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'register:update' pessoa.id %}">Update Cliente</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'CreateOrder' pessoa.id %}">Criar Ordem</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' pessoa.id %}">Deletar Cliente</a>
 
 		</div>
 	</div>
@@ -39,8 +40,8 @@
 	<div class="col">
 		<div class="card card-body">
 			<form method="get">
-
-		    <button class="btn btn-primary" type="submit">Search</button>
+                {{myFilter.form}}
+		    <button class="btn btn-primary" type="submit">Buscar</button>
 		  </form>
 		</div>
 	</div>
@@ -68,8 +69,8 @@
                         <td>{{order.competencia.categoria}}</td>
                         <td>{{order.data_created}}</td>
                         <td>{{order.status}}</td>
-                        <td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="">Remover</a></td>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'updateOrdem' order.id %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'deleteOrdem' order.id %}">Remover</a></td>
                     </tr>
                 {% endfor %}
 
