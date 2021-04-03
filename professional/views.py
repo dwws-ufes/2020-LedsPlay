@@ -1,17 +1,21 @@
-from django.shortcuts import render
 from .models import Profissional
 from .forms import ProfissionalForm
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.urls.base import reverse_lazy
+from django.views import generic
 
-# Create your views here.
-def update_user_view(request, id):
-    obj = get_object_or_404(Profissional, id=id)
 
-    form = ProfissionalForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse("register:cadastrados"))
+class UpdateProfissionalView(generic.UpdateView):
+    model = Profissional
+    form_class = ProfissionalForm
+    template_name = "Pessoa/detail_form.html"
+    success_url = reverse_lazy(
+        "register:cadastrados"
+    )  # TODO: Redirecionar pra dashboard do profissional
 
-    return render(request, "Pessoa/detail_form.html", {"form": form, obj: obj})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Atualizar usuário"
+        return context
+
+    def get_object(self):
+        return Profissional.objects.get(pk=self.request.user.pk)

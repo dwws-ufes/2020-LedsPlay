@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "professional",
     "costumer",
     "django_filters",
+    "cpf_field",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -107,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
@@ -123,4 +125,4 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-LOGIN_URL = '/login/'
+LOGIN_URL = "/login/"
