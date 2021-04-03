@@ -1,14 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime
 
 
 class Pessoa(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, null=True)
     nome = models.CharField(max_length=120, null=True)
     sexo = models.CharField(max_length=1, null=True)
-    email = models.EmailField(max_length=120, null=True)
     cidade = models.CharField(max_length=120, null=True)
     nascimento = models.DateField(default=datetime.date.today, null=True)
-    password = models.CharField(max_length=128, null=True)
     user_type = models.CharField(max_length=50, default=None, null=True)
 
     def __str__(self):

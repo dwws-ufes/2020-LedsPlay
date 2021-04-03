@@ -23,7 +23,7 @@ class LoginForm(forms.Form):
 class PessoaForm(forms.ModelForm):
     class Meta:
         model = Pessoa
-        fields = ["nome", "sexo", "email", "cidade", "nascimento", "password"]
+        fields = ["nome", "sexo", "cidade", "nascimento"]
 
     def __init__(self, *args, **kwargs):
         super(PessoaForm, self).__init__(*args, **kwargs)
