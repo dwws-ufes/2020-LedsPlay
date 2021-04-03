@@ -20,15 +20,16 @@ class Pessoa(models.Model):
     def convert(self, subclass):
         self.user_type = str(subclass)
         self.save()
-        fields = [f.name for f in self._meta.fields if f.name != 'id']
-        values = dict( [(x, getattr(self, x)) for x in fields])
+        fields = [f.name for f in self._meta.fields if f.name != "id"]
+        values = dict([(x, getattr(self, x)) for x in fields])
         new_instance = subclass(**values)
         self.delete()
         new_instance.save()
 
+
 @receiver(post_save, sender=User)
 def update_profile_signal(sender, instance, created, **kwargs):
-    if created:     
+    if created:
         Pessoa.objects.create(user=instance)
     instance.pessoa.nome = instance.username
     instance.pessoa.save()

@@ -10,4 +10,4 @@ class ProfissionalForm(PessoaForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfissionalForm, self).__init__(*args, **kwargs)
-        self.fields['cpf'].widget.attrs['placeholder'] = "000.000.000-00"
+        self.fields["cpf"].widget.attrs["placeholder"] = "000.000.000-00"

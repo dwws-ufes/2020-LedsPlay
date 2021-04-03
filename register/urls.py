@@ -11,5 +11,5 @@ urlpatterns = [
     path("competencias/", views.register_competencia_view, name="competencias"),
     path("atualizar/<int:pk>", views.RegisterUpdateView.as_view(), name="update"),
     path("deletar/<int:pk>", views.RegisterDeleteView.as_view(), name="delete"),
-    path("define/", views.DefineUserTypeView.as_view(), name="define_user")
+    path("define/", views.DefineUserTypeView.as_view(), name="define_user"),
 ]

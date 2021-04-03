@@ -5,18 +5,21 @@ from django.contrib.auth.models import User
 
 ###TESTE###
 
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username',
-                  'email',
-                  'password1',
-                  'password2',
-                  ]
+        fields = [
+            "username",
+            "email",
+            "password1",
+            "password2",
+        ]
+
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='Usuário')
-    password = forms.CharField(label='Senha', widget=forms.PasswordInput)
+    username = forms.CharField(label="Usuário")
+    password = forms.CharField(label="Senha", widget=forms.PasswordInput)
 
 
 class PessoaForm(forms.ModelForm):
@@ -26,18 +29,18 @@ class PessoaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PessoaForm, self).__init__(*args, **kwargs)
-        self.fields['nascimento'].widget = forms.DateInput()
-        self.fields['sexo'].widget.attrs['placeholder'] = "M ou F"
+        self.fields["nascimento"].widget = forms.DateInput()
+        self.fields["sexo"].widget.attrs["placeholder"] = "M ou F"
 
 
 class DefineUserForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(DefineUserForm, self).__init__(*args, **kwargs)
-        choices = [('0', 'Cliente'), ('1', 'Profissional')]
-        self.fields['selecione'] = forms.ChoiceField(choices=choices)
+        choices = [("0", "Cliente"), ("1", "Profissional")]
+        self.fields["selecione"] = forms.ChoiceField(choices=choices)
 
 
 class OrdemForm(forms.ModelForm):
     class Meta:
         model = Ordem
-        fields = '__all__'
+        fields = "__all__"
