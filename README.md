@@ -29,7 +29,9 @@ Adicione o nome da biblioteca nova no arquivo `requirements.txt`
 Django>=3.0,<4.0
 psycopg2-binary>=2.8
 django-seed
-python-dotenv
+django-filter==2.4.0
+django-cpf==0.1.0
+django-phonenumber-field[phonenumbers]==5.0.0
 ```
 
 Digite o comando para buildar a nova imagem e inicializar a aplicação atualizada
