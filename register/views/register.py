@@ -6,6 +6,7 @@ from django.forms import inlineformset_factory
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from register.forms import DefineUserForm, OrdemForm, CreateUserForm
 from django.urls import reverse
@@ -15,6 +16,7 @@ from ..filters import OrdemFilter
 
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
+
     model = User
     template_name = "Pessoa/detail_form.html"
     form_class = CreateUserForm
@@ -27,6 +29,7 @@ class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
         return context
 
 
+@login_required(login_url="login")
 def register_detail_view(request, id):
     obj = get_object_or_404(Pessoa, id=id)
     context = {"Pessoa": obj}
@@ -34,6 +37,7 @@ def register_detail_view(request, id):
     return render(request, "Pessoa/detail.html", context)
 
 
+@login_required(login_url="login")
 def register_list_view(request):
     queryset = User.objects.all()
     print(request.user)
@@ -99,7 +103,7 @@ class DefineUserTypeView(LoginRequiredMixin, View):
 
         return render(request, "Pessoa/define_user.html", {"form": form})
 
-
+@login_required(login_url="login")
 def register_competencia_view(request):
     competencias = Competencia.objects.all()
     context = {"competencias_list": competencias}
@@ -111,12 +115,11 @@ def register_competencia_view(request):
 ################################################
 
 
-def home(request):
+@login_required(login_url="login")
+def dashboard(request):
     orders = Ordem.objects.all()
-    customers = Pessoa.objects.all()
+    customers = User.objects.all()
     competencias = Competencia.objects.all()
-
-    total_customers = customers.count()
 
     total_orders = orders.count()
     delivered = orders.filter(status="FINALIZADO").count()
@@ -140,8 +143,9 @@ def products(request):
     return render(request, "Dashboard/products.html", {"products": products})
 
 
+@login_required(login_url="login")
 def customer(request, pk):
-    pessoa = Pessoa.objects.get(id=pk)
+    pessoa = User.objects.get(id=pk)
     ordens = pessoa.ordem_set.all()
     order_count = ordens.count()
 
@@ -157,9 +161,10 @@ def customer(request, pk):
     return render(request, "Dashboard/customer.html", context)
 
 
+@login_required(login_url="login")
 def createOrder(request, pk):
     OrderFormSet = inlineformset_factory(
-        Pessoa, Ordem, fields=("competencia", "status"), extra=5
+        User, Ordem, fields=("competencia", "status"), extra=5
     )
     customer = Pessoa.objects.get(id=pk)
     formset = OrderFormSet(queryset=Ordem.objects.none(), instance=customer)
@@ -173,6 +178,7 @@ def createOrder(request, pk):
     return render(request, "Dashboard/form.html", context)
 
 
+@login_required(login_url="login")
 def updateOrdem(request, pk):
     order = Ordem.objects.get(id=pk)
     form = OrdemForm(instance=order)
@@ -187,6 +193,7 @@ def updateOrdem(request, pk):
     return render(request, "Dashboard/form.html", context)
 
 
+@login_required(login_url="login")
 def deleteOrdem(request, pk):
     order = Ordem.objects.get(id=pk)
     if request.method == "POST":

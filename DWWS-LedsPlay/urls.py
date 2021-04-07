@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 from pages.views import index_view, generic_page_view, elementos_view
 from register.views import (
-    home,
+    dashboard,
     customer,
     createOrder,
     updateOrdem,
@@ -43,8 +43,11 @@ urlpatterns = [
     path("register/", include("register.urls")),
     path("professional/", include("professional.urls")),
     path("costumer/", include("costumer.urls")),
+
+
+
     ##TESTE##
-    path("dashboard/", home, name="dashboard"),
+    path("dashboard/", dashboard, name="dashboard"),
     path("customer/<str:pk>", customer, name="customer"),
     path("create_order/<str:pk>", createOrder, name="CreateOrder"),
     path("update_order/<str:pk>", updateOrdem, name="updateOrdem"),

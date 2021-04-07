@@ -58,7 +58,7 @@ class Ordem(models.Model):
         ("FINALIZADO", "FINALIZADO"),
     )
 
-    nome = models.ForeignKey(Pessoa, null=True, on_delete=models.SET_NULL)
+    nome = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     competencia = models.ForeignKey(Competencia, null=True, on_delete=models.SET_NULL)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=120, null=True, choices=STATUS)
