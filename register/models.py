@@ -35,13 +35,6 @@ def update_profile_signal(sender, instance, created, **kwargs):
     instance.pessoa.save()
 
 
-class Tag(models.Model):
-    nome = models.CharField(max_length=120, null=True)
-
-    def __str__(self):
-        return "%s" % self.nome
-
-
 class Competencia(models.Model):
     STATUS = (
         ("CATEGORIA 1", "CATEGORIA 1"),
@@ -53,7 +46,6 @@ class Competencia(models.Model):
     categoria = models.CharField(max_length=120, null=True, choices=STATUS)
     descricao = models.CharField(max_length=120, null=True)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
-    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return "%s" % self.nome

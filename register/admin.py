@@ -6,4 +6,3 @@ from .models import *
 admin.site.register(Pessoa)
 admin.site.register(Ordem)
 admin.site.register(Competencia)
-admin.site.register(Tag)
