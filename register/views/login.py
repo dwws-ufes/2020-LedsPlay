@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import logout
 
 from register.forms import LoginForm
 from django.urls import reverse
@@ -11,6 +11,7 @@ from ..models import *
 
 
 class LoginView(View):
+
     def get(self, request):
         data = {"form": LoginForm()}
         return render(request, "Pessoa/login.html", data)

@@ -142,6 +142,11 @@ def products(request):
 
     return render(request, "Dashboard/products.html", {"products": products})
 
+def cliente_view(request):
+    context={}
+    return render(request, "Dashboard/user.html", context)
+
+
 
 @login_required(login_url="login")
 def customer(request, pk):
