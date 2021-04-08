@@ -8,3 +8,18 @@ class Profissional(Pessoa):
     cpf = CPFField("cpf", null=True)
     contato = PhoneNumberField(region="BR", null=True)
     media = models.FloatField(null=True)
+
+class Competencia(models.Model):
+    STATUS = (
+        ("CATEGORIA 1", "CATEGORIA 1"),
+        ("CATEGORIA 2", "CATEGORIA 2"),
+        ("CATEGORIA 3", "CATEGORIA 3"),
+    )
+
+    nome = models.CharField(max_length=120, null=True)
+    categoria = models.CharField(max_length=120, null=True, choices=STATUS)
+    descricao = models.CharField(max_length=120, null=True)
+    data_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return "%s" % self.nome

@@ -24,13 +24,11 @@ from django.conf.urls.static import static
 from pages.views import index_view, generic_page_view, elementos_view
 from register.views import (
     dashboard,
-    customer,
-    createOrder,
-    updateOrdem,
-    deleteOrdem,
     LoginView,
     LogoutView,
 )
+
+from costumer.views import customer, createOrder, updateOrdem, deleteOrdem
 
 urlpatterns = [
     path("admin/", admin.site.urls,),
@@ -48,10 +46,10 @@ urlpatterns = [
 
     ##TESTE##
     path("dashboard/", dashboard, name="dashboard"),
-    path("customer/<str:pk>", customer, name="customer"),
-    path("create_order/<str:pk>", createOrder, name="CreateOrder"),
-    path("update_order/<str:pk>", updateOrdem, name="updateOrdem"),
-    path("delete_order/<str:pk>", deleteOrdem, name="deleteOrdem"),
+    path("customer/<int:pk>", customer, name="customer"),
+    path("create_order/<int:pk>", createOrder, name="CreateOrder"),
+    path("update_order/<int:pk>", updateOrdem, name="updateOrdem"),
+    path("delete_order/<int:pk>", deleteOrdem, name="deleteOrdem"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

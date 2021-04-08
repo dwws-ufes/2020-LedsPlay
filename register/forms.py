@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pessoa, Ordem
+from .models import Pessoa
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -38,9 +38,3 @@ class DefineUserForm(forms.Form):
         super(DefineUserForm, self).__init__(*args, **kwargs)
         choices = [("0", "Cliente"), ("1", "Profissional")]
         self.fields["selecione"] = forms.ChoiceField(choices=choices)
-
-
-class OrdemForm(forms.ModelForm):
-    class Meta:
-        model = Ordem
-        fields = "__all__"

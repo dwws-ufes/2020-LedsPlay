@@ -8,11 +8,14 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-from register.forms import DefineUserForm, OrdemForm, CreateUserForm
+from ..forms import DefineUserForm, CreateUserForm
 from django.urls import reverse
 from django.views import generic, View
 from ..models import *
-from ..filters import OrdemFilter
+
+from costumer.models import Ordem
+from professional.models import Competencia
+
 
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
@@ -65,44 +68,6 @@ class RegisterDeleteView(generic.DeleteView):
     template_name = "Pessoa/confirm_delete.html"
 
 
-class DefineUserTypeView(LoginRequiredMixin, View):
-    def get(self, request):
-        user = request.user
-        if user.pessoa.user_type is not None:
-            return HttpResponseRedirect(
-                reverse("index_view")
-            )  ## TODO: Retornar para a tela de configuração do profissional/cliente
-        data = {"form": DefineUserForm()}
-
-        return render(request, "Pessoa/define_user.html", data)
-
-    def post(self, request):
-        form = DefineUserForm(data=request.POST)
-        user = request.user
-
-        if form.is_valid():
-            if user.pessoa.user_type is not None:
-                return HttpResponseRedirect(
-                    reverse("index_view")
-                )  ## TODO: Retornar para a tela de configuração do profissional/cliente
-            choice = int(form.cleaned_data["selecione"])
-            if choice == 0:
-                from costumer.models import Cliente
-
-                subclass = Cliente
-            elif choice == 1:
-                from professional.models import Profissional
-
-                subclass = Profissional
-            else:
-                return HttpResponse(request, status=404)
-            user.pessoa.convert(subclass)
-            return HttpResponseRedirect(
-                reverse("index_view")
-            )  ## TODO: Retornar para a tela de configuração do profissional/cliente
-
-        return render(request, "Pessoa/define_user.html", {"form": form})
-
 @login_required(login_url="login")
 def register_competencia_view(request):
     competencias = Competencia.objects.all()
@@ -137,72 +102,11 @@ def dashboard(request):
     return render(request, "Dashboard/dashboard.html", context)
 
 
-def products(request):
-    products = Competencia.objects.all()
+# def products(request):
+#     products = Competencia.objects.all()
 
-    return render(request, "Dashboard/products.html", {"products": products})
+#     return render(request, "Dashboard/products.html", {"products": products})
 
-def cliente_view(request):
-    context={}
-    return render(request, "Dashboard/user.html", context)
-
-
-
-@login_required(login_url="login")
-def customer(request, pk):
-    pessoa = User.objects.get(id=pk)
-    ordens = pessoa.ordem_set.all()
-    order_count = ordens.count()
-
-    myFilter = OrdemFilter(request.GET, queryset=ordens)
-    ordens = myFilter.qs
-
-    context = {
-        "pessoa": pessoa,
-        "ordens": ordens,
-        "order_count": order_count,
-        "myFilter": myFilter,
-    }
-    return render(request, "Dashboard/customer.html", context)
-
-
-@login_required(login_url="login")
-def createOrder(request, pk):
-    OrderFormSet = inlineformset_factory(
-        User, Ordem, fields=("competencia", "status"), extra=5
-    )
-    customer = Pessoa.objects.get(id=pk)
-    formset = OrderFormSet(queryset=Ordem.objects.none(), instance=customer)
-    if request.method == "POST":
-        formset = OrderFormSet(request.POST, instance=customer)
-        if formset.is_valid():
-            formset.save()
-            return redirect("/")
-
-    context = {"formset": formset}
-    return render(request, "Dashboard/form.html", context)
-
-
-@login_required(login_url="login")
-def updateOrdem(request, pk):
-    order = Ordem.objects.get(id=pk)
-    form = OrdemForm(instance=order)
-
-    if request.method == "POST":
-        form = OrdemForm(request.POST, instance=order)
-        if form.is_valid():
-            form.save()
-            return redirect("/")
-
-    context = {"form": form}
-    return render(request, "Dashboard/form.html", context)
-
-
-@login_required(login_url="login")
-def deleteOrdem(request, pk):
-    order = Ordem.objects.get(id=pk)
-    if request.method == "POST":
-        order.delete()
-        return redirect("/")
-    context = {"order": order}
-    return render(request, "Dashboard/delete.html", context)
+# def cliente_view(request):
+#     context={}
+#     return render(request, "Dashboard/user.html", context)
