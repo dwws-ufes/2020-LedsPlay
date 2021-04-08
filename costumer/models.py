@@ -10,7 +10,7 @@ class Cliente(Pessoa):
 class Ordem(models.Model):
     STATUS = (
         ("STAND BY", "STAND BY"),
-        ("EM OPERATAÇÃO", "EM OPERAÇÂO"),
+        ("EM OPERAÇÃO", "EM OPERAÇÃO"),
         ("FINALIZADO", "FINALIZADO"),
     )
 

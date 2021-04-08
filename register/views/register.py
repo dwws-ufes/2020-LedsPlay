@@ -34,7 +34,6 @@ def register_detail_view(request, id):
 @login_required(login_url="login")
 def register_list_view(request):
     queryset = User.objects.all()
-    print(request.user)
 
     context = {"pessoa_list": queryset}
 

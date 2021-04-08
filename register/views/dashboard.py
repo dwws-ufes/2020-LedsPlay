@@ -51,7 +51,6 @@ class DefineUserTypeView(LoginRequiredMixin, View):
 class UserDashboard(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
-        print(user.pessoa.user_type)
         if user.pessoa.user_type is None:
             return redirect("register:define_user")
         elif user.pessoa.user_type == "Cliente":
