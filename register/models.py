@@ -18,7 +18,7 @@ class Pessoa(models.Model):
         return "%s" % self.nome
 
     def convert(self, subclass):
-        self.user_type = str(subclass)
+        self.user_type = subclass.__name__
         self.save()
         fields = [f.name for f in self._meta.fields if f.name != "id"]
         values = dict([(x, getattr(self, x)) for x in fields])

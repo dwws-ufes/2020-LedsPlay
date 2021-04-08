@@ -3,15 +3,16 @@ from django.contrib.auth.models import User
 from register.models import Pessoa
 from .forms import ClienteForm
 from django.urls.base import reverse, reverse_lazy
-from django.views import generic
+from django.views import generic, View
 from django.forms import inlineformset_factory
 from .filters import OrdemFilter
 from .forms import OrdemForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class UpdateClienteView(generic.UpdateView):
+class UpdateClienteView(LoginRequiredMixin, generic.UpdateView):
     model = Cliente
     form_class = ClienteForm
     template_name = "Pessoa/detail_form.html"
@@ -26,24 +27,25 @@ class UpdateClienteView(generic.UpdateView):
         return Cliente.objects.get(pk=self.request.user.pk)
 
 
-@login_required(login_url="login")
-def customer(request, **args):
-    pessoa = Cliente.objects.get(pk=args.get("pk"))
-    ordens = pessoa.ordem_set.all()
-    order_count = ordens.count()
+class CostumerDashboardView(LoginRequiredMixin, View):
+    def get(self, request):
+        cliente = Cliente.objects.get(pk=request.user.pk)
+        ordens = cliente.ordem_set.all()
+        order_count = ordens.count()
 
-    myFilter = OrdemFilter(request.GET, queryset=ordens)
-    ordens = myFilter.qs
+        myFilter = OrdemFilter(request.GET, queryset=ordens)
+        ordens = myFilter.qs
 
-    context = {
-        "pessoa": pessoa,
-        "ordens": ordens,
-        "order_count": order_count,
-        "myFilter": myFilter,
-    }
-    return render(request, "Dashboard/customer.html", context)
+        context = {
+            "cliente": cliente,
+            "ordens": ordens,
+            "order_count": order_count,
+            "myFilter": myFilter,
+        }
+        return render(request, "Dashboard/customer.html", context)
 
 
+# TODO: Transformar todas em Classes genéricas
 @login_required(login_url="login")
 def createOrder(request, **args):
     OrderFormSet = inlineformset_factory(

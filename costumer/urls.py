@@ -4,8 +4,7 @@ from . import views
 
 app_name = "costumer"
 urlpatterns = [
-    path("dashboard/", views.customer, name="dashboard"),
-    path("dashboard/<int:pk>", views.customer, name="dashboard"),
+    path("dashboard/", views.CostumerDashboardView.as_view(), name="dashboard"),
     path("order/create/", views.createOrder, name="createOrdem"),
     path("order/create/<int:user_pk>", views.createOrder, name="createOrdem"),
     path("order/update/<int:pk>", views.updateOrdem, name="updateOrdem"),

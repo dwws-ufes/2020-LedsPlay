@@ -8,9 +8,7 @@ class UpdateProfissionalView(generic.UpdateView):
     model = Profissional
     form_class = ProfissionalForm
     template_name = "Pessoa/detail_form.html"
-    success_url = reverse_lazy(
-        "register:cadastrados"
-    )  # TODO: Redirecionar pra dashboard do profissional
+    success_url = reverse_lazy("dashboard")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
