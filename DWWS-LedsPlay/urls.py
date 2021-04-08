@@ -24,13 +24,11 @@ from django.conf.urls.static import static
 from pages.views import index_view, generic_page_view, elementos_view
 from register.views import (
     dashboard,
-    customer,
-    createOrder,
-    updateOrdem,
-    deleteOrdem,
     LoginView,
     LogoutView,
 )
+
+from costumer.views import customer, createOrder, updateOrdem, deleteOrdem
 
 urlpatterns = [
     path("admin/", admin.site.urls,),

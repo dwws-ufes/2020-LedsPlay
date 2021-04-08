@@ -4,5 +4,3 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(Pessoa)
-admin.site.register(Ordem)
-admin.site.register(Competencia)
