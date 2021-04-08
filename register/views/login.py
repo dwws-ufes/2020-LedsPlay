@@ -1,19 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http.response import HttpResponse
-from django.contrib.auth.decorators import login_required
-
-from costumer.models import Ordem, Cliente
-from professional.models import Competencia
 
 
-from register.forms import LoginForm, DefineUserForm
+from register.forms import LoginForm
 from django.urls import reverse
 from django.views import View
 from ..models import *
+
 
 class LoginView(View):
     def get(self, request):
@@ -22,8 +17,6 @@ class LoginView(View):
         else:
             data = {"form": LoginForm()}
             return render(request, "Pessoa/login.html", data)
-
-
 
     def post(self, request):
         form = LoginForm(data=request.POST)
@@ -38,10 +31,12 @@ class LoginView(View):
                     return HttpResponseRedirect(reverse("register:define_user"))
                 return HttpResponseRedirect(reverse("dashboard"))
 
-        data = {"form": form,
-                "error": "Usuário ou Senha incorreto",
-                }
+        data = {
+            "form": form,
+            "error": "Usuário ou Senha incorreto",
+        }
         return render(request, "Pessoa/login.html", data)
+
 
 class LogoutView(LoginRequiredMixin, View):
     def get(self, request):

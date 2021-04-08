@@ -9,6 +9,7 @@ class Profissional(Pessoa):
     contato = PhoneNumberField(region="BR", null=True)
     media = models.FloatField(null=True)
 
+
 class Competencia(models.Model):
     STATUS = (
         ("CATEGORIA 1", "CATEGORIA 1"),

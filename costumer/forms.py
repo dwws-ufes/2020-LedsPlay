@@ -8,6 +8,7 @@ class ClienteForm(PessoaForm):
         model = Cliente
         fields = ["nome", "sexo", "nascimento", "cidade", "interesse"]
 
+
 class OrdemForm(forms.ModelForm):
     class Meta:
         model = Ordem

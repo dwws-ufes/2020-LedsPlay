@@ -10,6 +10,7 @@ from .forms import OrdemForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
+
 class UpdateClienteView(generic.UpdateView):
     model = Cliente
     form_class = ClienteForm
@@ -24,9 +25,10 @@ class UpdateClienteView(generic.UpdateView):
     def get_object(self):
         return Cliente.objects.get(pk=self.request.user.pk)
 
+
 @login_required(login_url="login")
 def customer(request, **args):
-    pessoa = Cliente.objects.get(pk=args.get('pk'))
+    pessoa = Cliente.objects.get(pk=args.get("pk"))
     ordens = pessoa.ordem_set.all()
     order_count = ordens.count()
 
@@ -47,13 +49,13 @@ def createOrder(request, **args):
     OrderFormSet = inlineformset_factory(
         Cliente, Ordem, fields=("competencia", "status"), extra=5
     )
-    customer = Cliente.objects.get(pk=args.get('user_pk'))
+    customer = Cliente.objects.get(pk=args.get("user_pk"))
     formset = OrderFormSet(queryset=Ordem.objects.none(), instance=customer)
     if request.method == "POST":
         formset = OrderFormSet(request.POST, instance=customer)
         if formset.is_valid():
             formset.save()
-            return redirect(reverse('costumer:dashboard'))
+            return redirect(reverse("costumer:dashboard"))
 
     context = {"formset": formset}
     return render(request, "Dashboard/form.html", context)

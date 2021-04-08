@@ -7,18 +7,36 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Competencia',
+            name="Competencia",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=120, null=True)),
-                ('categoria', models.CharField(choices=[('CATEGORIA 1', 'CATEGORIA 1'), ('CATEGORIA 2', 'CATEGORIA 2'), ('CATEGORIA 3', 'CATEGORIA 3')], max_length=120, null=True)),
-                ('descricao', models.CharField(max_length=120, null=True)),
-                ('data_created', models.DateTimeField(auto_now_add=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nome", models.CharField(max_length=120, null=True)),
+                (
+                    "categoria",
+                    models.CharField(
+                        choices=[
+                            ("CATEGORIA 1", "CATEGORIA 1"),
+                            ("CATEGORIA 2", "CATEGORIA 2"),
+                            ("CATEGORIA 3", "CATEGORIA 3"),
+                        ],
+                        max_length=120,
+                        null=True,
+                    ),
+                ),
+                ("descricao", models.CharField(max_length=120, null=True)),
+                ("data_created", models.DateTimeField(auto_now_add=True, null=True)),
             ],
         ),
     ]

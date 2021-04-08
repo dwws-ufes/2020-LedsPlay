@@ -9,27 +9,70 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('register', '0001_initial'),
-        ('professional', '0001_initial'),
+        ("register", "0001_initial"),
+        ("professional", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Cliente',
+            name="Cliente",
             fields=[
-                ('pessoa_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='register.pessoa')),
-                ('interesse', models.CharField(max_length=128, null=True)),
+                (
+                    "pessoa_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="register.pessoa",
+                    ),
+                ),
+                ("interesse", models.CharField(max_length=128, null=True)),
             ],
-            bases=('register.pessoa',),
+            bases=("register.pessoa",),
         ),
         migrations.CreateModel(
-            name='Ordem',
+            name="Ordem",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('data_created', models.DateTimeField(auto_now_add=True, null=True)),
-                ('status', models.CharField(choices=[('STAND BY', 'STAND BY'), ('EM OPERATAÇÃO', 'EM OPERAÇÂO'), ('FINALIZADO', 'FINALIZADO')], max_length=120, null=True)),
-                ('competencia', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='professional.competencia')),
-                ('nome', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='costumer.cliente')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("data_created", models.DateTimeField(auto_now_add=True, null=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("STAND BY", "STAND BY"),
+                            ("EM OPERATAÇÃO", "EM OPERAÇÂO"),
+                            ("FINALIZADO", "FINALIZADO"),
+                        ],
+                        max_length=120,
+                        null=True,
+                    ),
+                ),
+                (
+                    "competencia",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="professional.competencia",
+                    ),
+                ),
+                (
+                    "nome",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="costumer.cliente",
+                    ),
+                ),
             ],
         ),
     ]

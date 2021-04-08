@@ -1,16 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponse
-from django.contrib.auth.decorators import login_required
 
 from costumer.models import Ordem, Cliente
 from professional.models import Competencia
 
 
-from register.forms import LoginForm, DefineUserForm
+from register.forms import DefineUserForm
 from django.urls import reverse
 from django.views import View
 from ..models import *
@@ -53,6 +50,7 @@ class DefineUserTypeView(LoginRequiredMixin, View):
             )  ## TODO: Retornar para a tela de configuração do profissional/cliente
 
         return render(request, "Pessoa/define_user.html", {"form": form})
+
 
 class GeneralDashboard(LoginRequiredMixin, View):
     def get(self, request):

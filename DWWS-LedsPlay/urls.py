@@ -40,9 +40,6 @@ urlpatterns = [
     path("register/", include("register.urls")),
     path("professional/", include("professional.urls")),
     path("costumer/", include("costumer.urls")),
-
-
-
     path("dashboard/", GeneralDashboard.as_view(), name="dashboard"),
 ]
 
