@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -27,9 +28,7 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             if username and password and user:
                 login(request, user)
-                if user.pessoa.user_type is None:
-                    return HttpResponseRedirect(reverse("register:define_user"))
-                return HttpResponseRedirect(reverse("dashboard"))
+                return redirect("dashboard")
 
         data = {
             "form": form,

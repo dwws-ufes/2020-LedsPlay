@@ -3,8 +3,6 @@ from .models import Pessoa
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-###TESTE###
-
 
 class CreateUserForm(UserCreationForm):
     class Meta:
