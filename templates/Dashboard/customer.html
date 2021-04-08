@@ -10,7 +10,7 @@
 			<h5>Customer: {{ pessoa.nome }}</h5>
 			<hr>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Update Cliente</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'CreateOrder' pessoa.pk %}">Criar Ordem</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' pessoa.pk %}">Criar Ordem</a>
 			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' pessoa.pk %}">Deletar Cliente</a>
 
 		</div>

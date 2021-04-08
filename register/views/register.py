@@ -68,38 +68,16 @@ class RegisterDeleteView(generic.DeleteView):
     template_name = "Pessoa/confirm_delete.html"
 
 
-@login_required(login_url="login")
-def register_competencia_view(request):
-    competencias = Competencia.objects.all()
-    context = {"competencias_list": competencias}
-    return render(request, "Competencias/competencias_list_view.html", context)
+# @login_required(login_url="login")
+# def register_competencia_view(request):
+#     competencias = Competencia.objects.all()
+#     context = {"competencias_list": competencias}
+#     return render(request, "Competencias/competencias_list_view.html", context)
 
 
 ################################################
 # TESTE
 ################################################
-
-
-@login_required(login_url="login")
-def dashboard(request):
-    orders = Ordem.objects.all()
-    customers = User.objects.all()
-    competencias = Competencia.objects.all()
-
-    total_orders = orders.count()
-    delivered = orders.filter(status="FINALIZADO").count()
-    pending = orders.filter(status="STAND BY").count()
-
-    context = {
-        "orders": orders,
-        "customers": customers,
-        "competencias": competencias,
-        "total_orders": total_orders,
-        "delivered": delivered,
-        "pending": pending,
-    }
-
-    return render(request, "Dashboard/dashboard.html", context)
 
 
 # def products(request):

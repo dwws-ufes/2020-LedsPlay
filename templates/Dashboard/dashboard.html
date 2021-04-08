@@ -20,7 +20,7 @@
 
 				{% for customer in customers %}
 					<tr>
-                        <td><a class="btn btn-primary  btn-sm btn-info" href="{% url 'customer' customer.id %}">Ver Usuário</a></td>
+                        <td><a class="btn btn-primary  btn-sm btn-info" href="{% url 'costumer:dashboard' customer.pk %}">Ver Usuário</a></td>
 						<td>{{customer.nome}}</td>
 						<td>{{customer.email}}</td>
 					</tr>
@@ -48,8 +48,8 @@
 						<td>{{order.competencia}}</td>
 						<td>{{order.data_created}}</td>
 						<td>{{order.status}}</td>
-						<td><a class="btn btn-sm btn-info" href="{% url 'updateOrdem' order.id %}">Update</a></td>
-						<td><a class="btn btn-sm btn-danger" href="{% url 'deleteOrdem' order.id %}">Deletar</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'costumer:updateOrdem' order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'costumer:deleteOrdem' order.id %}">Deletar</a></td>
 
 					</tr>
 				{% endfor %}
