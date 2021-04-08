@@ -33,5 +33,3 @@ def update_profile_signal(sender, instance, created, **kwargs):
         Pessoa.objects.create(user=instance)
     instance.pessoa.nome = instance.username
     instance.pessoa.save()
-
-

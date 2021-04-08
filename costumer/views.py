@@ -2,7 +2,7 @@ from .models import Cliente, Ordem
 from django.contrib.auth.models import User
 from register.models import Pessoa
 from .forms import ClienteForm
-from django.urls.base import reverse_lazy
+from django.urls.base import reverse, reverse_lazy
 from django.views import generic
 from django.forms import inlineformset_factory
 from .filters import OrdemFilter
@@ -10,13 +10,12 @@ from .forms import OrdemForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
+
 class UpdateClienteView(generic.UpdateView):
     model = Cliente
     form_class = ClienteForm
     template_name = "Pessoa/detail_form.html"
-    success_url = reverse_lazy(
-        "register:cadastrados"
-    )  # TODO: Redirecionar pra dashboard do Cliente
+    success_url = reverse_lazy("costumer:dashboard")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -26,9 +25,10 @@ class UpdateClienteView(generic.UpdateView):
     def get_object(self):
         return Cliente.objects.get(pk=self.request.user.pk)
 
+
 @login_required(login_url="login")
-def customer(request, pk):
-    pessoa = Cliente.objects.get(pk=pk)
+def customer(request, **args):
+    pessoa = Cliente.objects.get(pk=args.get("pk"))
     ordens = pessoa.ordem_set.all()
     order_count = ordens.count()
 
@@ -45,17 +45,17 @@ def customer(request, pk):
 
 
 @login_required(login_url="login")
-def createOrder(request, pk):
+def createOrder(request, **args):
     OrderFormSet = inlineformset_factory(
-        User, Ordem, fields=("competencia", "status"), extra=5
+        Cliente, Ordem, fields=("competencia", "status"), extra=5
     )
-    customer = Pessoa.objects.get(id=pk)
+    customer = Cliente.objects.get(pk=args.get("user_pk"))
     formset = OrderFormSet(queryset=Ordem.objects.none(), instance=customer)
     if request.method == "POST":
         formset = OrderFormSet(request.POST, instance=customer)
         if formset.is_valid():
             formset.save()
-            return redirect("/")
+            return redirect(reverse("costumer:dashboard"))
 
     context = {"formset": formset}
     return render(request, "Dashboard/form.html", context)

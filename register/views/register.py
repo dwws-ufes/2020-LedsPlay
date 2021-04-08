@@ -1,21 +1,12 @@
-from django.http.response import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.urls.base import reverse_lazy
-from django.forms import inlineformset_factory
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-from ..forms import DefineUserForm, CreateUserForm
-from django.urls import reverse
-from django.views import generic, View
+from ..forms import CreateUserForm
+from django.views import generic
 from ..models import *
-
-from costumer.models import Ordem
-from professional.models import Competencia
-
 
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
@@ -66,40 +57,6 @@ class RegisterDeleteView(generic.DeleteView):
     model = User
     success_url = reverse_lazy("register:cadastrados")
     template_name = "Pessoa/confirm_delete.html"
-
-
-@login_required(login_url="login")
-def register_competencia_view(request):
-    competencias = Competencia.objects.all()
-    context = {"competencias_list": competencias}
-    return render(request, "Competencias/competencias_list_view.html", context)
-
-
-################################################
-# TESTE
-################################################
-
-
-@login_required(login_url="login")
-def dashboard(request):
-    orders = Ordem.objects.all()
-    customers = User.objects.all()
-    competencias = Competencia.objects.all()
-
-    total_orders = orders.count()
-    delivered = orders.filter(status="FINALIZADO").count()
-    pending = orders.filter(status="STAND BY").count()
-
-    context = {
-        "orders": orders,
-        "customers": customers,
-        "competencias": competencias,
-        "total_orders": total_orders,
-        "delivered": delivered,
-        "pending": pending,
-    }
-
-    return render(request, "Dashboard/dashboard.html", context)
 
 
 # def products(request):
