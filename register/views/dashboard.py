@@ -6,10 +6,11 @@ from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 
 from costumer.models import Ordem, Cliente
+from costumer.filters import OrdemFilter
 from professional.models import Competencia
 
-
 from register.forms import DefineUserForm
+from register.filters import CompetenciaFilter
 from django.urls import reverse
 from django.views import View
 from ..models import *
@@ -64,7 +65,7 @@ class UserDashboard(LoginRequiredMixin, View):
             if profissional.cpf is None:
                 return redirect("professional:edit")
             else:
-                #return redirect("professional:dashboard") # TODO: redirecionar pra dashboard do profissional
+                # return redirect("professional:dashboard") # TODO: redirecionar pra dashboard do profissional
                 pass
 
         return redirect("index_view")
@@ -92,3 +93,23 @@ class GeneralDashboard(LoginRequiredMixin, View):
         }
 
         return render(request, "Dashboard/dashboard.html", context)
+
+
+class SearchPage(LoginRequiredMixin, View):
+    def get(self, request):
+        user = request.user
+        customers = User.objects.all()
+        competencias = Competencia.objects.all()
+
+
+
+
+        context = {
+            "user": user,
+            "customers": customers,
+            "competencias": competencias,
+
+        }
+
+        return render(request, "Dashboard/searchPage.html", context)
+

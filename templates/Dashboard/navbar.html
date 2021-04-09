@@ -20,7 +20,7 @@
         </li>
         {% if request.user.pessoa.user_type == "Cliente" %}
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'costumer:buscar' %}">Buscar</a>
+            <a class="nav-link" href="{% url 'register:buscar' %}">Buscar</a>
         </li>
 
         {% endif %}

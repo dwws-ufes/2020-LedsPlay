@@ -1,9 +1,7 @@
-{% extends "Industrial/generic.html" %}
-
-{% block content %}
-
-    <div class="table-wrapper">
-        <table>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
             <thead>
             <tr>
                 <th>id</th>
@@ -14,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for competencia in competencias_list%}
+            {% for competencia in competencias%}
             <tr>
                     <th><a href="{% url 'register:update' competencia.id %}">{{ competencia.id }} </a></th>
                     <th>{{ competencia.nome }}</th>
@@ -24,6 +22,7 @@
                     <th>{{ competencia.tags }}</th>
             </tr>
             {% endfor %}
-        </table>
-    </div>
-{% endblock %}
+     </table>
+		</div>
+	</div>
+</div>

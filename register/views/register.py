@@ -58,10 +58,7 @@ class RegisterDeleteView(generic.DeleteView):
     template_name = "Pessoa/confirm_delete.html"
 
 
-# def products(request):
-#     products = Competencia.objects.all()
 
-#     return render(request, "Dashboard/products.html", {"products": products})
 
 # def cliente_view(request):
 #     context={}
