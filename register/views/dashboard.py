@@ -74,6 +74,7 @@ class GeneralDashboard(LoginRequiredMixin, View):
     def get(self, request):
         orders = Ordem.objects.all()
         customers = Cliente.objects.all()
+        user = request.user
         competencias = Competencia.objects.all()
 
         total_orders = orders.count()
@@ -82,6 +83,7 @@ class GeneralDashboard(LoginRequiredMixin, View):
 
         context = {
             "orders": orders,
+            "user": user,
             "customers": customers,
             "competencias": competencias,
             "total_orders": total_orders,

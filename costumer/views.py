@@ -56,6 +56,7 @@ class CreateOrderView(LoginRequiredMixin, View):
         return render(request, "Dashboard/form.html", context)
 
     def post(self, request):
+        self.customer = Cliente.objects.get(pk=request.user.pk)
         formset = self.OrderFormSet(request.POST, instance=self.customer)
         print(formset.is_valid())
         if formset.is_valid():
@@ -65,6 +66,9 @@ class CreateOrderView(LoginRequiredMixin, View):
         return render(request, "Dashboard/form.html", context)
 
 
+class SearchPageView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, "Dashboard/search.html")
 
 # TODO: Transformar todas em Classes genéricas
 @login_required(login_url="login")

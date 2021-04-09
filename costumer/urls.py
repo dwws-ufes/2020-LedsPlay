@@ -9,4 +9,5 @@ urlpatterns = [
     path("order/update/<int:pk>", views.updateOrdem, name="updateOrdem"),
     path("order/delete/<int:pk>", views.deleteOrdem, name="deleteOrdem"),
     path("edit/", views.UpdateClienteView.as_view(), name="edit"),
+    path("search/", views.SearchPageView, name="buscar")
 ]

@@ -2,12 +2,12 @@
 
 {% block content %}
 
-	<br>
+    <br>
 
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Customer: {{ cliente.nome }}</h5>
+			<h5>{{ user.pessoa.user_type }}: {{ user }}</h5>
 			<hr>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Update Cliente</a>
             <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' %}">Criar Ordem</a>
@@ -20,8 +20,8 @@
 		<div class="card card-body">
 			<h5>Contact Information</h5>
 			<hr>
-			<p>Email: {{ cliente.email }} </p>
-			<p>Cidade: {{ cliente.cidade }} </p>
+			<p>Email: {{ user.email }} </p>
+			<p>Cidade: {{ user.pessoa.cidade }} </p>
 		</div>
 	</div>
 
@@ -34,9 +34,9 @@
 	</div>
 </div>
 
-
 <br>
-<div class="row">
+
+    <div class="row">
 	<div class="col">
 		<div class="card card-body">
 			<form method="get">
@@ -45,9 +45,11 @@
 		  </form>
 		</div>
 	</div>
-	
+
+
 </div>
 <br>
+
 
 <div class="row">
 	<div class="col-md">

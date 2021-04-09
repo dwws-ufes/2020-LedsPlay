@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 
+<br>
+    <h1>Selecione as Competências: </h1>
     <form action="" method="POST">
         {% csrf_token %}
         {{ formset.management_form }}
@@ -11,6 +13,6 @@
         {% endfor %}
         <input type="submit" names="submit">
     </form>
-
+<br>
 
 {% endblock %}

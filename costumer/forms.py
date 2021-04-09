@@ -10,6 +10,9 @@ class ClienteForm(PessoaForm):
 
 
 class OrdemForm(forms.ModelForm):
+
     class Meta:
         model = Ordem
         fields = "__all__"
+
+

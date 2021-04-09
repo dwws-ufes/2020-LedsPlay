@@ -21,8 +21,8 @@
 				{% for customer in customers %}
 					<tr>
                         <td><a class="btn btn-primary  btn-sm btn-info" href="{% url 'costumer:dashboard' customer.pk %}">Ver Usuário</a></td>
-						<td>{{customer.nome}}</td>
-						<td>{{customer.email}}</td>
+						<td>{{user}}</td>
+						<td>{{user.pessoa.email}}</td>
 					</tr>
 				{% endfor %}
 

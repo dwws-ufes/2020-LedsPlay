@@ -15,13 +15,14 @@
     <ul class="links">
         <li><a href={% url 'Index_View' %}>Home</a></li>
         {% if not request.user.is_authenticated %}
-        <li><a href={% url 'login' %}>Login</a></li>
-        <li><a href={% url 'register:cadastro' %}>Cadastro</a></li>
+            <li><a href={% url 'login' %}>Login</a></li>
+            <li><a href={% url 'register:cadastro' %}>Cadastro</a></li>
         {% elif request.user.is_authenticated %}
-        <li><a href={% url 'register:cadastrados' %}>Cadastrados</a></li>
-        <li><a href={% url 'Elementos' %}>Elementos</a></li>
-        <li><a href={% url 'Generic_Page' %}>Página Generica</a></li>
-        <li><a href={% url 'logout' %}>Logout</a></li>
+            <li><a href={% url 'costumer:dashboard' %}> Dashboard do {{request.user.pessoa.user_type}}</a></li>
+            <li><a href={% url 'register:cadastrados' %}>Cadastrados</a></li>
+            <li><a href={% url 'Elementos' %}>Elementos</a></li>
+            <li><a href={% url 'Generic_Page' %}>Página Generica</a></li>
+            <li><a href={% url 'logout' %}>Logout</a></li>
         {% endif %}
 
 
