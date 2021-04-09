@@ -64,7 +64,7 @@ class UserDashboard(LoginRequiredMixin, View):
             if profissional.cpf is None:
                 return redirect("professional:edit")
             else:
-                # return redirect("costumer:dashboard") # TODO: redirecionar pra dashboard do profissional
+                #return redirect("professional:dashboard") # TODO: redirecionar pra dashboard do profissional
                 pass
 
         return redirect("index_view")

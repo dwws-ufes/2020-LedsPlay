@@ -68,7 +68,20 @@ class CreateOrderView(LoginRequiredMixin, View):
 
 class SearchPageView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, "Dashboard/search.html")
+        cliente = Cliente.objects.get(pk=request.user.pk)
+        ordens = cliente.ordem_set.all()
+        order_count = ordens.count()
+
+        myFilter = OrdemFilter(request.GET, queryset=ordens)
+        ordens = myFilter.qs
+
+        context = {
+            "cliente": cliente,
+            "ordens": ordens,
+            "order_count": order_count,
+            "myFilter": myFilter,
+        }
+        return render(request, "Dashboard/search.html", context)
 
 # TODO: Transformar todas em Classes genéricas
 @login_required(login_url="login")

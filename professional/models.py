@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Profissional(Pessoa):
     cpf = CPFField("cpf", null=True)
-    contato = PhoneNumberField(region="BR", null=True)
+    telefone = PhoneNumberField(region="BR", null=True)
     media = models.FloatField(null=True)
 
 

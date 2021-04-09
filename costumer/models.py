@@ -1,5 +1,5 @@
 from django.db import models
-from register.models import Pessoa, User
+from register.models import Pessoa
 from professional.models import Competencia
 
 
