@@ -13,11 +13,8 @@ from ..models import *
 
 class LoginView(View):
     def get(self, request):
-        if request.user.is_authenticated:
-            return render(request, "Industrial/index.html")
-        else:
-            data = {"form": LoginForm()}
-            return render(request, "Pessoa/login.html", data)
+        data = {"form": LoginForm()}
+        return render(request, "Pessoa/login.html", data)
 
     def post(self, request):
         form = LoginForm(data=request.POST)

@@ -8,7 +8,7 @@ from django.forms import inlineformset_factory
 from django.views import generic
 from .filters import OrdemFilter
 from .forms import OrdemForm
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
