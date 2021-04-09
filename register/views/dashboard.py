@@ -96,13 +96,11 @@ class GeneralDashboard(LoginRequiredMixin, View):
 
 
 class SearchPage(LoginRequiredMixin, View):
+
     def get(self, request):
         user = request.user
         customers = User.objects.all()
         competencias = Competencia.objects.all()
-
-
-
 
         context = {
             "user": user,
@@ -112,4 +110,3 @@ class SearchPage(LoginRequiredMixin, View):
         }
 
         return render(request, "Dashboard/searchPage.html", context)
-
