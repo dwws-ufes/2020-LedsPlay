@@ -34,51 +34,9 @@
 	</div>
 </div>
 
-<br>
 
-    <div class="row">
-	<div class="col">
-		<div class="card card-body">
-			<form method="get">
-                {{myFilter.form}}
-		    <button class="btn btn-primary" type="submit">Buscar</button>
-		  </form>
-		</div>
-	</div>
+{% include 'Dashboard/search.html'%}
 
-
-</div>
-<br>
-
-
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<table class="table table-sm">
-                <h5>Tabela de Ordens</h5>
-				<tr>
-					<th>Competencia</th>
-					<th>Categoria</th>
-					<th>Data Criada</th>
-					<th>Status</th>
-					<th>Update</th>
-					<th>Remove</th>
-				</tr>
-
-                {% for order in ordens %}
-                    <tr>
-                        <td>{{order.competencia.nome}}</td>
-                        <td>{{order.competencia.categoria}}</td>
-                        <td>{{order.data_created}}</td>
-                        <td>{{order.status}}</td>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'costumer:updateOrdem' order.id %}">Update</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="{% url 'costumer:deleteOrdem' order.id %}">Remover</a></td>
-                    </tr>
-                {% endfor %}
-
-			</table>
-		</div>
-	</div>
-</div>
+{% include 'Dashboard/painel.html' %}
 
 {% endblock %}
