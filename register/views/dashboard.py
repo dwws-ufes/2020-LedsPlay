@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponse
@@ -68,7 +67,7 @@ class UserDashboard(LoginRequiredMixin, View):
                 # return redirect("professional:dashboard") # TODO: redirecionar pra dashboard do profissional
                 pass
 
-        return redirect("index_view")
+        return redirect("index")
 
 
 class GeneralDashboard(LoginRequiredMixin, View):

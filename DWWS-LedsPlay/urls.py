@@ -31,9 +31,9 @@ from register.views import (
 
 
 urlpatterns = [
-    path("", index_view, name="index_view"),
+    path("", index_view, name="index"),
     path("admin/", admin.site.urls,),
-    path("index/", index_view, name="Index_View"),
+    path("index/", index_view, name="index"),
     path("generic/", generic_page_view, name="Generic_Page"),
     path("elementos/", elementos_view, name="Elementos"),
 
