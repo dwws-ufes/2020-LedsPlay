@@ -47,11 +47,16 @@ class CostumerDashboardView(LoginRequiredMixin, View):
 
 
 class CreateOrderView(LoginRequiredMixin, View):
-    OrderFormSet = inlineformset_factory(Cliente, Ordem, fields=("competencia", "status"), extra=5)
+    OrderFormSet = inlineformset_factory(
+        Cliente, Ordem, fields=("competencia", "status"), extra=5
+    )
     customer = None
+
     def get(self, request):
         self.customer = Cliente.objects.get(pk=request.user.pk)
-        formset = self.OrderFormSet(queryset=Ordem.objects.none(), instance=self.customer)
+        formset = self.OrderFormSet(
+            queryset=Ordem.objects.none(), instance=self.customer
+        )
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
@@ -83,13 +88,14 @@ class SearchPageView(LoginRequiredMixin, View):
         }
         return render(request, "Dashboard/search.html", context)
 
-class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView): 
+
+class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView):
     model = Ordem
     form_class = OrdemForm
-    template_name = "Dashboard/form.html" # TODO: Esse template ta bugado
+    template_name = "Dashboard/form.html"  # TODO: Esse template ta bugado
     success_url = reverse_lazy("costumer:dashboard")
 
-    def get_object(self, **kwargs): 
+    def get_object(self, **kwargs):
         ordem_pk = self.kwargs.get(self.pk_url_kwarg)
         cliente = Cliente.objects.get(pk=self.request.user.pk)
         ordem = Ordem.objects.get(pk=ordem_pk)
@@ -98,13 +104,13 @@ class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView):
             return ordem
         return None
 
+
 class DeleteOrdemView(LoginRequiredMixin, generic.DeleteView):
     model = Ordem
     template_name = "Dashboard/delete.html"
     success_url = reverse_lazy("costumer:dashboard")
-    
 
-    def get_object(self): 
+    def get_object(self):
         ordem_pk = self.kwargs.get(self.pk_url_kwarg)
         cliente = Cliente.objects.get(pk=self.request.user.pk)
         ordem = Ordem.objects.get(pk=ordem_pk)

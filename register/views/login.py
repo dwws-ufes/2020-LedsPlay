@@ -36,4 +36,4 @@ class LoginView(View):
 class LogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
-        return redirect('index')
+        return redirect("index")

@@ -58,8 +58,6 @@ class RegisterDeleteView(generic.DeleteView):
     template_name = "Pessoa/confirm_delete.html"
 
 
-
-
 # def cliente_view(request):
 #     context={}
 #     return render(request, "Dashboard/user.html", context)
