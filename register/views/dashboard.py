@@ -98,7 +98,12 @@ class SearchPage(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         customers = User.objects.all()
-        competencias = Competencia.objects.all()
+        search = request.GET.get("search")
+        if search == "":
+            competencias = Competencia.objects.all()
+        else:
+            competencias = Competencia.objects.all().filter(nome=search)
+            # profissional = Professional.objects.all().filter(nome=search) TODO: buscar profissionais
 
         context = {
             "user": user,
