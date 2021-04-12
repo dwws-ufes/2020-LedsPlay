@@ -19,5 +19,3 @@ class UpdateProfissionalView(generic.UpdateView):
 
     def get_object(self):
         return Profissional.objects.get(pk=self.request.user.pk)
-
-

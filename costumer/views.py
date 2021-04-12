@@ -47,11 +47,16 @@ class CostumerDashboardView(LoginRequiredMixin, View):
 
 
 class CreateOrderView(LoginRequiredMixin, View):
-    OrderFormSet = inlineformset_factory(Cliente, Ordem, fields=("competencia", "status"), extra=5)
+    OrderFormSet = inlineformset_factory(
+        Cliente, Ordem, fields=("competencia", "status"), extra=5
+    )
     customer = None
+
     def get(self, request):
         self.customer = Cliente.objects.get(pk=request.user.pk)
-        formset = self.OrderFormSet(queryset=Ordem.objects.none(), instance=self.customer)
+        formset = self.OrderFormSet(
+            queryset=Ordem.objects.none(), instance=self.customer
+        )
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
@@ -83,27 +88,33 @@ class SearchPageView(LoginRequiredMixin, View):
         }
         return render(request, "Dashboard/search.html", context)
 
-# TODO: Transformar todas em Classes genéricas
-@login_required(login_url="login")
-def updateOrdem(request, pk):
-    order = Ordem.objects.get(id=pk)
-    form = OrdemForm(instance=order)
 
-    if request.method == "POST":
-        form = OrdemForm(request.POST, instance=order)
-        if form.is_valid():
-            form.save()
-            return redirect("/")
+class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView):
+    model = Ordem
+    form_class = OrdemForm
+    template_name = "Dashboard/form.html"  # TODO: Esse template ta bugado
+    success_url = reverse_lazy("costumer:dashboard")
 
-    context = {"form": form}
-    return render(request, "Dashboard/form.html", context)
+    def get_object(self, **kwargs):
+        ordem_pk = self.kwargs.get(self.pk_url_kwarg)
+        cliente = Cliente.objects.get(pk=self.request.user.pk)
+        ordem = Ordem.objects.get(pk=ordem_pk)
+        # Cliente só edita as ordens dele
+        if cliente == ordem.nome:
+            return ordem
+        return None
 
 
-@login_required(login_url="login")
-def deleteOrdem(request, pk):
-    order = Ordem.objects.get(id=pk)
-    if request.method == "POST":
-        order.delete()
-        return redirect("/")
-    context = {"order": order}
-    return render(request, "Dashboard/delete.html", context)
+class DeleteOrdemView(LoginRequiredMixin, generic.DeleteView):
+    model = Ordem
+    template_name = "Dashboard/delete.html"
+    success_url = reverse_lazy("costumer:dashboard")
+
+    def get_object(self):
+        ordem_pk = self.kwargs.get(self.pk_url_kwarg)
+        cliente = Cliente.objects.get(pk=self.request.user.pk)
+        ordem = Ordem.objects.get(pk=ordem_pk)
+        # Cliente só deleta as ordens dele
+        if cliente == ordem.nome:
+            return ordem
+        return None
