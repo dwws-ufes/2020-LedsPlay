@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "su!pxznq8_#t(u63iugo$hmoay&&7f^z5r-4cb&e#tb41j-_r&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = eval(os.getenv('DEBUG', True))
+DEBUG = eval(os.getenv('DEBUG', "True"))
 
 ALLOWED_HOSTS = ["localhost", "ledsplay.davipetris.me"]
 
@@ -128,6 +128,6 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 LOGIN_URL = "/login/"
 
-CSRF_COOKIE_SECURE = eval(os.getenv("CSRF_COOKIE_SECURE", False))
+CSRF_COOKIE_SECURE = eval(os.getenv("CSRF_COOKIE_SECURE", "False"))
 
-SESSION_COOKIE_SECURE = eval(os.getenv("SESSION_COOKIE_SECURE", False))
+SESSION_COOKIE_SECURE = eval(os.getenv("SESSION_COOKIE_SECURE", "False"))
