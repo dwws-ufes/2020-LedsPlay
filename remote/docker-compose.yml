@@ -12,6 +12,10 @@ services:
     build: .
     image: ledsplay-image
     command: gunicorn --bind 0.0.0.0:8000 DWWS-LedsPlay.wsgi:application
+    environment:
+      - DEBUG=False
+      - SESSION_COOKIE_SECURE=True
+      - CSRF_COOKIE_SECURE=True
     volumes:
       - .:/code
     depends_on:
