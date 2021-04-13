@@ -1,3 +1,9 @@
+from .models import Pessoa
+from costumer.models import Ordem, Cliente
+from professional.models import Competencia
+from django.db import models
+
+
 # ***(1)Retorna todos os Usuários do DB
 customers = Pessoa.objects.all()
 
@@ -60,7 +66,7 @@ class ParentModel(models.Model):
 
 
 class ChildModel(models.Model):
-    parent = models.ForeignKey(Customer)
+    parent = models.ForeignKey(Cliente)
     name = models.CharField(max_length=200, null=True)
 
 
