@@ -7,7 +7,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from register.forms import LoginForm
 from django.urls import reverse
 from django.views import View
-from ..models import *
 
 
 class LoginView(View):

@@ -3,16 +3,15 @@ from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
+from django.contrib.auth.models import User
+
 
 from costumer.models import Ordem, Cliente
-from costumer.filters import OrdemFilter
 from professional.models import Competencia
 
 from register.forms import DefineUserForm
-from register.filters import CompetenciaFilter
 from django.urls import reverse
 from django.views import View
-from ..models import *
 
 
 class DefineUserTypeView(LoginRequiredMixin, View):
@@ -64,8 +63,9 @@ class UserDashboard(LoginRequiredMixin, View):
             if profissional.cpf is None:
                 return redirect("professional:edit")
             else:
-                # return redirect("professional:dashboard") # TODO: redirecionar pra dashboard do profissional
-                pass
+                return redirect(
+                    "index"
+                )  # TODO: redirecionar pra dashboard do profissional
 
         return redirect("index")
 

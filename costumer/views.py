@@ -34,14 +34,14 @@ class CostumerDashboardView(LoginRequiredMixin, View):
         ordens = cliente.ordem_set.all()
         order_count = ordens.count()
 
-        myFilter = OrdemFilter(request.GET, queryset=ordens)
-        ordens = myFilter.qs
+        my_filter = OrdemFilter(request.GET, queryset=ordens)
+        ordens = my_filter.qs
 
         context = {
             "cliente": cliente,
             "ordens": ordens,
             "order_count": order_count,
-            "myFilter": myFilter,
+            "myFilter": my_filter,
         }
         return render(request, "Dashboard/customer.html", context)
 
@@ -77,14 +77,14 @@ class SearchPageView(LoginRequiredMixin, View):
         ordens = cliente.ordem_set.all()
         order_count = ordens.count()
 
-        myFilter = OrdemFilter(request.GET, queryset=ordens)
-        ordens = myFilter.qs
+        my_filter = OrdemFilter(request.GET, queryset=ordens)
+        ordens = my_filter.qs
 
         context = {
             "cliente": cliente,
             "ordens": ordens,
             "order_count": order_count,
-            "myFilter": myFilter,
+            "myFilter": my_filter,
         }
         return render(request, "Dashboard/search.html", context)
 
