@@ -5,9 +5,8 @@ from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 from django.contrib.auth.models import User
 
-
 from costumer.models import Ordem, Cliente
-from professional.models import Competencia
+from professional.models import Competencia, Profissional
 
 from register.forms import DefineUserForm
 from django.urls import reverse
@@ -31,17 +30,10 @@ class DefineUserTypeView(LoginRequiredMixin, View):
             if user.pessoa.user_type is not None:
                 return redirect("dashboard")
             choice = int(form.cleaned_data["selecione"])
-            if choice == 0:
-                from costumer.models import Cliente
+            entities = [Cliente, Profissional]
+            if choice in range(len(entities)):
+                user.pessoa.convert(entities[choice])
 
-                subclass = Cliente
-            elif choice == 1:
-                from professional.models import Profissional
-
-                subclass = Profissional
-            else:
-                return HttpResponse(request, status=404)
-            user.pessoa.convert(subclass)
             return redirect("dashboard")
 
         return render(request, "Pessoa/define_user.html", {"form": form})
@@ -54,18 +46,17 @@ class UserDashboard(LoginRequiredMixin, View):
             return redirect("register:define_user")
         elif user.pessoa.user_type == "Cliente":
             cliente = user.pessoa.cliente
-            if cliente.interesse is None:
-                return redirect("costumer:edit")
-            else:
+            if cliente.is_updated():
                 return redirect("costumer:dashboard")
+            else:
+                return redirect("costumer:edit")
         elif user.pessoa.user_type == "Profissional":
             profissional = user.pessoa.profissional
-            if profissional.cpf is None:
-                return redirect("professional:edit")
+            if profissional.is_updated():
+                # TODO: redirecionar pra dashboard do profissional
+                return redirect("index")
             else:
-                return redirect(
-                    "index"
-                )  # TODO: redirecionar pra dashboard do profissional
+                return redirect("professional:edit")
 
         return redirect("index")
 
