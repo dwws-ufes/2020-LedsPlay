@@ -9,6 +9,13 @@ class Profissional(Pessoa):
     telefone = PhoneNumberField(region="BR", null=True)
     media = models.FloatField(null=True)
 
+    def is_updated(self):
+        fields = [
+            self.cpf is None,
+            self.telefone is None,
+        ]
+        return not any(fields)
+
 
 class Competencia(models.Model):
     status_options = (

@@ -6,6 +6,12 @@ from professional.models import Competencia
 class Cliente(Pessoa):
     interesse = models.CharField(max_length=128, null=True)
 
+    def is_updated(self):
+        fields = [
+            self.interesse is None,
+        ]
+        return not any(fields)
+
 
 class Ordem(models.Model):
     status_options = (
