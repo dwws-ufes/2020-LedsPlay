@@ -14,7 +14,7 @@ class UpdateProfissionalView(LoginRequiredMixin, generic.UpdateView):
     model = Profissional
     form_class = ProfissionalForm
     template_name = "Pessoa/detail_form.html"
-    success_url = reverse_lazy("costumer:dashboard")
+    success_url = reverse_lazy("dashboard")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,7 +90,7 @@ class UpdateCompetenciaView(generic.UpdateView):
 class DeleteCompetenciaView(generic.DeleteView):
     model = Competencia
     template_name = "Dashboard/delete.html"
-    success_url = reverse_lazy("competencia:dashboard")
+    success_url = reverse_lazy("dashboard")
 
     def get_object(self):
         competencia = Competencia.objects.get(pk=self.request.user.pk)

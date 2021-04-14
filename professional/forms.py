@@ -11,18 +11,9 @@ class ProfissionalForm(PessoaForm):
     def __init__(self, *args, **kwargs):
         super(ProfissionalForm, self).__init__(*args, **kwargs)
         self.fields["cpf"].widget.attrs["placeholder"] = "000.000.000-00"
-
-
-class OrdemForm(forms.ModelForm):
-    class Meta:
-        model = Competencia
-        fields = "__all__"
-
         
-class CompetenciaForm(PessoaForm):
+class CompetenciaForm(forms.ModelForm):
     class Meta:
         model = Competencia
         fields = ["nome", "categoria", "descricao"]
 
-    def __init__(self, *args, **kwargs):
-        super(CompetenciaForm, self).__init__(*args, **kwargs)
