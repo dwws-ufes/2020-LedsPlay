@@ -4,18 +4,6 @@ from cpf_field.models import CPFField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class Profissional(Pessoa):
-    cpf = CPFField("cpf", null=True)
-    telefone = PhoneNumberField(region="BR", null=True)
-    media = models.FloatField(null=True)
-
-    def is_updated(self):
-        fields = [
-            self.cpf is None,
-            self.telefone is None,
-        ]
-        return not any(fields)
-
 class Competencia(models.Model):
     status_options = (
         ("CATEGORIA 1", "CATEGORIA 1"),
@@ -45,5 +33,5 @@ class Profissional(Pessoa):
     cpf = CPFField("cpf", null=True)
     telefone = PhoneNumberField(region="BR", null=True)
     media = models.FloatField(null=True)
-    competencia = models.ManyToManyField(Competencia, null=True)
+    competencia = models.ManyToManyField(Competencia)
     avaliacao = models.OneToOneField(Avaliacao, on_delete=models.CASCADE, primary_key=False, null=True)
