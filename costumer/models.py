@@ -6,9 +6,15 @@ from professional.models import Competencia
 class Cliente(Pessoa):
     interesse = models.CharField(max_length=128, null=True)
 
+    def is_updated(self):
+        fields = [
+            self.interesse is None,
+        ]
+        return not any(fields)
+
 
 class Ordem(models.Model):
-    STATUS = (
+    status_options = (
         ("STAND BY", "STAND BY"),
         ("EM OPERAÇÃO", "EM OPERAÇÃO"),
         ("FINALIZADO", "FINALIZADO"),
@@ -17,7 +23,7 @@ class Ordem(models.Model):
     nome = models.ForeignKey(Cliente, null=True, on_delete=models.SET_NULL)
     competencia = models.ForeignKey(Competencia, null=True, on_delete=models.SET_NULL)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.CharField(max_length=120, null=True, choices=STATUS)
+    status = models.CharField(max_length=120, null=True, choices=status_options)
 
     def __str__(self):
         return f"Ordem de {self.competencia}"

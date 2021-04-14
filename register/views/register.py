@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from ..forms import CreateUserForm
 from django.views import generic
-from ..models import *
+from ..models import Pessoa
 
 
 class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
@@ -58,8 +58,3 @@ class RegisterDeleteView(generic.DeleteView):
     model = User
     success_url = reverse_lazy("register:cadastrados")
     template_name = "Pessoa/confirm_delete.html"
-
-
-# def cliente_view(request):
-#     context={}
-#     return render(request, "Dashboard/user.html", context)
