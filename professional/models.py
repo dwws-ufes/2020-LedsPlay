@@ -35,3 +35,10 @@ class Profissional(Pessoa):
     media = models.FloatField(null=True)
     competencia = models.ManyToManyField(Competencia)
     avaliacao = models.OneToOneField(Avaliacao, on_delete=models.CASCADE, primary_key=False, null=True)
+
+    def is_updated(self):
+        fields = [
+            self.cpf is None,
+            self.telefone is None,
+        ]
+        return not any(fields)
