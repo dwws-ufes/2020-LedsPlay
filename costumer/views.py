@@ -9,7 +9,6 @@ from django.views import generic
 from .filters import OrdemFilter
 from .forms import OrdemForm
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -72,24 +71,6 @@ class CreateOrderView(LoginRequiredMixin, View):
             return redirect(reverse("costumer:dashboard"))
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
-
-
-class SearchPageView(LoginRequiredMixin, View):
-    def get(self, request):
-        cliente = Cliente.objects.get(pk=request.user.pk)
-        ordens = cliente.ordem_set.all()
-        order_count = ordens.count()
-
-        my_filter = OrdemFilter(request.GET, queryset=ordens)
-        ordens = my_filter.qs
-
-        context = {
-            "cliente": cliente,
-            "ordens": ordens,
-            "order_count": order_count,
-            "myFilter": my_filter,
-        }
-        return render(request, "Dashboard/search.html", context)
 
 
 class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView):
