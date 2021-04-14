@@ -13,7 +13,7 @@
 
 <nav id="menu">
     <ul class="links">
-        <li><a href={% url 'Index_View' %}>Home</a></li>
+        <li><a href={% url 'index' %}>Home</a></li>
         {% if not request.user.is_authenticated %}
             <li><a href={% url 'login' %}>Login</a></li>
             <li><a href={% url 'register:cadastro' %}>Cadastro</a></li>

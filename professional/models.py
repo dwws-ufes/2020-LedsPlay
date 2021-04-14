@@ -17,7 +17,7 @@ class Competencia(models.Model):
     data_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return "%s" % self.nome
+        return self.nome
 
 
 class Avaliacao(models.Model):
@@ -35,4 +35,3 @@ class Profissional(Pessoa):
     media = models.FloatField(null=True)
     competencia = models.ManyToManyField(Competencia, null=True)
     avaliacao = models.OneToOneField(Avaliacao, on_delete=models.CASCADE, primary_key=False, null=True)
-

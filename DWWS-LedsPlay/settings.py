@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "su!pxznq8_#t(u63iugo$hmoay&&7f^z5r-4cb&e#tb41j-_r&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = eval(os.getenv('DEBUG', "True"))
 
 ALLOWED_HOSTS = ["localhost", "ledsplay.davipetris.me"]
 
@@ -126,3 +127,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 LOGIN_URL = "/login/"
+
+CSRF_COOKIE_SECURE = eval(os.getenv("CSRF_COOKIE_SECURE", "False"))
+
+SESSION_COOKIE_SECURE = eval(os.getenv("SESSION_COOKIE_SECURE", "False"))

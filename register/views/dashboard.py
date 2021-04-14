@@ -1,15 +1,15 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 
 from costumer.models import Ordem, Cliente
+from costumer.filters import OrdemFilter
 from professional.models import Competencia
 
-
 from register.forms import DefineUserForm
+from register.filters import CompetenciaFilter
 from django.urls import reverse
 from django.views import View
 from ..models import *
@@ -19,7 +19,7 @@ class DefineUserTypeView(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         if user.pessoa.user_type is not None:
-            return redirect("costumer:dashboard")
+            return redirect("dashboard")
         data = {"form": DefineUserForm()}
 
         return render(request, "Pessoa/define_user.html", data)
@@ -30,7 +30,7 @@ class DefineUserTypeView(LoginRequiredMixin, View):
 
         if form.is_valid():
             if user.pessoa.user_type is not None:
-                return redirect("costumer:dashboard")
+                return redirect("dashboard")
             choice = int(form.cleaned_data["selecione"])
             if choice == 0:
                 from costumer.models import Cliente
@@ -43,7 +43,7 @@ class DefineUserTypeView(LoginRequiredMixin, View):
             else:
                 return HttpResponse(request, status=404)
             user.pessoa.convert(subclass)
-            return redirect("costumer:dashboard")
+            return redirect("dashboard")
 
         return render(request, "Pessoa/define_user.html", {"form": form})
 
@@ -64,10 +64,10 @@ class UserDashboard(LoginRequiredMixin, View):
             if profissional.cpf is None:
                 return redirect("professional:edit")
             else:
-                #return redirect("professional:dashboard") # TODO: redirecionar pra dashboard do profissional
+                # return redirect("professional:dashboard") # TODO: redirecionar pra dashboard do profissional
                 pass
 
-        return redirect("index_view")
+        return redirect("index")
 
 
 class GeneralDashboard(LoginRequiredMixin, View):
@@ -92,3 +92,23 @@ class GeneralDashboard(LoginRequiredMixin, View):
         }
 
         return render(request, "Dashboard/dashboard.html", context)
+
+
+class SearchPage(LoginRequiredMixin, View):
+    def get(self, request):
+        user = request.user
+        customers = User.objects.all()
+        search = request.GET.get("search")
+        if search == "":
+            competencias = Competencia.objects.all()
+        else:
+            competencias = Competencia.objects.all().filter(nome=search)
+            # profissional = Professional.objects.all().filter(nome=search) TODO: buscar profissionais
+
+        context = {
+            "user": user,
+            "customers": customers,
+            "competencias": competencias,
+        }
+
+        return render(request, "Dashboard/searchPage.html", context)

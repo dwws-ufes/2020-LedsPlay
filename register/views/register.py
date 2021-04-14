@@ -23,6 +23,7 @@ class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
         return context
 
 
+# TODO: View inutil
 @login_required(login_url="login")
 def register_detail_view(request, id):
     obj = get_object_or_404(Pessoa, id=id)
@@ -31,6 +32,7 @@ def register_detail_view(request, id):
     return render(request, "Pessoa/detail.html", context)
 
 
+# TODO: View possivelmente inutil
 @login_required(login_url="login")
 def register_list_view(request):
     queryset = User.objects.all()
@@ -57,11 +59,6 @@ class RegisterDeleteView(generic.DeleteView):
     success_url = reverse_lazy("register:cadastrados")
     template_name = "Pessoa/confirm_delete.html"
 
-
-# def products(request):
-#     products = Competencia.objects.all()
-
-#     return render(request, "Dashboard/products.html", {"products": products})
 
 # def cliente_view(request):
 #     context={}

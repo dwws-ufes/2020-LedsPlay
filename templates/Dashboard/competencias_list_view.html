@@ -1,0 +1,71 @@
+{{ error }}
+
+{% if competencias %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Data de Criação</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for competencia in competencias%}
+            <tr>
+                    <th><a href="{% url 'register:update' competencia.id %}">{{ competencia.id }} </a></th>
+                    <th>{{ competencia.nome }}</th>
+                    <th>{{ competencia.categoria }}</th>
+                    <th>{{ competencia.descricao }}</th>
+                    <th>{{ competencia.data_created }}</th>
+                    <th>{{ competencia.tags }}</th>
+            </tr>
+            {% endfor %}
+     </table>
+		</div>
+	</div>
+</div>
+
+{% endif %}
+
+{% if profissional %}
+<h1>Lista de Profissionais</h1>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Username</th>
+                <th>Nome</th>
+                <th>Sexo</th>
+                <th>Email</th>
+                <th>Nascimento</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for instance in customers%}
+            <tr>
+                {% if instance.pessoa.user_type == "Profissional" %}
+                    <th><a href="{% url 'register:update' instance.id %}">{{ instance.id }} </a></th>
+                    <th>{{ instance.username }}</th>
+                    <th>{{ instance.nome }}</th>
+                    <th>{{ instance.sexo }}</th>
+                    <th>{{ instance.email }}</th>
+                    <th>{{ instance.nascimento }}</th>
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+     </table>
+		</div>
+	</div>
+</div>
+
+{% endif %}
