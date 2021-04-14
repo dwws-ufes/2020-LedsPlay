@@ -53,8 +53,7 @@ class UserDashboard(LoginRequiredMixin, View):
         elif user.pessoa.user_type == "Profissional":
             profissional = user.pessoa.profissional
             if profissional.is_updated():
-                # TODO: redirecionar pra dashboard do profissional
-                return redirect("index")
+                return redirect("professional:dashboard")
             else:
                 return redirect("professional:edit")
 
