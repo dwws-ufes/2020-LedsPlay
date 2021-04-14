@@ -17,3 +17,12 @@ class OrdemForm(forms.ModelForm):
     class Meta:
         model = Competencia
         fields = "__all__"
+
+        
+class CompetenciaForm(PessoaForm):
+    class Meta:
+        model = Competencia
+        fields = ["nome", "categoria", "descricao"]
+
+    def __init__(self, *args, **kwargs):
+        super(CompetenciaForm, self).__init__(*args, **kwargs)
