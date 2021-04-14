@@ -43,12 +43,15 @@ class CostumerDashboardView(LoginRequiredMixin, View):
             "order_count": order_count,
             "myFilter": my_filter,
         }
-        return render(request, "Dashboard/customer.html", context)
+        return render(request, "Dashboard/userdashboard.html", context)
 
 
 class CreateOrderView(LoginRequiredMixin, View):
     OrderFormSet = inlineformset_factory(
-        Cliente, Ordem, fields=("competencia", "status"), extra=5
+        Cliente,
+        Ordem,
+        fields=("competencia", "status"),
+        extra=5
     )
     customer = None
 

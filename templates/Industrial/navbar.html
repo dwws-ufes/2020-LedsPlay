@@ -18,7 +18,11 @@
             <li><a href={% url 'login' %}>Login</a></li>
             <li><a href={% url 'register:cadastro' %}>Cadastro</a></li>
         {% elif request.user.is_authenticated %}
-            <li><a href={% url 'costumer:dashboard' %}> Dashboard do {{request.user.pessoa.user_type}}</a></li>
+            {% if request.user.pessoa.user_type == "Cliente" %}
+                <li><a href={% url 'costumer:dashboard' %}> Dashboard do {{request.user.pessoa.user_type}}</a></li>
+            {% elif request.user.pessoa.user_type == "Profissional" %}
+                <li><a href={% url 'professional:dashboard' %}> Dashboard do {{request.user.pessoa.user_type}}</a></li>
+            {% endif %}
             <li><a href={% url 'register:cadastrados' %}>Cadastrados</a></li>
             <li><a href={% url 'Elementos' %}>Elementos</a></li>
             <li><a href={% url 'Generic_Page' %}>Página Generica</a></li>
