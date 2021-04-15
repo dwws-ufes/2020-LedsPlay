@@ -1,6 +1,6 @@
 from django.db import models
 from register.models import Pessoa
-from professional.models import Competencia
+from professional.models import Competencia, Profissional
 
 
 class Cliente(Pessoa):
@@ -24,6 +24,48 @@ class Ordem(models.Model):
     competencia = models.ForeignKey(Competencia, null=True, on_delete=models.SET_NULL)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=120, null=True, choices=status_options)
+    livre = models.BooleanField(null=True, default=True) # True para ordem livre, False para ordem direcionada
+    profissional = models.ForeignKey(Profissional, null=True, blank=True, on_delete=models.SET_NULL)
+    accepted = models.BooleanField(null=True, default=False)# Define se a ordem foi aceita ou não (ordem direcionada)
+
+    # Retorna se a ordem é livre (não-direcionada)
+    def is_free(self):
+        return self.livre
+
+    # Retorna se a ordem está aberta
+    def is_open(self):
+        return self.profissional is None and self.is_free()
+
+    # Se a ordem for direcionada, aceita.
+    def accept(self):
+        if not self.is_free():
+            self.accepted = True
+            self.save()
+
+    # Se a ordem for direcionada, rejeita e abre a ordem 
+    def refuse(self):
+        if not self.is_free():
+            self.profissional = None
+            self.livre = True
+            self.save()
+
+    # Pega a ordem, passando o objeto do profissional para atribuir
+    def take(self, taker: Profissional):
+        if self.is_open():
+            self.profissional = taker
+            self.save()
+
+    # Retorna se a ordem foi pega
+    def is_took(self):
+        if self.is_free():
+            return self.profissional is not None
+        else:
+            return self.accepted
+
+    # Retorna se a ordem está esperando para ser aceita, se for direcionada
+    def is_waiting_accept(self):
+        return not self.is_free() and not self.accepted
 
     def __str__(self):
         return f"Ordem de {self.competencia}"
+
