@@ -76,13 +76,13 @@ class CreateOrderView(LoginRequiredMixin, View):
 class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView):
     model = Ordem
     form_class = OrdemForm
-    template_name = "Dashboard/form.html"  # TODO: Esse template ta bugado
+    template_name = "Dashboard/form.html"
     success_url = reverse_lazy("costumer:dashboard")
 
     def get_object(self, **kwargs):
         ordem_pk = self.kwargs.get(self.pk_url_kwarg)
-        cliente = Cliente.objects.get(pk=self.request.user.pk)
         ordem = Ordem.objects.get(pk=ordem_pk)
+        cliente = Cliente.objects.get(pk=self.request.user.pk)
         # Cliente só edita as ordens dele
         if cliente == ordem.nome:
             return ordem
