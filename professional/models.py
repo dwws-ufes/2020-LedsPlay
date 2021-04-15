@@ -35,9 +35,8 @@ class Profissional(Pessoa):
         return not any(fields)
 
 class Avaliacao(models.Model):
-    # Toda avaliação PRECISA NECESSARIAMENTE estar atrelado a um profissional
-    profissional = models.ForeignKey(Profissional, null=False, on_delete=models.CASCADE)
-    nota = models.IntegerField(null=False)
+    profissional = models.ForeignKey(Profissional, null=True, on_delete=models.CASCADE)
+    nota = models.IntegerField(null=True)
     descricao = models.CharField(max_length=120, null=True)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
 
