@@ -7,6 +7,7 @@ urlpatterns = [
     path("dashboard/", views.ProfissionalDashboardView.as_view(), name="dashboard"),
 
     path("competencia/create/", views.CreateCompetenciaView.as_view(), name="createCompetencia"),
+    path("competencia/add/", views.AddCompetenciaView.as_view(), name="addCompetencia"),
     # path("competencia/update/<int:pk>", views.UpdateCompetenciaView.as_view(), name="createOrdem"),
     # path("competencia/delete/<int:pk>", views.DeleteCompetenciaView.as_view(), name="createOrdem"),
 ]

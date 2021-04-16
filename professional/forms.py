@@ -17,3 +17,14 @@ class CompetenciaForm(forms.ModelForm):
         model = Competencia
         fields = ["nome", "categoria", "descricao"]
 
+    def clean(self, *args, **kwargs):
+        cleaned_data = super(CompetenciaForm, self).clean(*args, **kwargs)
+        nome = cleaned_data["nome"]
+        # Garante que não sejam criadas inúmeras competencias iguais
+        if Competencia.objects.filter(nome__iexact=nome).exists():
+            raise forms.ValidationError(f"A competencia \"{nome}\"")
+
+        return cleaned_data
+
+class CompetenciaAddForm(forms.Form):
+    competencia = forms.ModelChoiceField(Competencia.objects.all())

@@ -7,7 +7,7 @@ from django.views import generic, View
 from django.forms import formset_factory
 
 from .models import Profissional, Competencia
-from .forms import ProfissionalForm, CompetenciaForm
+from .forms import ProfissionalForm, CompetenciaForm, CompetenciaAddForm
 from django.urls.base import reverse_lazy
 from django.views import generic, View
 
@@ -46,23 +46,41 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
 
 class CreateCompetenciaView(LoginRequiredMixin, View):
     CompetenciaFormSet = modelformset_factory(Competencia, CompetenciaForm, extra=5)
-    profissional = None
 
     def get(self, request):
-        self.profissional = Profissional.objects.get(pk=request.user.pk)
         formset = self.CompetenciaFormSet(queryset=Competencia.objects.none())
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
 
     def post(self, request):
-        self.profissional = Profissional.objects.get(pk=request.user.pk)
+        profissional = Profissional.objects.get(pk=request.user.pk)
         formset = self.CompetenciaFormSet(request.POST)
         if formset.is_valid():
             objs = formset.save()
             for obj in objs:
-                self.profissional.competencias.add(obj)
-            return redirect("professional:dashboard")
+                profissional.competencias.add(obj)
+            return redirect("dashboard")
+        context = {"formset": formset}
+        return render(request, "Dashboard/form.html", context)
+
+class AddCompetenciaView(LoginRequiredMixin, View):
+    CompetenciaFormSet = formset_factory(CompetenciaAddForm, extra=5)
+
+    def get(self, request):
+        formset = self.CompetenciaFormSet()
+        context = {"formset": formset}
+        return render(request, "Dashboard/form.html", context)
+
+    def post(self, request):
+        profissional = Profissional.objects.get(pk=request.user.pk)
+        formset = self.CompetenciaFormSet(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                obj = form.cleaned_data.get('competencia')
+                if obj is not None:
+                    profissional.competencias.add(obj)
+            return redirect("dashboard")
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
