@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
+from django.forms.models import modelformset_factory
 from django.shortcuts import render, redirect
 from django.urls.base import reverse, reverse_lazy
 from django.views import generic, View
+from django.forms import formset_factory
 
 from .models import Profissional, Competencia
 from .forms import ProfissionalForm, CompetenciaForm
@@ -42,36 +44,29 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
         }
         return render(request, "Dashboard/userdashboard.html", context)
 
-#TODO FAZER ISSO AQUI FUNCIONAR
+class CreateCompetenciaView(LoginRequiredMixin, View):
+    CompetenciaFormSet = modelformset_factory(Competencia, CompetenciaForm, extra=5)
+    profissional = None
 
-# class CreateCompetenciaView(LoginRequiredMixin, View):
-#     CompenteciaFormSet = inlineformset_factory(
-#         Profissional,
-#         Competencia,
-#         fields=("competencia", "status"),
-#         extra=5
-#     )
-#     profissional = None
-#
-#     def get(self, request):
-#         self.profissional = Profissional.objects.get(pk=request.user.pk)
-#         formset = self.CompenteciaFormSet(
-#             queryset=Profissional.objects.none(), instance=self.profissional
-#         )
-#         context = {"formset": formset}
-#         return render(request, "Dashboard/form.html", context)
-#
-#     def post(self, request):
-#         self.profissional = Profissional.objects.get(pk=request.user.pk)
-#         formset = self.CompenteciaFormSet(request.POST, instance=self.profissional)
-#         print(formset.is_valid())
-#         if formset.is_valid():
-#             formset.save()
-#             return redirect(reverse("professional:dashboard"))
-#         context = {"formset": formset}
-#         return render(request, "Dashboard/form.html", context)
+    def get(self, request):
+        self.profissional = Profissional.objects.get(pk=request.user.pk)
+        formset = self.CompetenciaFormSet(queryset=Competencia.objects.none())
+        context = {"formset": formset}
+        return render(request, "Dashboard/form.html", context)
 
-# ???
+
+    def post(self, request):
+        self.profissional = Profissional.objects.get(pk=request.user.pk)
+        formset = self.CompetenciaFormSet(request.POST)
+        if formset.is_valid():
+            objs = formset.save()
+            for obj in objs:
+                self.profissional.competencias.add(obj)
+            return redirect("professional:dashboard")
+        context = {"formset": formset}
+        return render(request, "Dashboard/form.html", context)
+
+
 class UpdateCompetenciaView(generic.UpdateView):
     model = Competencia
     form_class = CompetenciaForm
@@ -83,24 +78,7 @@ class UpdateCompetenciaView(generic.UpdateView):
         context["page_title"] = "Atualizar competência"
         return context
 
-    def get_object(self):
-        return Competence.objects.get(pk=self.request.user.pk)
-
-
 class DeleteCompetenciaView(generic.DeleteView):
     model = Competencia
     template_name = "Dashboard/delete.html"
     success_url = reverse_lazy("dashboard")
-
-    def get_object(self):
-        competencia = Competencia.objects.get(pk=self.request.user.pk)
-
-
-class CreateCompetenciaView(generic.CreateView):
-    def get(self, request):
-        self.Competencia = Competencia.objects.get(pk=request.user.pk)
-        return render(request, "Dashboard/form.html", context)
-
-    def post(self, request):
-        self.Competencia = Competencia.objects.get(pk=request.user.pk)
-        return render(request, "Dashboard/form.html", context)

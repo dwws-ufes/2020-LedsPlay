@@ -16,7 +16,7 @@
             {% endif %}
             {% if user.pessoa.user_type == "Profissional" %}
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:edit' %}">Update {{ user.pessoa.user_type }}</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' %}">Cadastrar Competência</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:createCompetencia' %}">Cadastrar Competência</a>
 			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' profissional.pk %}">Deletar {{ user.pessoa.user_type }}</a>
             {% endif %}
 		</div>
