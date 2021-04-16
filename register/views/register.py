@@ -27,7 +27,8 @@ class RegisterCreateView(SuccessMessageMixin, generic.CreateView):
         context["page_title"] = "Cadastro de usuário"
         return context
 
-class UserUpdateView(LoginRequiredMixin,generic.UpdateView):
+
+class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = User
     success_url = reverse_lazy("dashboard")
     template_name = "Pessoa/detail_form.html"
@@ -41,6 +42,7 @@ class UserUpdateView(LoginRequiredMixin,generic.UpdateView):
     def get_object(self):
         return self.request.user
 
+
 class PasswordUpdateView(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
@@ -53,7 +55,9 @@ class PasswordUpdateView(LoginRequiredMixin, View):
         form = PasswordChangeForm(user, data=request.POST or None)
         if form.is_valid():
             if form.cleaned_data["old_password"] == form.cleaned_data["new_password1"]:
-                form.add_error(None, ValidationError("Sua senha nova é igual a senha antiga!"))
+                form.add_error(
+                    None, ValidationError("Sua senha nova é igual a senha antiga!")
+                )
             else:
                 form.save()
                 update_session_auth_hash(request, form.user)
