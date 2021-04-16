@@ -11,7 +11,8 @@ class ProfissionalForm(PessoaForm):
     def __init__(self, *args, **kwargs):
         super(ProfissionalForm, self).__init__(*args, **kwargs)
         self.fields["cpf"].widget.attrs["placeholder"] = "000.000.000-00"
-        
+
+
 class CompetenciaForm(forms.ModelForm):
     class Meta:
         model = Competencia
@@ -22,9 +23,10 @@ class CompetenciaForm(forms.ModelForm):
         nome = cleaned_data["nome"]
         # Garante que não sejam criadas inúmeras competencias iguais
         if Competencia.objects.filter(nome__iexact=nome).exists():
-            raise forms.ValidationError(f"A competencia \"{nome}\" já existe!")
+            raise forms.ValidationError(f'A competencia "{nome}" já existe!')
 
         return cleaned_data
+
 
 class CompetenciaAddForm(forms.Form):
     competencia = forms.ModelChoiceField(Competencia.objects.all())

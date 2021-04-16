@@ -44,6 +44,7 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
         }
         return render(request, "Dashboard/userdashboard.html", context)
 
+
 class CreateCompetenciaView(LoginRequiredMixin, View):
     CompetenciaFormSet = modelformset_factory(Competencia, CompetenciaForm, extra=5)
 
@@ -51,7 +52,6 @@ class CreateCompetenciaView(LoginRequiredMixin, View):
         formset = self.CompetenciaFormSet(queryset=Competencia.objects.none())
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
-
 
     def post(self, request):
         profissional = Profissional.objects.get(pk=request.user.pk)
@@ -66,6 +66,7 @@ class CreateCompetenciaView(LoginRequiredMixin, View):
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
+
 class AddCompetenciaView(LoginRequiredMixin, View):
     CompetenciaFormSet = formset_factory(CompetenciaAddForm, extra=5)
 
@@ -79,7 +80,7 @@ class AddCompetenciaView(LoginRequiredMixin, View):
         formset = self.CompetenciaFormSet(request.POST)
         if formset.is_valid():
             for form in formset:
-                obj = form.cleaned_data.get('competencia')
+                obj = form.cleaned_data.get("competencia")
                 if obj is not None:
                     profissional.competencias.add(obj)
             return redirect("dashboard")
@@ -106,6 +107,7 @@ class UpdateCompetenciaView(generic.UpdateView):
         if profissional.pk == competencia.creator_pk:
             return competencia
         return None
+
 
 class DeleteCompetenciaView(generic.DeleteView):
     model = Competencia

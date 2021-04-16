@@ -21,7 +21,6 @@ class Competencia(models.Model):
         return self.nome
 
 
-
 class Profissional(Pessoa):
     cpf = CPFField("cpf", null=True)
     telefone = PhoneNumberField(region="BR", null=True)
@@ -34,6 +33,7 @@ class Profissional(Pessoa):
             self.telefone is None,
         ]
         return not any(fields)
+
 
 class Avaliacao(models.Model):
     profissional = models.ForeignKey(Profissional, null=True, on_delete=models.CASCADE)
