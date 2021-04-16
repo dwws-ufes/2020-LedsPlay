@@ -7,15 +7,17 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>{{ user.pessoa.user_type }}: {{ user }}</h5>
+			<h5>{{ user.pessoa.user_type }}: {{ user.pessoa }}</h5>
+			<b>Média: {{user.pessoa.profissional.media}}</b>
 			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:dashboard' %}">Atualizar Usuário</a>
             {% if user.pessoa.user_type == "Cliente" %}
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Update {{ user.pessoa.user_type }}</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Atualizar {{ user.pessoa.user_type }}</a>
             <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' %}">Criar Ordem</a>
 			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' cliente.pk %}">Deletar {{ user.pessoa.user_type }}</a>
             {% endif %}
             {% if user.pessoa.user_type == "Profissional" %}
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:edit' %}">Update {{ user.pessoa.user_type }}</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:edit' %}">Atualizar {{ user.pessoa.user_type }}</a>
             <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' %}">Cadastrar Competência</a>
 			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' profissional.pk %}">Deletar {{ user.pessoa.user_type }}</a>
             {% endif %}
@@ -43,7 +45,7 @@
 {%elif user.pessoa.user_type == "Profissional" %}
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Total de Competencias</h5>
+			<h5>Total de Competências</h5>
 			<hr>
 			<h1 style="text-align: center;padding: 10px">{{ order_count }}</h1>
 		</div>
