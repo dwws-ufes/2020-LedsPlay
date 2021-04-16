@@ -62,10 +62,9 @@ class CreateOrderView(LoginRequiredMixin, View):
     def post(self, request):
         self.customer = Cliente.objects.get(pk=request.user.pk)
         formset = self.OrderFormSet(request.POST, instance=self.customer)
-        print(formset.is_valid())
         if formset.is_valid():
             formset.save()
-            return redirect(reverse("costumer:dashboard"))
+            return redirect("costumer:dashboard")
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
