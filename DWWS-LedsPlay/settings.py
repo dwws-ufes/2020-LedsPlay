@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "pages",
     "register",
     "professional",
-    "costumer",
+    "customer",
     "django_filters",
     "cpf_field",
     "phonenumber_field",

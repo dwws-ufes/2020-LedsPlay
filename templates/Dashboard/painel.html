@@ -18,8 +18,8 @@
                         <td>{{order.competence.category}}</td>
                         <td>{{order.creation_date}}</td>
                         <td>{{order.status}}</td>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'costumer:updateOrder' order.id %}">Update</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="{% url 'costumer:deleteOrder' order.id %}">Remover</a></td>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'customer:updateOrder' order.id %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'customer:deleteOrder' order.id %}">Remover</a></td>
                     </tr>
                 {% endfor %}
 

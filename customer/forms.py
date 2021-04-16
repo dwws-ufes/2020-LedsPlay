@@ -6,7 +6,7 @@ from django import forms
 class CustomerForm(PersonForm):
     class Meta:
         model = Customer
-        fields = ["name", "sex", "birthdate", "city", "interesse"]
+        fields = ["name", "sex", "birthdate", "city", "interested_in"]
 
 
 class OrderForm(forms.ModelForm):

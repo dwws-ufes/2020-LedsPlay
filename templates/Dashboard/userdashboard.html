@@ -10,13 +10,13 @@
 			<h5>{{ user.person.user_type }}: {{ user }}</h5>
 			<hr>
             {% if user.person.user_type == "Customer" %}
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Update {{ user.person.user_type }}</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrder' %}">Criar Ordem</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'customer:edit' %}">Update {{ user.person.user_type }}</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'customer:createOrder' %}">Criar Ordem</a>
 			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' customer.pk %}">Deletar {{ user.person.user_type }}</a>
             {% endif %}
             {% if user.person.user_type == "Professional" %}
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:edit' %}">Update {{ user.person.user_type }}</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrder' %}">Cadastrar Competência</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'customer:createOrder' %}">Cadastrar Competência</a>
 			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' professional.pk %}">Deletar {{ user.person.user_type }}</a>
             {% endif %}
 		</div>

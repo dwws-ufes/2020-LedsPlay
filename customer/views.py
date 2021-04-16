@@ -16,7 +16,7 @@ class UpdateCustomerView(LoginRequiredMixin, generic.UpdateView):
     model = Customer
     form_class = CustomerForm
     template_name = "Person/detail_form.html"
-    success_url = reverse_lazy("costumer:dashboard")
+    success_url = reverse_lazy("customer:dashboard")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -27,7 +27,7 @@ class UpdateCustomerView(LoginRequiredMixin, generic.UpdateView):
         return Customer.objects.get(pk=self.request.user.pk)
 
 
-class CostumerDashboardView(LoginRequiredMixin, View):
+class customerDashboardView(LoginRequiredMixin, View):
     def get(self, request):
         customer = Customer.objects.get(pk=request.user.pk)
         orders = customer.order_set.all()
@@ -68,7 +68,7 @@ class CreateOrderView(LoginRequiredMixin, View):
         print(formset.is_valid())
         if formset.is_valid():
             formset.save()
-            return redirect(reverse("costumer:dashboard"))
+            return redirect(reverse("customer:dashboard"))
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
@@ -77,7 +77,7 @@ class UpdateOrderView(LoginRequiredMixin, generic.UpdateView):
     model = Order
     form_class = OrderForm
     template_name = "Dashboard/form.html"
-    success_url = reverse_lazy("costumer:dashboard")
+    success_url = reverse_lazy("customer:dashboard")
 
     def get_object(self, **kwargs):
         order_pk = self.kwargs.get(self.pk_url_kwarg)
@@ -92,7 +92,7 @@ class UpdateOrderView(LoginRequiredMixin, generic.UpdateView):
 class DeleteOrderView(LoginRequiredMixin, generic.DeleteView):
     model = Order
     template_name = "Dashboard/delete.html"
-    success_url = reverse_lazy("costumer:dashboard")
+    success_url = reverse_lazy("customer:dashboard")
 
     def get_object(self):
         order_pk = self.kwargs.get(self.pk_url_kwarg)

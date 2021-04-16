@@ -41,14 +41,14 @@ urlpatterns = [
 
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
-    
+
     path("generaldash/", GeneralDashboard.as_view(), name="generalDash"),
 
     path("dashboard/", UserDashboard.as_view(), name="dashboard"),
 
     path("professional/", include("professional.urls")),
-    path("costumer/", include("costumer.urls")),
-    
+    path("customer/", include("customer.urls")),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

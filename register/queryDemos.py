@@ -1,5 +1,5 @@
 from .models import Person
-from costumer.models import Order, Customer
+from customer.models import Order, Customer
 from professional.models import Competence
 from django.db import models
 

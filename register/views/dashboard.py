@@ -5,7 +5,7 @@ from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 from django.contrib.auth.models import User
 
-from costumer.models import Order, Customer
+from customer.models import Order, Customer
 from professional.models import Competence, Professional
 
 from register.forms import DefineUserForm
@@ -47,9 +47,9 @@ class UserDashboard(LoginRequiredMixin, View):
         elif user.person.user_type == "Customer":
             customer = user.person.customer
             if customer.is_updated():
-                return redirect("costumer:dashboard")
+                return redirect("customer:dashboard")
             else:
-                return redirect("costumer:edit")
+                return redirect("customer:edit")
         elif user.person.user_type == "Professional":
             professional = user.person.professional
             if professional.is_updated():

@@ -4,11 +4,11 @@ from professional.models import Competence, Professional
 
 
 class Customer(Person):
-    interesse = models.CharField(max_length=128, null=True)
+    interested_in = models.CharField(max_length=128, null=True)
 
     def is_updated(self):
         fields = [
-            self.interesse is None,
+            self.interested_in is None,
         ]
         return not any(fields)
 
