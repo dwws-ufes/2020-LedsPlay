@@ -1,21 +1,21 @@
-from .models import Cliente, Ordem
+from .models import Customer, Order
 from django.contrib.auth.models import User
-from register.models import Pessoa
-from .forms import ClienteForm
+from register.models import Person
+from .forms import CustomerForm
 from django.urls.base import reverse, reverse_lazy
 from django.views import generic, View
 from django.forms import inlineformset_factory
 from django.views import generic
-from .filters import OrdemFilter
-from .forms import OrdemForm
+from .filters import OrderFilter
+from .forms import OrderForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class UpdateClienteView(LoginRequiredMixin, generic.UpdateView):
-    model = Cliente
-    form_class = ClienteForm
-    template_name = "Pessoa/detail_form.html"
+class UpdateCustomerView(LoginRequiredMixin, generic.UpdateView):
+    model = Customer
+    form_class = CustomerForm
+    template_name = "Person/detail_form.html"
     success_url = reverse_lazy("costumer:dashboard")
 
     def get_context_data(self, **kwargs):
@@ -24,21 +24,21 @@ class UpdateClienteView(LoginRequiredMixin, generic.UpdateView):
         return context
 
     def get_object(self):
-        return Cliente.objects.get(pk=self.request.user.pk)
+        return Customer.objects.get(pk=self.request.user.pk)
 
 
 class CostumerDashboardView(LoginRequiredMixin, View):
     def get(self, request):
-        cliente = Cliente.objects.get(pk=request.user.pk)
-        ordens = cliente.ordem_set.all()
-        order_count = ordens.count()
+        customer = Customer.objects.get(pk=request.user.pk)
+        orders = customer.order_set.all()
+        order_count = orders.count()
 
-        my_filter = OrdemFilter(request.GET, queryset=ordens)
-        ordens = my_filter.qs
+        my_filter = OrderFilter(request.GET, queryset=orders)
+        orders = my_filter.qs
 
         context = {
-            "cliente": cliente,
-            "ordens": ordens,
+            "customer": customer,
+            "orders": orders,
             "order_count": order_count,
             "myFilter": my_filter,
         }
@@ -47,23 +47,23 @@ class CostumerDashboardView(LoginRequiredMixin, View):
 
 class CreateOrderView(LoginRequiredMixin, View):
     OrderFormSet = inlineformset_factory(
-        Cliente,
-        Ordem,
-        fields=("competencia", "status"),
+        Customer,
+        Order,
+        fields=("competence", "status"),
         extra=5
     )
     customer = None
 
     def get(self, request):
-        self.customer = Cliente.objects.get(pk=request.user.pk)
+        self.customer = Customer.objects.get(pk=request.user.pk)
         formset = self.OrderFormSet(
-            queryset=Ordem.objects.none(), instance=self.customer
+            queryset=Order.objects.none(), instance=self.customer
         )
         context = {"formset": formset}
         return render(request, "Dashboard/form.html", context)
 
     def post(self, request):
-        self.customer = Cliente.objects.get(pk=request.user.pk)
+        self.customer = Customer.objects.get(pk=request.user.pk)
         formset = self.OrderFormSet(request.POST, instance=self.customer)
         print(formset.is_valid())
         if formset.is_valid():
@@ -73,32 +73,32 @@ class CreateOrderView(LoginRequiredMixin, View):
         return render(request, "Dashboard/form.html", context)
 
 
-class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView):
-    model = Ordem
-    form_class = OrdemForm
+class UpdateOrderView(LoginRequiredMixin, generic.UpdateView):
+    model = Order
+    form_class = OrderForm
     template_name = "Dashboard/form.html"
     success_url = reverse_lazy("costumer:dashboard")
 
     def get_object(self, **kwargs):
-        ordem_pk = self.kwargs.get(self.pk_url_kwarg)
-        ordem = Ordem.objects.get(pk=ordem_pk)
-        cliente = Cliente.objects.get(pk=self.request.user.pk)
-        # Cliente só edita as ordens dele
-        if cliente == ordem.nome:
-            return ordem
+        order_pk = self.kwargs.get(self.pk_url_kwarg)
+        order = Order.objects.get(pk=order_pk)
+        customer = Customer.objects.get(pk=self.request.user.pk)
+        # Customer só edita as orders dele
+        if customer == order.name:
+            return order
         return None
 
 
-class DeleteOrdemView(LoginRequiredMixin, generic.DeleteView):
-    model = Ordem
+class DeleteOrderView(LoginRequiredMixin, generic.DeleteView):
+    model = Order
     template_name = "Dashboard/delete.html"
     success_url = reverse_lazy("costumer:dashboard")
 
     def get_object(self):
-        ordem_pk = self.kwargs.get(self.pk_url_kwarg)
-        cliente = Cliente.objects.get(pk=self.request.user.pk)
-        ordem = Ordem.objects.get(pk=ordem_pk)
-        # Cliente só deleta as ordens dele
-        if cliente == ordem.nome:
-            return ordem
+        order_pk = self.kwargs.get(self.pk_url_kwarg)
+        customer = Customer.objects.get(pk=self.request.user.pk)
+        order = Order.objects.get(pk=order_pk)
+        # Customer só deleta as orders dele
+        if customer == order.name:
+            return order
         return None

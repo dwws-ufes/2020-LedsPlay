@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pessoa
+from .models import Person
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -20,19 +20,19 @@ class LoginForm(forms.Form):
     password = forms.CharField(label="Senha", widget=forms.PasswordInput)
 
 
-class PessoaForm(forms.ModelForm):
+class PersonForm(forms.ModelForm):
     class Meta:
-        model = Pessoa
-        fields = ["nome", "sexo", "cidade", "nascimento"]
+        model = Person
+        fields = ["name", "sex", "city", "birthdate"]
 
     def __init__(self, *args, **kwargs):
-        super(PessoaForm, self).__init__(*args, **kwargs)
-        self.fields["nascimento"].widget = forms.DateInput()
-        self.fields["sexo"].widget.attrs["placeholder"] = "M ou F"
+        super(PersonForm, self).__init__(*args, **kwargs)
+        self.fields["birthdate"].widget = forms.DateInput()
+        self.fields["sex"].widget.attrs["placeholder"] = "M ou F"
 
 
 class DefineUserForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(DefineUserForm, self).__init__(*args, **kwargs)
-        choices = [("0", "Cliente"), ("1", "Profissional")]
+        choices = [("0", "Customer"), ("1", "Professional")]
         self.fields["selecione"] = forms.ChoiceField(choices=choices)

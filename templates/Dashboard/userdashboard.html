@@ -7,17 +7,17 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>{{ user.pessoa.user_type }}: {{ user }}</h5>
+			<h5>{{ user.person.user_type }}: {{ user }}</h5>
 			<hr>
-            {% if user.pessoa.user_type == "Cliente" %}
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Update {{ user.pessoa.user_type }}</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' %}">Criar Ordem</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' cliente.pk %}">Deletar {{ user.pessoa.user_type }}</a>
+            {% if user.person.user_type == "Customer" %}
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Update {{ user.person.user_type }}</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrder' %}">Criar Ordem</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' customer.pk %}">Deletar {{ user.person.user_type }}</a>
             {% endif %}
-            {% if user.pessoa.user_type == "Profissional" %}
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:edit' %}">Update {{ user.pessoa.user_type }}</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' %}">Cadastrar Competência</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' profissional.pk %}">Deletar {{ user.pessoa.user_type }}</a>
+            {% if user.person.user_type == "Professional" %}
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:edit' %}">Update {{ user.person.user_type }}</a>
+            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrder' %}">Cadastrar Competência</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'register:delete' professional.pk %}">Deletar {{ user.person.user_type }}</a>
             {% endif %}
 		</div>
 	</div>
@@ -27,11 +27,11 @@
 			<h5>Informações de Contato</h5>
 			<hr>
 			<p>Email: {{ user.email }} </p>
-			<p>Cidade: {{ user.pessoa.cidade }} </p>
+			<p>Cidade: {{ user.person.city }} </p>
 		</div>
 	</div>
 
-{% if user.pessoa.user_type == "Cliente" %}
+{% if user.person.user_type == "Customer" %}
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>Total de Ordens</h5>
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 </div>
-{%elif user.pessoa.user_type == "Profissional" %}
+{%elif user.person.user_type == "Professional" %}
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>Total de Competencias</h5>

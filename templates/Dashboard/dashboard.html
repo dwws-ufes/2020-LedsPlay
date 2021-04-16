@@ -22,7 +22,7 @@
 					<tr>
                         <td><a class="btn btn-primary  btn-sm btn-info" href="{% url 'costumer:dashboard' customer.pk %}">Ver Usuário</a></td>
 						<td>{{user}}</td>
-						<td>{{user.pessoa.email}}</td>
+						<td>{{user.person.email}}</td>
 					</tr>
 				{% endfor %}
 
@@ -31,7 +31,7 @@
 	</div>
 
 	<div class="col-md-7">
-		<h5>ORDEMS</h5>
+		<h5>ORDENS</h5>
 		<hr>
 		<div class="card card-body">
 			<table class="table table-sm">
@@ -45,11 +45,11 @@
 
 				{% for order in orders %}
 					<tr>
-						<td>{{order.competencia}}</td>
-						<td>{{order.data_created}}</td>
+						<td>{{order.competence}}</td>
+						<td>{{order.creation_date}}</td>
 						<td>{{order.status}}</td>
-						<td><a class="btn btn-sm btn-info" href="{% url 'costumer:updateOrdem' order.id %}">Update</a></td>
-						<td><a class="btn btn-sm btn-danger" href="{% url 'costumer:deleteOrdem' order.id %}">Deletar</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'costumer:updateOrder' order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'costumer:deleteOrder' order.id %}">Deletar</a></td>
 
 					</tr>
 				{% endfor %}

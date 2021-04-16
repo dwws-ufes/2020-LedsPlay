@@ -14,21 +14,21 @@
 						<tr>
 							<th>Competencia</th>
 							<th>Categoria</th>
-							<th>data_created</th>
+							<th>creation_date</th>
 						</tr>
 
 						{% for i in products %}
 							<tr>
-								<td>{{i.nome}}</td>
-								<td>{{i.categoria}}</td>
-								<td>{{i.data_created}}</td>
+								<td>{{i.name}}</td>
+								<td>{{i.category}}</td>
+								<td>{{i.creation_date}}</td>
 							</tr>
 						{% endfor %}
-						
+
 					</table>
 				</div>
 			</div>
-			
+
 		</div>
 
 {% endblock content %}

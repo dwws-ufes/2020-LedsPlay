@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profissional, Competencia
+from .models import Professional, Competence
 
-admin.site.register(Profissional)
-admin.site.register(Competencia)
+admin.site.register(Professional)
+admin.site.register(Competence)

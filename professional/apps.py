@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ProfissionalConfig(AppConfig):
+class ProfessionalConfig(AppConfig):
     name = "professional"

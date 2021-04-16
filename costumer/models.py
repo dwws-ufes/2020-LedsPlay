@@ -1,9 +1,9 @@
 from django.db import models
-from register.models import Pessoa
-from professional.models import Competencia, Profissional
+from register.models import Person
+from professional.models import Competence, Professional
 
 
-class Cliente(Pessoa):
+class Customer(Person):
     interesse = models.CharField(max_length=128, null=True)
 
     def is_updated(self):
@@ -13,59 +13,59 @@ class Cliente(Pessoa):
         return not any(fields)
 
 
-class Ordem(models.Model):
+class Order(models.Model):
     status_options = (
         ("STAND BY", "STAND BY"),
         ("EM OPERAÇÃO", "EM OPERAÇÃO"),
         ("FINALIZADO", "FINALIZADO"),
     )
 
-    nome = models.ForeignKey(Cliente, null=True, on_delete=models.SET_NULL)
-    competencia = models.ForeignKey(Competencia, null=True, on_delete=models.SET_NULL)
-    data_created = models.DateTimeField(auto_now_add=True, null=True)
+    name = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
+    competence = models.ForeignKey(Competence, null=True, on_delete=models.SET_NULL)
+    creation_date = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=120, null=True, choices=status_options)
-    livre = models.BooleanField(null=True, default=True) # True para ordem livre, False para ordem direcionada
-    profissional = models.ForeignKey(Profissional, null=True, blank=True, on_delete=models.SET_NULL)
-    accepted = models.BooleanField(null=True, default=False)# Define se a ordem foi aceita ou não (ordem direcionada)
+    free = models.BooleanField(null=True, default=True) # True para order free, False para order direcionada
+    professional = models.ForeignKey(Professional, null=True, blank=True, on_delete=models.SET_NULL)
+    accepted = models.BooleanField(null=True, default=False)# Define se a order foi aceita ou não (order direcionada)
 
-    # Retorna se a ordem é livre (não-direcionada)
+    # Retorna se a order é free (não-direcionada)
     def is_free(self):
-        return self.livre
+        return self.free
 
-    # Retorna se a ordem está aberta
+    # Retorna se a order está aberta
     def is_open(self):
-        return self.profissional is None and self.is_free()
+        return self.professional is None and self.is_free()
 
-    # Se a ordem for direcionada, aceita.
+    # Se a order for direcionada, aceita.
     def accept(self):
         if not self.is_free():
             self.accepted = True
             self.save()
 
-    # Se a ordem for direcionada, rejeita e abre a ordem 
+    # Se a order for direcionada, rejeita e abre a order
     def refuse(self):
         if not self.is_free():
-            self.profissional = None
-            self.livre = True
+            self.professional = None
+            self.free = True
             self.save()
 
-    # Pega a ordem, passando o objeto do profissional para atribuir
-    def take(self, taker: Profissional):
+    # Pega a order, passando o objeto do professional para atribuir
+    def take(self, taker: Professional):
         if self.is_open():
-            self.profissional = taker
+            self.professional = taker
             self.save()
 
-    # Retorna se a ordem foi pega
+    # Retorna se a order foi pega
     def is_took(self):
         if self.is_free():
-            return self.profissional is not None
+            return self.professional is not None
         else:
             return self.accepted
 
-    # Retorna se a ordem está esperando para ser aceita, se for direcionada
+    # Retorna se a order está esperando para ser aceita, se for direcionada
     def is_waiting_accept(self):
         return not self.is_free() and not self.accepted
 
     def __str__(self):
-        return f"Ordem de {self.competencia}"
+        return f"Order de {self.competence}"
 

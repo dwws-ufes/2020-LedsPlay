@@ -12,14 +12,14 @@
 					<th>Remove</th>
 				</tr>
 
-                {% for order in ordens %}
+                {% for order in orders %}
                     <tr>
-                        <td>{{order.competencia.nome}}</td>
-                        <td>{{order.competencia.categoria}}</td>
-                        <td>{{order.data_created}}</td>
+                        <td>{{order.competence.name}}</td>
+                        <td>{{order.competence.category}}</td>
+                        <td>{{order.creation_date}}</td>
                         <td>{{order.status}}</td>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'costumer:updateOrdem' order.id %}">Update</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="{% url 'costumer:deleteOrdem' order.id %}">Remover</a></td>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'costumer:updateOrder' order.id %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'costumer:deleteOrder' order.id %}">Remover</a></td>
                     </tr>
                 {% endfor %}
 

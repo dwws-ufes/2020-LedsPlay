@@ -1,46 +1,46 @@
-from .models import Pessoa
-from costumer.models import Ordem, Cliente
-from professional.models import Competencia
+from .models import Person
+from costumer.models import Order, Customer
+from professional.models import Competence
 from django.db import models
 
 
 # ***(1)Retorna todos os Usuários do DB
-customers = Pessoa.objects.all()
+customers = Person.objects.all()
 
 # (2)Retorna primeiro usuário do DB
-firstCustomer = Pessoa.objects.first()
+firstCustomer = Person.objects.first()
 
 # (3)Retorna ultimo usuário do DB
-lastCustomer = Pessoa.objects.last()
+lastCustomer = Person.objects.last()
 
-# (4)Retorna usuário pelo nome
-customerByName = Pessoa.objects.get(name="Aleph")
+# (4)Retorna usuário pelo name
+customerByName = Person.objects.get(name="Aleph")
 
 # ***(5)Retorna usuário por ID
-customerById = Pessoa.objects.get(id=4)
+customerById = Person.objects.get(id=4)
 
 # ***(6)Retorna todas as ordens baseado no >Primeiro Usuário
 firstCustomer.order_set.all()
 
 # (7)***Returns orders customer name: (Query parent model values)
-order = Ordem.objects.first()
+order = Order.objects.first()
 parentName = order.customer.name
 
-# (8)***Retorna Competencia de acordo com Categoria
-products = Competencia.objects.filter(category="A Distancia")
+# (8)***Retorna Competence de acordo com Category
+products = Competence.objects.filter(category="A Distancia")
 
 # (9)***Lista de Ordens Ordenadas
-leastToGreatest = Competencia.objects.all().order_by("id")
-greatestToLeast = Competencia.objects.all().order_by("-id")
+leastToGreatest = Competence.objects.all().order_by("id")
+greatestToLeast = Competence.objects.all().order_by("-id")
 
 
 # (10) Returns all products with tag of "Sports": (Query Many to Many Fields)
-productsFiltered = Competencia.objects.filter(tags__name="Sports")
+productsFiltered = Competence.objects.filter(tags__name="Sports")
 
 """
 (11)Bonus
 Q: If the customer has more than 1 ball, how would you reflect it in the database?
-A: Because there are many different products and this value changes constantly you would most 
+A: Because there are many different products and this value changes constantly you would most
 likly not want to store the value in the database but rather just make this a function we can run
 each time we load the customers profile
 """
@@ -66,7 +66,7 @@ class ParentModel(models.Model):
 
 
 class ChildModel(models.Model):
-    parent = models.ForeignKey(Cliente)
+    parent = models.ForeignKey(Customer)
     name = models.CharField(max_length=200, null=True)
 
 

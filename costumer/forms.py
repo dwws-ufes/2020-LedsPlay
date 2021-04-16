@@ -1,15 +1,15 @@
-from .models import Cliente, Ordem
-from register.forms import PessoaForm
+from .models import Customer, Order
+from register.forms import PersonForm
 from django import forms
 
 
-class ClienteForm(PessoaForm):
+class CustomerForm(PersonForm):
     class Meta:
-        model = Cliente
-        fields = ["nome", "sexo", "nascimento", "cidade", "interesse"]
+        model = Customer
+        fields = ["name", "sex", "birthdate", "city", "interesse"]
 
 
-class OrdemForm(forms.ModelForm):
+class OrderForm(forms.ModelForm):
     class Meta:
-        model = Ordem
+        model = Order
         fields = "__all__"

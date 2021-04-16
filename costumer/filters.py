@@ -1,9 +1,9 @@
 import django_filters
-from .models import Ordem
+from .models import Order
 
 
-class OrdemFilter(django_filters.FilterSet):
+class OrderFilter(django_filters.FilterSet):
     class Meta:
-        model = Ordem
+        model = Order
         fields = "__all__"
-        exclude = ["nome", "data_created"]
+        exclude = ["name", "creation_date"]

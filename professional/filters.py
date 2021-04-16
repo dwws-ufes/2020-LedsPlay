@@ -1,10 +1,10 @@
 import django_filters
 
-from .models import Competencia
+from .models import Competence
 
 
-class CompetenciaFilter(django_filters.FilterSet):
+class CompetenceFilter(django_filters.FilterSet):
     class Meta:
-        model = Competencia
+        model = Competence
         fields = "__all__"
-        exclude = ["data_created"]
+        exclude = ["creation_date"]

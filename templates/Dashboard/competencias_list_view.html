@@ -1,6 +1,6 @@
 {{ error }}
 
-{% if competencias %}
+{% if competences %}
 
 <div class="row">
 	<div class="col-md">
@@ -16,14 +16,14 @@
             </tr>
             </thead>
             <tbody>
-            {% for competencia in competencias%}
+            {% for competence in competences%}
             <tr>
-                    <th><a href="{% url 'register:update' competencia.id %}">{{ competencia.id }} </a></th>
-                    <th>{{ competencia.nome }}</th>
-                    <th>{{ competencia.categoria }}</th>
-                    <th>{{ competencia.descricao }}</th>
-                    <th>{{ competencia.data_created }}</th>
-                    <th>{{ competencia.tags }}</th>
+                    <th><a href="{% url 'register:update' competence.id %}">{{ competence.id }} </a></th>
+                    <th>{{ competence.name }}</th>
+                    <th>{{ competence.category }}</th>
+                    <th>{{ competence.description }}</th>
+                    <th>{{ competence.creation_date }}</th>
+                    <th>{{ competence.tags }}</th>
             </tr>
             {% endfor %}
      </table>
@@ -33,7 +33,7 @@
 
 {% endif %}
 
-{% if profissional %}
+{% if professional %}
 <h1>Lista de Profissionais</h1>
 <div class="row">
 	<div class="col-md">
@@ -52,13 +52,13 @@
             <tbody>
             {% for instance in customers%}
             <tr>
-                {% if instance.pessoa.user_type == "Profissional" %}
+                {% if instance.person.user_type == "Professional" %}
                     <th><a href="{% url 'register:update' instance.id %}">{{ instance.id }} </a></th>
                     <th>{{ instance.username }}</th>
-                    <th>{{ instance.nome }}</th>
-                    <th>{{ instance.sexo }}</th>
+                    <th>{{ instance.name }}</th>
+                    <th>{{ instance.sex }}</th>
                     <th>{{ instance.email }}</th>
-                    <th>{{ instance.nascimento }}</th>
+                    <th>{{ instance.birthdate }}</th>
                 {% endif %}
             </tr>
 

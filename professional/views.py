@@ -4,39 +4,39 @@ from django.shortcuts import render, redirect
 from django.urls.base import reverse, reverse_lazy
 from django.views import generic, View
 
-from .models import Profissional, Competencia
-from .forms import ProfissionalForm, CompetenciaForm
+from .models import Professional, Competence
+from .forms import ProfessionalForm, CompetenceForm
 from django.urls.base import reverse_lazy
 from django.views import generic, View
 
 
-class UpdateProfissionalView(LoginRequiredMixin, generic.UpdateView):
-    model = Profissional
-    form_class = ProfissionalForm
-    template_name = "Pessoa/detail_form.html"
+class UpdateProfessionalView(LoginRequiredMixin, generic.UpdateView):
+    model = Professional
+    form_class = ProfessionalForm
+    template_name = "Person/detail_form.html"
     success_url = reverse_lazy("dashboard")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Atualizar profissional"
+        context["page_title"] = "Atualizar professional"
         return context
 
     def get_object(self):
-        return Profissional.objects.get(pk=self.request.user.pk)
+        return Professional.objects.get(pk=self.request.user.pk)
 
 
-class ProfissionalDashboardView(LoginRequiredMixin, View):
+class ProfessionalDashboardView(LoginRequiredMixin, View):
     def get(self, request):
-        profissional = Profissional.objects.get(pk=request.user.pk)
-        # competencias = Profissional.competencias_set.all()
-        # order_count = competencias.count()
+        professional = Professional.objects.get(pk=request.user.pk)
+        # competences = Professional.competences_set.all()
+        # order_count = competences.count()
 
-        # my_filter = CompetenciaFilter(request.GET, queryset=competencias)
-        # competencias = my_filter.qs
+        # my_filter = CompetenceFilter(request.GET, queryset=competences)
+        # competences = my_filter.qs
 
         context = {
-            "profissional": profissional,
-            # "competencias": competencias,
+            "professional": professional,
+            # "competences": competences,
             # "order_count": order_count,
             # "myFilter": my_filter,
         }
@@ -44,26 +44,26 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
 
 #TODO FAZER ISSO AQUI FUNCIONAR
 
-# class CreateCompetenciaView(LoginRequiredMixin, View):
+# class CreateCompetenceView(LoginRequiredMixin, View):
 #     CompenteciaFormSet = inlineformset_factory(
-#         Profissional,
-#         Competencia,
-#         fields=("competencia", "status"),
+#         Professional,
+#         Competence,
+#         fields=("competence", "status"),
 #         extra=5
 #     )
-#     profissional = None
+#     professional = None
 #
 #     def get(self, request):
-#         self.profissional = Profissional.objects.get(pk=request.user.pk)
+#         self.professional = Professional.objects.get(pk=request.user.pk)
 #         formset = self.CompenteciaFormSet(
-#             queryset=Profissional.objects.none(), instance=self.profissional
+#             queryset=Professional.objects.none(), instance=self.professional
 #         )
 #         context = {"formset": formset}
 #         return render(request, "Dashboard/form.html", context)
 #
 #     def post(self, request):
-#         self.profissional = Profissional.objects.get(pk=request.user.pk)
-#         formset = self.CompenteciaFormSet(request.POST, instance=self.profissional)
+#         self.professional = Professional.objects.get(pk=request.user.pk)
+#         formset = self.CompenteciaFormSet(request.POST, instance=self.professional)
 #         print(formset.is_valid())
 #         if formset.is_valid():
 #             formset.save()
@@ -72,9 +72,9 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
 #         return render(request, "Dashboard/form.html", context)
 
 # ???
-class UpdateCompetenciaView(generic.UpdateView):
-    model = Competencia
-    form_class = CompetenciaForm
+class UpdateCompetenceView(generic.UpdateView):
+    model = Competence
+    form_class = CompetenceForm
     template_name = "Dashboard/form.html"
     success_url = reverse_lazy("dashboard")
 
@@ -87,20 +87,20 @@ class UpdateCompetenciaView(generic.UpdateView):
         return Competence.objects.get(pk=self.request.user.pk)
 
 
-class DeleteCompetenciaView(generic.DeleteView):
-    model = Competencia
+class DeleteCompetenceView(generic.DeleteView):
+    model = Competence
     template_name = "Dashboard/delete.html"
     success_url = reverse_lazy("dashboard")
 
     def get_object(self):
-        competencia = Competencia.objects.get(pk=self.request.user.pk)
+        competence = Competence.objects.get(pk=self.request.user.pk)
 
 
-class CreateCompetenciaView(generic.CreateView):
+class CreateCompetenceView(generic.CreateView):
     def get(self, request):
-        self.Competencia = Competencia.objects.get(pk=request.user.pk)
+        self.Competence = Competence.objects.get(pk=request.user.pk)
         return render(request, "Dashboard/form.html", context)
 
     def post(self, request):
-        self.Competencia = Competencia.objects.get(pk=request.user.pk)
+        self.Competence = Competence.objects.get(pk=request.user.pk)
         return render(request, "Dashboard/form.html", context)

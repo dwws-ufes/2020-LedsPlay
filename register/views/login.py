@@ -12,7 +12,7 @@ from django.views import View
 class LoginView(View):
     def get(self, request):
         data = {"form": LoginForm()}
-        return render(request, "Pessoa/login.html", data)
+        return render(request, "Person/login.html", data)
 
     def post(self, request):
         form = LoginForm(data=request.POST)
@@ -29,7 +29,7 @@ class LoginView(View):
             "form": form,
             "error": "Usuário ou Senha incorreto",
         }
-        return render(request, "Pessoa/login.html", data)
+        return render(request, "Person/login.html", data)
 
 
 class LogoutView(LoginRequiredMixin, View):

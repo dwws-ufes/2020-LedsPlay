@@ -15,14 +15,14 @@
             </tr>
             </thead>
             <tbody>
-            {% for instance in pessoa_list%}
+            {% for instance in person_list%}
             <tr>
                     <th><a href="{% url 'register:update' instance.id %}">{{ instance.id }} </a></th>
                     <th>{{ instance.username }}</th>
-                    <th>{{ instance.nome }}</th>
-                    <th>{{ instance.sexo }}</th>
+                    <th>{{ instance.name }}</th>
+                    <th>{{ instance.sex }}</th>
                     <th>{{ instance.email }}</th>
-                    <th>{{ instance.nascimento }}</th>
+                    <th>{{ instance.birthdate }}</th>
                     <th><a href="{% url 'register:update' instance.id %}"><input type="button" value="Atualizar"></a></th>
                     <th><a href="{% url 'register:delete' instance.id %}"><input type="button" value="Deletar"></a></th>
             </tr>
