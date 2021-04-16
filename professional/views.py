@@ -59,6 +59,8 @@ class CreateCompetenciaView(LoginRequiredMixin, View):
         if formset.is_valid():
             objs = formset.save()
             for obj in objs:
+                obj.creator_pk = profissional.pk
+                obj.save()
                 profissional.competencias.add(obj)
             return redirect("dashboard")
         context = {"formset": formset}

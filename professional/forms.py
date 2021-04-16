@@ -22,7 +22,7 @@ class CompetenciaForm(forms.ModelForm):
         nome = cleaned_data["nome"]
         # Garante que não sejam criadas inúmeras competencias iguais
         if Competencia.objects.filter(nome__iexact=nome).exists():
-            raise forms.ValidationError(f"A competencia \"{nome}\"")
+            raise forms.ValidationError(f"A competencia \"{nome}\" já existe!")
 
         return cleaned_data
 
