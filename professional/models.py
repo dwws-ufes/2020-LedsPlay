@@ -34,11 +34,11 @@ class Professional(Person):
         ]
         return not any(fields)
 
-class Avaliacao(models.Model):
+class Rating(models.Model):
     professional = models.ForeignKey(Professional, null=True, on_delete=models.CASCADE)
-    nota = models.IntegerField(null=True)
+    score = models.IntegerField(null=True)
     description = models.CharField(max_length=120, null=True)
     creation_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return "Nota %s; %s" % self.nota, self.description
+        return "Nota %s; %s" % self.score, self.description
