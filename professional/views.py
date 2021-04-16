@@ -98,7 +98,25 @@ class UpdateCompetenciaView(generic.UpdateView):
         context["page_title"] = "Atualizar competência"
         return context
 
+    def get_object(self):
+        competencia_pk = self.kwargs.get(self.pk_url_kwarg)
+        profissional = Profissional.objects.get(pk=self.request.user.pk)
+        competencia = Competencia.objects.get(pk=competencia_pk)
+        # só o criador da competencia pode editá-la
+        if profissional.pk == competencia.creator_pk:
+            return competencia
+        return None
+
 class DeleteCompetenciaView(generic.DeleteView):
     model = Competencia
     template_name = "Dashboard/delete.html"
     success_url = reverse_lazy("dashboard")
+
+    def get_object(self):
+        competencia_pk = self.kwargs.get(self.pk_url_kwarg)
+        profissional = Profissional.objects.get(pk=self.request.user.pk)
+        competencia = Competencia.objects.get(pk=competencia_pk)
+        # só o criador da competencia pode deletá-la
+        if profissional.pk == competencia.creator_pk:
+            return competencia
+        return None
