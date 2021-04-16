@@ -4,8 +4,8 @@
 
 <br>
     <h1>Selecione Competências: </h1>
-    {% csrf_token %}
     <form action="" method="POST">
+    {% csrf_token %}
     {% if formset is not None %}
         {{ formset.management_form }}
         {% for form in formset %}

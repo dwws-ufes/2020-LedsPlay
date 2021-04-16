@@ -23,10 +23,10 @@ class Ordem(models.Model):
     nome = models.ForeignKey(Cliente, null=True, on_delete=models.SET_NULL)
     competencia = models.ForeignKey(Competencia, null=True, on_delete=models.SET_NULL)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.CharField(max_length=120, null=True, choices=status_options)
-    livre = models.BooleanField(null=True, default=True) # True para ordem livre, False para ordem direcionada
+    status = models.CharField(max_length=120, null=True, choices=status_options, default="STAND BY")
+    livre = models.BooleanField(null=False, default=True) # True para ordem livre, False para ordem direcionada
     profissional = models.ForeignKey(Profissional, null=True, blank=True, on_delete=models.SET_NULL)
-    accepted = models.BooleanField(null=True, default=False)# Define se a ordem foi aceita ou não (ordem direcionada)
+    accepted = models.BooleanField(null=False, default=False)# Define se a ordem foi aceita ou não (ordem direcionada)
 
     # Retorna se a ordem é livre (não-direcionada)
     def is_free(self):
