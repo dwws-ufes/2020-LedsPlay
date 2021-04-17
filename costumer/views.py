@@ -46,9 +46,7 @@ class CostumerDashboardView(LoginRequiredMixin, View):
 
 
 class CreateOrderView(LoginRequiredMixin, View):
-    OrderFormSet = inlineformset_factory(
-        Cliente, Ordem, OrdemForm, extra=5
-    )
+    OrderFormSet = inlineformset_factory(Cliente, Ordem, OrdemForm, extra=5)
     customer = None
 
     def get(self, request):
