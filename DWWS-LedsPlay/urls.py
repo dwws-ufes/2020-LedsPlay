@@ -21,7 +21,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from pages.views import index_view, generic_page_view, elementos_view
+from pages.views import index_view, elementos_view
 from register.views import (
     GeneralDashboard,
     UserDashboard,
@@ -34,21 +34,20 @@ urlpatterns = [
     path("", index_view, name="index"),
     path("admin/", admin.site.urls,),
     path("index/", index_view, name="index"),
-    path("generic/", generic_page_view, name="Generic_Page"),
     path("elementos/", elementos_view, name="Elementos"),
 
     path("register/", include("register.urls")),
 
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
-    
+
     path("generaldash/", GeneralDashboard.as_view(), name="generalDash"),
 
     path("dashboard/", UserDashboard.as_view(), name="dashboard"),
 
     path("professional/", include("professional.urls")),
     path("costumer/", include("costumer.urls")),
-    
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

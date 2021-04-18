@@ -3,7 +3,7 @@
     <a class="logo" href="index.html">LedsPlay</a>
     <nav>
         {% if not request.user.is_anonymous %}
-        <span id="hell0-msg"> Ola, {{ request.user }} </span>
+        <span id="hell0-msg"> Olá, {{ request.user }} </span>
         {% endif %}
         <a href="#menu">Menu</a>
     </nav>
@@ -20,8 +20,6 @@
         {% elif request.user.is_authenticated %}
             <li><a href={% url 'dashboard' %}> Dashboard do {{request.user.pessoa.user_type}}</a></li>
             <li><a href={% url 'register:cadastrados' %}>Cadastrados</a></li>
-            <li><a href={% url 'Elementos' %}>Elementos</a></li>
-            <li><a href={% url 'Generic_Page' %}>Página Generica</a></li>
             <li><a href={% url 'logout' %}>Logout</a></li>
         {% endif %}
 
