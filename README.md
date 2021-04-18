@@ -1,5 +1,8 @@
 # DWWS-LedsPlay
-08/02/2021
+Sistema de Gestão de Competências com Gamificação. Construído para Disciplinas de Desenvolvimento Web e Web Semântica em 2020/2E.
+
+O site está temporariamente hospedado no url a seguir: https://ledsplay.davipetris.me/
+
 ## Requisitos
 
 - docker
