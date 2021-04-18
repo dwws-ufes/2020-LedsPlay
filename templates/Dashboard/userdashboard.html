@@ -14,7 +14,8 @@
 			<b>Média: N/A</b>
 			{% endif %}
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:dashboard' %}">Atualizar Usuário</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'register:update' %}">Atualizar Usuário</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'register:password' %}">Redefinir Senha</a>
             {% if user.pessoa.user_type == "Cliente" %}
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:edit' %}">Atualizar {{ user.pessoa.user_type }}</a>
             <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'costumer:createOrdem' %}">Criar Ordem</a>

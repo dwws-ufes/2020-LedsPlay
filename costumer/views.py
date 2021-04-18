@@ -31,10 +31,10 @@ class CostumerDashboardView(LoginRequiredMixin, View):
     def get(self, request):
         cliente = Cliente.objects.get(pk=request.user.pk)
         ordens = cliente.ordem_set.all()
-        nOrdens = ordens.count()
 
         my_filter = OrdemFilter(request.GET, queryset=ordens)
         ordens = my_filter.qs
+        nOrdens = ordens.count()
 
         context = {
             "cliente": cliente,
