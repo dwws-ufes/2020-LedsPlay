@@ -31,7 +31,7 @@ class CostumerDashboardView(LoginRequiredMixin, View):
     def get(self, request):
         cliente = Cliente.objects.get(pk=request.user.pk)
         ordens = cliente.ordem_set.all()
-        order_count = ordens.count()
+        nOrdens = ordens.count()
 
         my_filter = OrdemFilter(request.GET, queryset=ordens)
         ordens = my_filter.qs
@@ -39,7 +39,7 @@ class CostumerDashboardView(LoginRequiredMixin, View):
         context = {
             "cliente": cliente,
             "ordens": ordens,
-            "order_count": order_count,
+            "nOrdens": nOrdens,
             "myFilter": my_filter,
         }
         return render(request, "Dashboard/userdashboard.html", context)

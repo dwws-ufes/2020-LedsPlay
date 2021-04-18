@@ -31,8 +31,9 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
     def get(self, request):
         profissional = Profissional.objects.get(pk=request.user.pk)
         competencias = profissional.competencias.all()
-        # order_count = competencias.count()
 
+        ordens = profissional.ordem_set.all()
+        # print(ordens)
         # my_filter = CompetenciaFilter(request.GET, queryset=competencias)
         # competencias = my_filter.qs
 
@@ -40,8 +41,8 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
             "profissional": profissional,
             "competencias": competencias,
             "nCompetencias": len(competencias),
-            # "order_count": order_count,
-            # "myFilter": my_filter,
+            "ordens": ordens,
+            "nOrdens": len(ordens),
         }
         return render(request, "Dashboard/userdashboard.html", context)
 
