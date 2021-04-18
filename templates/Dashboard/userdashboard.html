@@ -8,7 +8,11 @@
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>{{ user.pessoa.user_type }}: {{ user.pessoa }}</h5>
+			{% if user.pessoa.profissional.media %}
 			<b>Média: {{user.pessoa.profissional.media}}</b>
+			{% else %}
+			<b>Média: N/A</b>
+			{% endif %}
 			<hr>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'professional:dashboard' %}">Atualizar Usuário</a>
             {% if user.pessoa.user_type == "Cliente" %}
@@ -44,9 +48,13 @@
 {%elif user.pessoa.user_type == "Profissional" %}
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Total de Competências</h5>
+			<h5>Total de Competências: {{nCompetencias}}</h5>
 			<hr>
-			<h1 style="text-align: center;padding: 10px">{{ order_count }}</h1>
+			{% for competencia in competencias %}
+				{{ competencia }}
+				<br/>
+			{% endfor %}
+			<!-- <h1 style="text-align: center;padding: 10px">{{ order_count }}</h1> -->
 		</div>
 	</div>
 </div>

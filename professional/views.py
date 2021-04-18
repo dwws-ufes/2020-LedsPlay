@@ -30,7 +30,7 @@ class UpdateProfissionalView(LoginRequiredMixin, generic.UpdateView):
 class ProfissionalDashboardView(LoginRequiredMixin, View):
     def get(self, request):
         profissional = Profissional.objects.get(pk=request.user.pk)
-        # competencias = Profissional.competencias_set.all()
+        competencias = profissional.competencias.all()
         # order_count = competencias.count()
 
         # my_filter = CompetenciaFilter(request.GET, queryset=competencias)
@@ -38,7 +38,8 @@ class ProfissionalDashboardView(LoginRequiredMixin, View):
 
         context = {
             "profissional": profissional,
-            # "competencias": competencias,
+            "competencias": competencias,
+            "nCompetencias": len(competencias),
             # "order_count": order_count,
             # "myFilter": my_filter,
         }
