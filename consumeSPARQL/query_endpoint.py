@@ -33,23 +33,23 @@ if response.status_code == 200:
     for result in results["results"]["bindings"]:
         # Se não existir descrição, deixe-a vazia
         competenceDescription = result.get('competenceDescription', {}).get('value', "")
+        competenceName = result.get('competenceLabel', {}).get('value', "")
 
         try:
-            competenceName = result['competenceLabel']['value']
-            if re.match(r"Q\d+", competenceName):  # Se não houver nome (label), pule
-                print("\nEmpty entity. Skipping...\n")
+            if not competenceDescription or not competenceName:  # Se não houver nome ou descrição, pule
+                print(f"Empty label or description. Skipping {result['competence']['value']}...")
                 continue
-            if not competenceDescription:  # Se não houver descrição, pule
-                print("\nEmpty description. Skipping...\n")
+            if re.match(r"Q\d+", competenceName):  # Se não houver nome (label) além do QID, pule
+                print(f"Empty entity. Skipping {result['competence']['value']}...")
                 continue
         except:
-            print(f"\nFailed to get competenceLabel ({result})\n")
+            print(f"Failed to process {result}")
             continue
 
         # Nome e descrição prontos para registrar sob nova competência no DB
         # print(f"Competence: {competenceName}.\n\tDescription: {competenceDescription}\n")
         competences[competenceName] = competenceDescription
 
-    # pprint(competences)
+    pprint(competences)
 else:
     print("Failed GET request to SPARQL endpoint.")
