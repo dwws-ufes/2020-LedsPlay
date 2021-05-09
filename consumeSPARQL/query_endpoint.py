@@ -28,20 +28,28 @@ results = response.json()
 if response.status_code == 200:
     print("Successful GET request to SPARQL endpoint!")
 
+    # Dicionário com competências
+    competences = {}
     for result in results["results"]["bindings"]:
         # Se não existir descrição, deixe-a vazia
         competenceDescription = result.get('competenceDescription', {}).get('value', "")
 
         try:
             competenceName = result['competenceLabel']['value']
-            if re.match(r"Q\d+", competenceName): # Se não houver nome (label), pule
+            if re.match(r"Q\d+", competenceName):  # Se não houver nome (label), pule
                 print("\nEmpty entity. Skipping...\n")
                 continue
+            if not competenceDescription:  # Se não houver descrição, pule
+                print("\nEmpty description. Skipping...\n")
+                continue
         except:
-            print(f"\nFailed ({result})\n")
+            print(f"\nFailed to get competenceLabel ({result})\n")
             continue
 
         # Nome e descrição prontos para registrar sob nova competência no DB
-        print(f"Competence: {competenceName}.\n\tDescription: {competenceDescription}\n")
+        # print(f"Competence: {competenceName}.\n\tDescription: {competenceDescription}\n")
+        competences[competenceName] = competenceDescription
+
+    # pprint(competences)
 else:
     print("Failed GET request to SPARQL endpoint.")
