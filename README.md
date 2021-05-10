@@ -15,6 +15,13 @@ O site está temporariamente hospedado no url a seguir: https://ledsplay.davipet
 make # Gerar e iniciar o container da aplicação
 make migrate migrations # Preparar o banco de dados
 ```
+Caso ocorra problemas de permissão durante o Make (e.g. PermissionError: [Errno 13] Permission denied)
+
+```bash
+sudo groupadd docker # criar um grupo docker
+sudo usermod -aG docker $USER # Adicione seu usuário ao grupo docker.
+
+```
 ## Comandos
 
 - `./run`: Executa comandos dentro do container da aplicação
