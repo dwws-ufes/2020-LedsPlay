@@ -8,11 +8,13 @@
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>{{ user.pessoa.user_type }}: {{ user.pessoa }}</h5>
-			{% if user.pessoa.profissional.media %}
-			<b>Média: {{user.pessoa.profissional.media}}</b>
-			{% else %}
-			<b>Média: N/A</b>
-			{% endif %}
+            {% if user.pessoa.user_type == "Profissional" %}
+			    {% if user.pessoa.profissional.media %}
+			    <h5>Média: {{user.pessoa.profissional.media}}<h5>
+			    {% else %}
+			    <h5>Média: N/A<h5>
+			    {% endif %}
+            {% endif %}
 			<hr>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'register:update' %}">Atualizar Usuário</a>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'register:password' %}">Redefinir Senha</a>

@@ -19,10 +19,9 @@
         <a class="nav-link" href="{% url 'index' %}">Página Principal</a>
         </li>
         {% if request.user.pessoa.user_type == "Cliente" %}
-            <li class="nav-item">
+            <li class="nav-item active">
             <a class="nav-link" href="{% url 'register:buscar' %}">Buscar</a>
         </li>
-
         {% endif %}
     </ul>
   </div>

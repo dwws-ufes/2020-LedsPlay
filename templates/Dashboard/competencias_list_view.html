@@ -18,7 +18,6 @@
             <tbody>
             {% for competencia in competencias%}
             <tr>
-                    <th><a href="{% url 'register:update' competencia.id %}">{{ competencia.id }} </a></th>
                     <th>{{ competencia.nome }}</th>
                     <th>{{ competencia.categoria }}</th>
                     <th>{{ competencia.descricao }}</th>
