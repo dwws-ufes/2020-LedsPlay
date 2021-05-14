@@ -13,7 +13,7 @@ class Competencia(models.Model):
 
     nome = models.CharField(max_length=120, null=True)
     categoria = models.CharField(max_length=120, null=True, choices=status_options)
-    descricao = models.CharField(max_length=120, null=True)
+    descricao = models.CharField(max_length=300, null=True)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
     creator_pk = models.BigIntegerField(default=-1)
 

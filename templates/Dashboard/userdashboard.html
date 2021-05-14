@@ -54,7 +54,7 @@
 			<h5>Total de Competências: {{nCompetencias}}</h5>
 			<hr>
 			{% for competencia in competencias %}
-				{{ competencia }}
+				{{ competencia }} - {{ competencia.descricao }}
 				<br/>
 			{% endfor %}
 			<!-- <h1 style="text-align: center;padding: 10px">{{ order_count }}</h1> -->

@@ -39,6 +39,9 @@ logs-all: ## Mostra os logs na tela (todos os containers)
 migrations: ## Executa as migrations caso haja mudança
 	docker-compose exec app python manage.py makemigrations
 
+populate:
+	docker-compose exec app python manage.py populate_db_competences
+
 migrate: ## Execute as migrations de banco (cria tabelas)
 	docker-compose exec app python manage.py migrate
 
