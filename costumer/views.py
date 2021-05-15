@@ -1,4 +1,5 @@
 from .models import Cliente, Ordem
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from register.models import Pessoa
 from .forms import ClienteForm
@@ -12,9 +13,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.models import Profissional
 from professional.models import Profissional
-from rdflib.namespace import Graph, Namespace, URIRef, BNode, Literal, CSVW, DC, DCAT, DCTERMS, DOAP, FOAF, ODRL2, ORG, OWL, \
+from rdflib import Graph, Namespace, URIRef, BNode, Literal
+from rdflib.namespace import CSVW, DC, DCAT, DCTERMS, DOAP, FOAF, ODRL2, ORG, OWL, \
                            PROF, PROV, RDF, RDFS, SDO, SH, SKOS, SOSA, SSN, TIME, \
                            VOID, XMLNS, XSD
+from urllib.parse import urlencode, quote_plus
 
 
 class UpdateClienteView(LoginRequiredMixin, generic.UpdateView):
@@ -77,38 +80,39 @@ class ExportProfessionalsView(LoginRequiredMixin, View):
     # customer = None
 
     def get(self, request):
-        g = Graph()
-        g.bind("foaf", FOAF)
+        # Define namespace para publicação de dados
+        LEDS = Namespace("http://leds.leds/1/")
 
-        n = Namespace("http://example.org/people/")
+        ledsGraph = Graph()
 
-        n.bob  # = rdflib.term.URIRef(u'http://example.org/people/bob')
-        n.eve  # = rdflib.term.URIRef(u'http://example.org/people/eve')
+        # Adiciona prefixos ao grafo
+        ledsGraph.bind("leds", LEDS)
+        ledsGraph.bind("foaf", FOAF)
 
-        bob = URIRef("http://example.org/people/Bob")
-        linda = BNode()  # a GUID is generated
-
-        name = Literal('Bob')  # passing a string
-        age = Literal(24)  # passing a python int
-        height = Literal(76.5)  # passing a python float
-
-        g.add((bob, RDF.type, FOAF.Person))
-        g.add((bob, FOAF.name, name))
-        g.add((bob, FOAF.knows, linda))
-        g.add((linda, RDF.type, FOAF.Person))
-        g.add((linda, FOAF.name, Literal("Linda")))
+        # Obtém dados de todos os profissionais
         profissionais = Profissional.objects.all()
-        print(profissionais)
-        print(FOAF.knows)
-        # self.customer = Cliente.objects.get(pk=request.user.pk)
-        # formset = self.OrderFormSet(
-        #     queryset=Ordem.objects.none(), instance=self.customer
-        # )
-        # context = {"formset": formset}
-        print(g.serialize(format="turtle").decode("utf-8"))
-        
-        return "Hello, World"
+        for profissional in profissionais:
+            # Cria nó para profissional e cidade do profissional
+            profissionalNode = URIRef(f"http://leds.leds/1/professionals/{profissional.user}")
+            profissionalCityNode = URIRef(f"http://leds.leds/1/city/{profissional.cidade}")
+            # print(f"Profissional: '{profissional.nome}' | média: {profissional.media or 0}, morando em {profissional.cidade}.")
+            # print("- Competências:")
 
+            # Adiciona informações ao grafo
+            ledsGraph.add((profissionalNode, RDFS.subClassOf, FOAF.Person))
+            ledsGraph.add((profissionalNode, RDF.type, LEDS.Professional))
+            ledsGraph.add((profissionalNode, LEDS.livesIn, profissionalCityNode))
+            ledsGraph.add((profissionalNode, FOAF.name, Literal(profissional.nome)))
+
+            for competencia in profissional.competencias.all():
+                # Prepara nome da competência para criar URI
+                competenciaURLEncoded = quote_plus(str(competencia))
+                competenceNode = URIRef(f"http://leds.leds/1/competences/{competenciaURLEncoded}")
+                ledsGraph.add((profissionalNode, FOAF.knows, competenceNode))
+                # print("\t", competencia)
+        print(ledsGraph.serialize(format="turtle").decode("utf-8"))
+
+        return HttpResponse(str(ledsGraph.serialize(format="turtle").decode("utf-8")), content_type="text/rdf+xml")
 
 class UpdateOrdemView(LoginRequiredMixin, generic.UpdateView):
     model = Ordem
